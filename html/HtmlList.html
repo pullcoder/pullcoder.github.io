@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML 예제 목록</title>
+    <link rel="stylesheet" href="common.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
 
         nav {
             background: #2c3e50;
@@ -16,9 +27,24 @@
             top: 0;
             z-index: 100;
         }
-        nav ul { display: flex; list-style: none; gap: 20px; max-width: 900px; margin: auto; }
-        nav a { color: white; text-decoration: none; font-weight: bold; }
-        nav a:hover { color: #5dade2; }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #5dade2;
+        }
 
         main {
             max-width: 800px;
@@ -32,14 +58,20 @@
             padding-bottom: 12px;
             margin-bottom: 10px;
         }
+
         .subtitle {
             color: #666;
             margin-bottom: 30px;
             font-size: 0.95rem;
         }
 
-        .file-list { list-style: none; }
-        .file-list li { margin-bottom: 12px; }
+        .file-list {
+            list-style: none;
+        }
+
+        .file-list li {
+            margin-bottom: 12px;
+        }
 
         .file-card {
             display: flex;
@@ -49,24 +81,28 @@
             padding: 16px 20px;
             text-decoration: none;
             color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             border-left: 5px solid #3498db;
             transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
         }
+
         .file-card:hover {
             transform: translateX(6px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             border-left-color: #2c3e50;
         }
+
         .file-card .icon {
             font-size: 1.5rem;
             margin-right: 15px;
             flex-shrink: 0;
         }
+
         .file-card .info .title {
             font-weight: bold;
             font-size: 1rem;
         }
+
         .file-card .info .filename {
             font-size: 0.8rem;
             color: #999;
@@ -82,12 +118,13 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav>
         <ul>
             <li><a href="../index.html">← 홈으로</a></li>
-            <li><a href="#">HTML 예제 목록</a></li>
+            <!-- <li><a href="#">HTML 예제 목록</a></li> -->
         </ul>
     </nav>
 
@@ -186,6 +223,16 @@
                     </div>
                 </a>
             </li>
+            <li>
+                <a href="Hyperlink.html" class="file-card">
+                    <span class="icon">🖼️</span>
+                    <div class="info">
+                        <div class="title">하이퍼링크 예제</div>
+                        <div class="filename">Hyperlink.html</div>
+                    </div>
+                </a>
+            </li>
+
         </ul>
     </main>
 
@@ -194,4 +241,5 @@
     </footer>
 
 </body>
+
 </html>
