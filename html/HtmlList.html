@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 예제 목록</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul { display: flex; list-style: none; gap: 20px; max-width: 900px; margin: auto; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        nav a:hover { color: #5dade2; }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 12px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .file-list { list-style: none; }
+        .file-list li { margin-bottom: 12px; }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+        }
+        .file-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-left-color: #2c3e50;
+        }
+        .file-card .icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .file-card .info .title {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .file-card .info .filename {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">← 홈으로</a></li>
+            <li><a href="#">HTML 예제 목록</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>HTML 예제 목록</h1>
+        <p class="subtitle">항목을 클릭하면 해당 HTML 파일을 볼 수 있습니다.</p>
+
+        <ul class="file-list">
+            <li>
+                <a href="frameHtml.html" class="file-card">
+                    <span class="icon">📄</span>
+                    <div class="info">
+                        <div class="title">기본 HTML 프레임 구조</div>
+                        <div class="filename">frameHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="metaHtml.html" class="file-card">
+                    <span class="icon">🏷️</span>
+                    <div class="info">
+                        <div class="title">메타 태그 예제</div>
+                        <div class="filename">metaHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="pharagraphHtml.html" class="file-card">
+                    <span class="icon">🔤</span>
+                    <div class="info">
+                        <div class="title">헤딩(Heading) 태그</div>
+                        <div class="filename">pharagraphHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="specialCharHtml.html" class="file-card">
+                    <span class="icon">✨</span>
+                    <div class="info">
+                        <div class="title">특수문자 표시</div>
+                        <div class="filename">specialCharHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="tableHtml.html" class="file-card">
+                    <span class="icon">📊</span>
+                    <div class="info">
+                        <div class="title">테이블 태그</div>
+                        <div class="filename">tableHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="tableSpanHtml.html" class="file-card">
+                    <span class="icon">🗂️</span>
+                    <div class="info">
+                        <div class="title">테이블 병합 (colspan / rowspan)</div>
+                        <div class="filename">tableSpanHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="terragraphHtml.html" class="file-card">
+                    <span class="icon">📝</span>
+                    <div class="info">
+                        <div class="title">문단 태그 (p, br, pre, hr)</div>
+                        <div class="filename">terragraphHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="textHtml.html" class="file-card">
+                    <span class="icon">🖋️</span>
+                    <div class="info">
+                        <div class="title">문자 관련 태그</div>
+                        <div class="filename">textHtml.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="textHtmlGemini.html" class="file-card">
+                    <span class="icon">💡</span>
+                    <div class="info">
+                        <div class="title">텍스트 서식 예제 (Gemini 버전)</div>
+                        <div class="filename">textHtmlGemini.html</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="img.html" class="file-card">
+                    <span class="icon">🖼️</span>
+                    <div class="info">
+                        <div class="title">이미지 태그 예제</div>
+                        <div class="filename">img.html</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>© 2026 My Website — HTML 예제 모음</p>
+    </footer>
+
+</body>
+</html>

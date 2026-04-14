@@ -30,7 +30,34 @@
         }
         .gallery-item { background: #ddd; height: 150px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
 
-        /* 4. 푸터 (연락처 및 저작권) */
+        /* 4. HTML 예제 목록 */
+        .html-list { list-style: none; }
+        .html-list li { margin-bottom: 10px; }
+        .html-list a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+        .html-list a:hover {
+            background: #e8f4fd;
+            border-left-color: #2c3e50;
+            transform: translateX(4px);
+        }
+        .html-list .filename {
+            margin-left: auto;
+            font-size: 0.78rem;
+            color: #aaa;
+        }
+
+        /* 5. 푸터 (연락처 및 저작권) */
         footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 50px; }
 
         /* 모바일 최적화 추가 설정 */
@@ -69,6 +96,7 @@
             <li><a href="#security">보안 소개</a></li>
             <li><a href="#class">수업 정보</a></li>
             <li><a href="#gallery">갤러리</a></li>
+            <li><a href="#html-examples">HTML 예제</a></li>
             <li><a href="#contact">연락처</a></li>
         </ul>
     </nav>
@@ -99,8 +127,74 @@
         </div>
     </section>
 
+    <section id="html-examples">
+        <h2>04. HTML 예제 목록</h2>
+        <ul class="html-list">
+            <li>
+                <a href="html/frameHtml.html">
+                    📄 기본 HTML 프레임 구조
+                    <span class="filename">frameHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/metaHtml.html">
+                    🏷️ 메타 태그 예제
+                    <span class="filename">metaHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/pharagraphHtml.html">
+                    🔤 헤딩(Heading) 태그
+                    <span class="filename">pharagraphHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/specialCharHtml.html">
+                    ✨ 특수문자 표시
+                    <span class="filename">specialCharHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/tableHtml.html">
+                    📊 테이블 태그
+                    <span class="filename">tableHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/tableSpanHtml.html">
+                    🗂️ 테이블 병합 (colspan / rowspan)
+                    <span class="filename">tableSpanHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/terragraphHtml.html">
+                    📝 문단 태그 (p, br, pre, hr)
+                    <span class="filename">terragraphHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/textHtml.html">
+                    🖋️ 문자 관련 태그
+                    <span class="filename">textHtml.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/textHtmlGemini.html">
+                    💡 텍스트 서식 예제 (Gemini 버전)
+                    <span class="filename">textHtmlGemini.html</span>
+                </a>
+            </li>
+            <li>
+                <a href="html/img.html">
+                    🖼️ 이미지 태그 예제
+                    <span class="filename">img.html</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
     <footer id="contact">
-        <p>Email: leejungwoo00000@naver.com | Phone: 010-4856-1521</p>
+        <p>Email: leejungwoo0790@gmail.com | Phone: 010-4856-1521</p>
         <p>© 2026 My Website. All rights reserved.</p>
     </footer>
 
