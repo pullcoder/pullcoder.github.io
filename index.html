@@ -11,71 +11,124 @@
         body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; background: #f4f4f4; }
 
         /* 섹션 공통 스타일 */
-        section { padding: 60px 20px; max-width: 1000px; margin: auto; background: white; margin-bottom: 20px; border-radius: 8px; }
-        h2 { border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin-bottom: 20px; }
+        section { padding: 60px 20px; max-width: 1000px; margin: auto; background: white; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        h2 { border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin-bottom: 20px; color: #2c3e50; }
 
-        /* 1. 서버 보안 소개 (수정됨) */
-        .security-box { background: #e8f4fd; padding: 20px; border-left: 5px solid #3498db; }
+        /* 1. 홈페이지 소개 스타일 */
+        .intro-box { font-size: 1.1rem; color: #555; }
 
-        /* 3. 갤러리 (반응형 그리드) */
+        /* 2. 웹 기술 목록 스타일 */
+        .tech-list { display: flex; justify-content: space-around; flex-wrap: wrap; list-style: none; padding: 10px 0; }
+        .tech-item { background: #f9f9f9; padding: 15px 25px; border-radius: 10px; border: 1px solid #eee; text-align: center; min-width: 150px; margin: 5px; }
+        .tech-item strong { display: block; color: #e44d26; font-size: 1.2rem; } /* HTML 색상 예시 */
+        .tech-item:nth-child(2) strong { color: #264de4; } /* CSS 색상 */
+        .tech-item:nth-child(3) strong { color: #f7df1e; } /* JS 색상 */
+
+        /* 3. 갤러리 스타일 */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
-        .gallery-item { background: #ddd; height: 150px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+        .gallery-item {
+            height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-        /* 4. 푸터 (연락처 및 저작권) */
-        footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 50px; }
+        /* 4. 서버 보안 스타일 */
+        .security-box { background: #e8f4fd; padding: 20px; border-left: 5px solid #3498db; border-radius: 0 8px 8px 0; }
 
-        /* 모바일 최적화 설정 */
+        /* 5. SNS 메뉴 스타일 */
+        .sns-menu { display: flex; justify-content: center; gap: 20px; list-style: none; padding: 20px 0; }
+        .sns-menu a { text-decoration: none; color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold; font-size: 0.9rem; }
+        .btn-insta { background: #E1306C; }
+        .btn-blog { background: #03C75A; }
+        .btn-github { background: #333; }
+
+        /* 푸터 스타일 */
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 50px; }
+
+        /* 모바일 최적화 */
         @media (max-width: 600px) {
             section { width: 92%; padding: 30px 15px; }
+            .tech-item { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <section id="security">
-        <h2>01. 서버 보안 소개</h2>
-        <div class="security-box">
-            <p><strong>서버 보안</strong>은 외부의 비인가된 접근으로부터 서버 자원과 데이터를 보호하는 핵심 기술입니다. 데이터의 기밀성, 무결성, 가용성(CIA)을 유지하며, 안정적인 서비스 운영을 위해 필수적입니다.</p>
-            <br>
-            <p>✔ <strong>주요 보안 조치:</strong></p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li>불필요한 포트 차단 및 방화벽(Firewall) 설정</li>
-                <li>SSH 키 기반 인증 및 2단계 인증(2FA) 적용</li>
-                <li>정기적인 OS 업데이트 및 보안 패치 실행</li>
-                <li>실시간 로그 모니터링 및 침입 탐지 시스템(IDS) 운용</li>
-            </ul>
+    <section id="intro">
+        <h2>01. 홈페이지 소개</h2>
+        <div class="intro-box">
+            <p>안녕하세요! 이 웹사이트는 저의 학습 기록과 프로젝트를 담는 공간입니다. <strong>AI 웹 프로그래밍</strong> 수업을 통해 배운 기술들을 정리하고, 다양한 웹 개발 정보를 공유합니다.</p>
         </div>
     </section>
 
-    <section id="class">
-        <h2>02. 내 수업 정보</h2>
-        <ul>
-            <li><strong>과목명:</strong> AI웹프로그래밍</li>
-            <li><strong>강의실:</strong> 창의관 4층 407호</li>
-            <li><strong>시간:</strong> 매주 화요일 10:00 - 12:40</li>
-            <li><a href="html/HtmlList.html">HTML 예제</a></li>
+    <section id="tech-stack">
+        <h2>02. 웹 기술 스택</h2>
+        <ul class="tech-list">
+            <li class="tech-item"><strong>HTML5</strong>구조 설계<br><a href="html/HtmlList.html" style="font-size:0.82rem; color:#e44d26; font-weight:bold; text-decoration:none;">예제 목록 →</a></li>
+            <li class="tech-item"><strong>CSS3</strong>스타일링</li>
+            <li class="tech-item"><strong>JavaScript</strong>동적 기능</li>
         </ul>
     </section>
 
     <section id="gallery">
-        <h2>03. 갤러리</h2>
+        <h2>03. 사진 갤러리</h2>
         <div class="gallery-grid">
-            <div class="gallery-item">이미지 1</div>
-            <div class="gallery-item">이미지 2</div>
-            <div class="gallery-item">이미지 3</div>
-            <div class="gallery-item">이미지 4</div>
+            <div class="gallery-item">
+                <img src="img/KakaoTalk_20260407_145706009.jpg" alt="사진1">
+            </div>
+            <div class="gallery-item">
+                <img src="img/KakaoTalk_20260407_145706009_08.jpg" alt="사진2">
+            </div>
+            <div class="gallery-item">
+                <img src="img/KakaoTalk_20260407_145706009_05.jpg" alt="사진3">
+            </div>
+            <div class="gallery-item">
+                <img src="img/KakaoTalk_20260407_145706009_03.jpg" alt="사진4">
+            </div>
         </div>
+    </section>
+
+    <section id="server-security">
+        <h2>04. 서버 보안 소개</h2>
+        <div class="security-box">
+            <p>서버 보안은 서비스의 안정성을 보장하는 방어 체계입니다. 데이터의 기밀성, 무결성, 가용성 유지를 위해 필수적인 요소들을 학습합니다.</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>침입 방지 시스템(IPS/IDS) 운용</li>
+                <li>SSL/TLS 암호화 통신 적용</li>
+                <li>최소 권한 원칙의 계정 관리</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="sns-links">
+        <h2>05. 소셜 네트워크 (SNS)</h2>
+        <ul class="sns-menu">
+            <li><a href="#" class="btn-insta">Instagram</a></li>
+            <li><a href="#" class="btn-blog">Naver Blog</a></li>
+            <li><a href="https://github.com/pullcoder/pullcoder.github.io" target="_blank" class="btn-github">GitHub</a></li>
+        </ul>
     </section>
 
     <footer id="contact">
         <p>Email: leejungwoo0790@gmail.com | Phone: 010-4856-1521</p>
         <p>© 2026 My Website. All rights reserved.</p>
     </footer>
-
 
     <script>loadHeader({ base: '', isHome: true });</script>
 </body>

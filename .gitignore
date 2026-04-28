@@ -1,0 +1,23 @@
+# 환경 변수 / 민감 정보
+.env
+.env.local
+.env.*.local
+*.env
+
+# OS 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 에디터
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 로그
+*.log
+
+# 의존성 (Node.js 등 향후 사용 시)
+node_modules/

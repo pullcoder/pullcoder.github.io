@@ -92,9 +92,11 @@
                     backBtn +
                     '<nav>' +
                         '<ul>' +
-                            '<li><a href="' + base + 'index.html#security">보안 소개</a></li>' +
-                            '<li><a href="' + base + 'index.html#class">수업 정보</a></li>' +
+                            '<li><a href="' + base + 'index.html#intro">소개</a></li>' +
+                            '<li><a href="' + base + 'index.html#tech-stack">기술 스택</a></li>' +
                             '<li><a href="' + base + 'index.html#gallery">갤러리</a></li>' +
+                            '<li><a href="' + base + 'index.html#server-security">보안 소개</a></li>' +
+                            '<li><a href="' + base + 'index.html#sns-links">SNS</a></li>' +
                         '</ul>' +
                     '</nav>' +
                 '</div>' +
