@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 태그 예제</title>
+</head>
+
+<body>
+
+    <h3>폼 태그 예제</h3>
+
+    <!-- 폼 태그 예제 -->
+    <form action="/submit" method="post">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="password">암호:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <!-- 라디오 버튼 -->
+        <div>라디오
+            <input type="radio" id="option1" name="options" value="option1">
+            <label for="option1"></label>
+            <input type="radio" id="option2" name="options" value="option2">
+            <label for="option2"></label>
+            <input type="radio" id="option3" name="options" value="option3">
+            <label for="option3"></label><br><br>
+        </div>
+
+        <!-- 체크박스 -->
+        <div>
+            <label>관심사:</label>
+            <input type="checkbox" id="interest1" name="interests" value="interest1">
+            <label for="interest1">운동</label>
+            <input type="checkbox" id="interest2" name="interests" value="interest2">
+            <label for="interest2">음악</label>
+            <input type="checkbox" id="interest3" name="interests" value="interest3">
+            <label for="interest3">게임</label>
+        </div><br><br>
+
+
+        <label>성별:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">남성</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">여성</label><br><br>
+    </form>
+
+    <form action="server.js" method="post">
+        <fieldset>
+            <legend>회원정보</legend>
+            <input type="file" name="profile"><br><br>
+            
+            <!-- 이미지, 파일찾기, search, hidden -->
+            <input type="submit" value="제출">
+            <input type="image">
+            <label for="fileInput">파일 선택:</label>
+            <input type="file" id="fileInput" name="file"><br><br>
+            <label for="searchInput">검색:</label>
+            <input type="search" id="searchInput" name="search">
+            <input type="hidden" name="hiddenData" value="secret">
+        </fieldset>
+
+    </form>
+
+</body>
+
+</html>
