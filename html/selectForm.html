@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <title>select/testArea</title>
+    <style>
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 12px;
+            margin-bottom: 28px;
+        }
+
+        .form-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px 36px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            max-width: 520px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 12px;
+            border: 1.5px solid #dce1e7;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #333;
+            background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            resize: vertical;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+            background: #fff;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background: #3498db;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+    <p class="form-title">Select / Test Area</p>
+    <div class="form-card">
+        <form action="text.jsp" method="post">
+            <div class="form-group">
+                <label for="ai">AI 선택</label>
+                <select id="ai" name="ai">
+                    <option value="deep">Deep</option>
+                    <option value="alpha">Alpha</option>
+                    <option value="chatbot">Chatbot</option>
+                    <option value="python">Python</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">문의사항</label>
+                <textarea id="message" name="message" rows="5" placeholder="문의 내용을 입력하세요."></textarea>
+            </div>
+            <input type="submit" value="Submit" class="btn-submit" disabled>
+        </form>
+    </div>
+    <script>loadHeader({ base: '../', isHome: false });</script>
+</body>
+
+</html>
