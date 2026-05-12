@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>헤더 컴포넌트 미리보기</title>
+    <script src="header.js"></script>
+</head>
+<body>
+    <p style="padding:20px; font-family:sans-serif; color:#555;">
+        이 파일은 header.js 컴포넌트 미리보기용입니다.<br>
+        각 페이지에서 <code>&lt;script src="header.js"&gt;&lt;/script&gt;</code>를 head에 추가하고,
+        body 끝에 <code>loadHeader({ base: '경로', isHome: true/false })</code>를 호출하세요.
+    </p>
+    <script>loadHeader({ base: '', isHome: false });</script>
+</body>
+</html>

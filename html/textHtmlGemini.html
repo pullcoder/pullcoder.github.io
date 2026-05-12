@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- 2026 03 31 1번째 문제 Gemini -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 서식 및 코드 예제</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>1. 텍스트 강조 및 스타일</h2>
+    <ul>
+        <li><strong>흘림체 및 굵게 (Italic Bold):</strong> <em><strong>이 텍스트는 기울임과 굵게가 동시에 적용되었습니다.</strong></em></li>
+        <li><strong>String 강조체:</strong> <span class="highlight">"String Content"</span></li>
+        <li><strong>Emphasized (강조/흘림):</strong> <em>이것은 강조된(Emphasized) 텍스트입니다.</em></li>
+    </ul>
+
+    <hr>
+
+    <h2>2. 수학적 표현 (첨자)</h2>
+    <p>위첨자와 아래첨자 표현입니다:</p>
+    <ul>
+        <li><strong>100의 제곱 (Superscript):</strong> 100<sup>2</sup> (또는 2³)</li>
+        <li><strong>로그 밑 (Subscript):</strong> Log<sub>10</sub></li>
+    </ul>
+
+    <hr>
+
+    <h2>3. 파이썬 프로그램 코드 예제</h2>
+    <p>아래는 간단한 파이썬 코드 블록입니다:</p>
+    <pre><code>
+# 파이썬 예제 코드
+def greet(name):
+    print(f"Hello, {name}!")
+
+# 숫자 리스트의 합계 구하기
+numbers = [1, 2, 3, 4, 5]
+total = sum(numbers)
+
+print(f"합계: {total}")
+greet("사용자")
+    </code></pre>
+
+</body>
+
+</html>
