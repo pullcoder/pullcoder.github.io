@@ -5,67 +5,341 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
     <title>폼 태그 예제</title>
+    <style>
+        /* 페이지 레이아웃 */
+        .page-title {
+            font-size: 1.8rem;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 12px;
+            margin: 30px 0 30px;
+        }
+
+        /* 폼 카드 */
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 36px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 28px;
+        }
+
+        .form-card h4 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        /* 폼 그룹 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label.field-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        /* 텍스트 / 패스워드 인풋 */
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="search"] {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #333;
+            background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="search"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+            background: white;
+        }
+
+        /* 라디오 / 체크박스 그룹 */
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #f7f9fc;
+            border: 1.5px solid #dde3ec;
+            border-radius: 8px;
+            padding: 9px 16px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .option-item:hover {
+            border-color: #3498db;
+            background: #eaf4fb;
+        }
+
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            accent-color: #3498db;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* 파일 업로드 */
+        .file-upload-area {
+            border: 2px dashed #c0cfe0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background: #f7f9fc;
+            color: #888;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .file-upload-area:hover {
+            border-color: #3498db;
+        }
+
+        .file-upload-area input[type="file"] {
+            display: block;
+            margin: 8px auto 0;
+            font-size: 0.85rem;
+        }
+
+        /* fieldset 스타일 */
+        fieldset {
+            border: 1.5px solid #dde3ec;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin: 0;
+        }
+
+        legend {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 0 8px;
+        }
+
+        /* 검색 래퍼 */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper::before {
+            content: "🔍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .search-wrapper input[type="search"] {
+            padding-left: 36px;
+        }
+
+        /* 버튼 그룹 */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 11px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #555;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* hidden 뱃지 */
+        .hidden-badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #999;
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px dashed #ccc;
+            margin-top: 8px;
+        }
+
+        /* 모바일 */
+        @media (max-width: 600px) {
+            .form-card { padding: 20px 16px; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h3>폼 태그 예제</h3>
+    <h1 class="page-title">폼 태그 예제</h1>
 
-    <!-- 폼 태그 예제 -->
-    <form action="/submit" method="post">
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name"><br><br>
+    <!-- 기본 입력 폼 -->
+    <div class="form-card">
+        <h4>기본 정보 입력</h4>
+        <form action="/submit" method="post">
 
-        <label for="password">암호:</label>
-        <input type="password" id="password" name="password"><br><br>
+            <div class="form-group">
+                <label class="field-label" for="name">이름</label>
+                <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+            </div>
 
-        <!-- 라디오 버튼 -->
-        <div>라디오
-            <input type="radio" id="option1" name="options" value="option1">
-            <label for="option1"></label>
-            <input type="radio" id="option2" name="options" value="option2">
-            <label for="option2"></label>
-            <input type="radio" id="option3" name="options" value="option3">
-            <label for="option3"></label><br><br>
-        </div>
+            <div class="form-group">
+                <label class="field-label" for="password">비밀번호</label>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
+            </div>
 
-        <!-- 체크박스 -->
-        <div>
-            <label>관심사:</label>
-            <input type="checkbox" id="interest1" name="interests" value="interest1">
-            <label for="interest1">운동</label>
-            <input type="checkbox" id="interest2" name="interests" value="interest2">
-            <label for="interest2">음악</label>
-            <input type="checkbox" id="interest3" name="interests" value="interest3">
-            <label for="interest3">게임</label>
-        </div><br><br>
+            <div class="form-group">
+                <label class="field-label">옵션 선택 (라디오)</label>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" id="option1" name="options" value="option1">
+                        옵션 1
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" id="option2" name="options" value="option2">
+                        옵션 2
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" id="option3" name="options" value="option3">
+                        옵션 3
+                    </label>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label class="field-label">관심사 (체크박스)</label>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" id="interest1" name="interests" value="interest1">
+                        운동
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" id="interest2" name="interests" value="interest2">
+                        음악
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" id="interest3" name="interests" value="interest3">
+                        게임
+                    </label>
+                </div>
+            </div>
 
-        <label>성별:</label>
-        <input type="radio" id="male" name="gender" value="male">
-        <label for="male">남성</label>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">여성</label><br><br>
-    </form>
+            <div class="form-group">
+                <label class="field-label">성별</label>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" id="male" name="gender" value="male">
+                        남성
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" id="female" name="gender" value="female">
+                        여성
+                    </label>
+                </div>
+            </div>
 
-    <form action="server.js" method="post">
-        <fieldset>
-            <legend>회원정보</legend>
-            <input type="file" name="profile"><br><br>
-            
-            <!-- 이미지, 파일찾기, search, hidden -->
-            <input type="submit" value="제출">
-            <input type="image">
-            <label for="fileInput">파일 선택:</label>
-            <input type="file" id="fileInput" name="file"><br><br>
-            <label for="searchInput">검색:</label>
-            <input type="search" id="searchInput" name="search">
-            <input type="hidden" name="hiddenData" value="secret">
-        </fieldset>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">제출</button>
+                <button type="reset" class="btn btn-secondary">초기화</button>
+            </div>
+        </form>
+    </div>
 
-    </form>
+    <!-- 회원정보 폼 -->
+    <div class="form-card">
+        <h4>회원정보 추가 입력</h4>
+        <form action="server.js" method="post">
+            <fieldset>
+                <legend>회원정보</legend>
 
+                <div class="form-group" style="margin-top: 16px;">
+                    <label class="field-label">프로필 사진</label>
+                    <div class="file-upload-area">
+                        <span>파일을 선택하거나 여기에 끌어다 놓으세요</span>
+                        <input type="file" name="profile" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="fileInput">파일 첨부</label>
+                    <div class="file-upload-area">
+                        <span>첨부할 파일을 선택하세요</span>
+                        <input type="file" id="fileInput" name="file">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label" for="searchInput">검색</label>
+                    <div class="search-wrapper">
+                        <input type="search" id="searchInput" name="search" placeholder="검색어를 입력하세요">
+                    </div>
+                </div>
+
+                <input type="hidden" name="hiddenData" value="secret">
+                <p class="hidden-badge">hidden input: hiddenData = "secret"</p>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">제출</button>
+                    <button type="reset" class="btn btn-danger">취소</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

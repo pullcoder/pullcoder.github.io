@@ -1,22 +1,122 @@
 <!DOCTYPE html>
-<httml>
+<html lang="ko">
 
-    <head>
-        <title>특수문자표시하기</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="common.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>특수문자 표시</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .char-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .char-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .char-table th:first-child { border-radius: 8px 0 0 0; }
+        .char-table th:last-child  { border-radius: 0 8px 0 0; }
+        .char-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+        .char-table tr:last-child td { border-bottom: none; }
+        .char-table tr:hover td { background: #f7f9fc; }
+        .entity-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.88rem;
+            color: #e74c3c;
+            background: #fdf0ef;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .char-result {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .char-name { color: #555; }
+    </style>
+</head>
 
-    <body>
-        <p>공백문자 &amp; nbsp; &nbsp;</p>
-        <p>less than &amp; lt; &lt;</p>
-        <p>greater than &amp; gt; &gt;</p>
-        <p>ampersand &amp; amp;</p>
-        <p>"이중따옴표 &amp; quot; &quot;</p>
-        <p>'단일따옴표 &amp; apos; &apos;</p>
-        <p>¢센트 &amp;cent; &cent;</p>
-        <p>€유로 &amp;euro; &euro;</p>
-        <p>© &amp;copy; &copy;</p>
-        <p>® &amp;reg; &reg;</p>
-    </body>
-</httml>
+<body>
+
+    <h1 class="page-title">특수문자 표시</h1>
+
+    <div class="card">
+        <p class="card-title">HTML 특수문자 엔티티 코드</p>
+        <table class="char-table">
+            <thead>
+                <tr>
+                    <th>설명</th>
+                    <th>엔티티 코드</th>
+                    <th style="text-align:center; width:80px;">결과</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="char-name">공백 문자</td>
+                    <td><span class="entity-code">&amp;nbsp;</span></td>
+                    <td class="char-result">[ &nbsp;]</td>
+                </tr>
+                <tr>
+                    <td class="char-name">미만 (Less than)</td>
+                    <td><span class="entity-code">&amp;lt;</span></td>
+                    <td class="char-result">&lt;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">초과 (Greater than)</td>
+                    <td><span class="entity-code">&amp;gt;</span></td>
+                    <td class="char-result">&gt;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">앰퍼샌드 (Ampersand)</td>
+                    <td><span class="entity-code">&amp;amp;</span></td>
+                    <td class="char-result">&amp;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">이중 따옴표</td>
+                    <td><span class="entity-code">&amp;quot;</span></td>
+                    <td class="char-result">&quot;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">단일 따옴표</td>
+                    <td><span class="entity-code">&amp;apos;</span></td>
+                    <td class="char-result">&apos;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">센트 기호</td>
+                    <td><span class="entity-code">&amp;cent;</span></td>
+                    <td class="char-result">&cent;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">유로 기호</td>
+                    <td><span class="entity-code">&amp;euro;</span></td>
+                    <td class="char-result">&euro;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">저작권 기호</td>
+                    <td><span class="entity-code">&amp;copy;</span></td>
+                    <td class="char-result">&copy;</td>
+                </tr>
+                <tr>
+                    <td class="char-name">등록상표 기호</td>
+                    <td><span class="entity-code">&amp;reg;</span></td>
+                    <td class="char-result">&reg;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
+</body>
+
+</html>

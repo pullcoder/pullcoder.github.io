@@ -1,37 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <title>예제1-10 테이블태그</title>
-    <link rel="stylesheet" href="common.css">
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 태그</title>
     <meta name="keyword" content="HTML CSS Web3D">
     <meta name="author" content="이정우">
     <meta name="description" content="html5&Css3&javascript 강좌">
+    <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .table-wrapper { overflow-x: auto; }
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .demo-table caption {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .demo-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .demo-table th:first-child { border-radius: 8px 0 0 0; }
+        .demo-table th:last-child  { border-radius: 0 8px 0 0; }
+        .demo-table td {
+            border: 1px solid #e8ecf0;
+            padding: 13px 20px;
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .demo-table tbody tr:nth-child(even) td { background: #fafbfc; }
+        .demo-table tbody tr:hover td { background: #eaf4fb; }
+    </style>
 </head>
 
 <body>
-    <table border="1">
-        <caption>Table.1HTML&amp;X3D</caption>
-        <tr>
-            <th>HTML5</th>
-            <th>CSS3</th>
-            <th>Web3D</th>
-        </tr>
-        <tr>
-            <td>colspan</td>
-            <td>rowspan</td>
-            <td>병합</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-    </table>
+
+    <h1 class="page-title">테이블 태그</h1>
+
+    <div class="card">
+        <p class="card-title">기본 테이블 예제</p>
+        <div class="table-wrapper">
+            <table class="demo-table">
+                <caption>Table.1 HTML &amp; X3D</caption>
+                <thead>
+                    <tr>
+                        <th>HTML5</th>
+                        <th>CSS3</th>
+                        <th>Web3D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>colspan</td>
+                        <td>rowspan</td>
+                        <td>병합</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">테이블 기본 태그</p>
+        <pre><code>&lt;table&gt;          — 테이블 전체 정의
+  &lt;caption&gt;     — 테이블 제목
+  &lt;thead&gt;       — 헤더 영역 (선택)
+  &lt;tbody&gt;       — 본문 영역 (선택)
+  &lt;tr&gt;          — 행 (Table Row)
+    &lt;th&gt;        — 헤더 셀 (굵게, 가운데 정렬)
+    &lt;td&gt;        — 데이터 셀 (일반 내용)
+&lt;/table&gt;</code></pre>
+    </div>
+
+    <!-- 2026 03 31 3번째 문제 -->
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>
-
-
-<!-- 2026 03 31 3번째 문제 -->

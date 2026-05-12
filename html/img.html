@@ -1,17 +1,117 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 
 <head>
-    <link rel="stylesheet" href="common.css">
-    <title> 예제 3-8 이미지크기</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 태그 예제</title>
     <meta name="keyword" content="HTML CSS Web3D">
     <meta name="author" content="박경배">
+    <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .img-item {
+            background: white;
+            border: 1.5px solid #dde3ec;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .img-item:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .img-item img {
+            display: block;
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            padding: 16px;
+            margin: 0;
+            border-radius: 0;
+            background: #f7f9fc;
+        }
+        .img-info {
+            padding: 12px 14px;
+            border-top: 1px solid #ecf0f1;
+        }
+        .img-filename {
+            font-size: 0.82rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .img-attrs {
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            color: #3498db;
+        }
+        .attr-list {
+            list-style: none;
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .attr-list li {
+            padding: 10px 14px;
+            background: #f7f9fc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        .attr-list li:hover { background: #eaf4fb; }
+    </style>
 </head>
 
 <body>
-    <img src="../img/로고활용.png" alt="현재폴더와 같은 위치" height="150px">
-    <img src="../img/logo.png" alt="하위 폴더 위치" width="150px">
-    <img src="../img/logov2.png" alt="현재폴더와 같은 위치" width="150px" height="150px" loading="eager">
+
+    <h1 class="page-title">이미지 태그 예제</h1>
+
+    <div class="card">
+        <p class="card-title">이미지 크기 속성 비교</p>
+        <div class="img-grid">
+            <div class="img-item">
+                <img src="../img/로고활용.png" alt="로고활용" height="150">
+                <div class="img-info">
+                    <div class="img-filename">로고활용.png</div>
+                    <div class="img-attrs">height="150"</div>
+                </div>
+            </div>
+            <div class="img-item">
+                <img src="../img/logo.png" alt="logo" width="150">
+                <div class="img-info">
+                    <div class="img-filename">logo.png</div>
+                    <div class="img-attrs">width="150"</div>
+                </div>
+            </div>
+            <div class="img-item">
+                <img src="../img/logov2.png" alt="logov2" width="150" height="150" loading="eager">
+                <div class="img-info">
+                    <div class="img-filename">logov2.png</div>
+                    <div class="img-attrs">width="150" height="150" loading="eager"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">img 태그 주요 속성</p>
+        <pre><code>&lt;img src="경로" alt="설명" width="너비" height="높이" loading="eager|lazy"&gt;</code></pre>
+        <ul class="attr-list">
+            <li><code>src</code> — 이미지 파일 경로 (필수)</li>
+            <li><code>alt</code> — 이미지 로드 실패 시 표시할 대체 텍스트 (접근성)</li>
+            <li><code>width</code> / <code>height</code> — 크기 지정 (px 단위, 생략 시 원본 크기)</li>
+            <li><code>loading="lazy"</code> — 화면에 나타날 때 로드 (성능 최적화)</li>
+            <li><code>loading="eager"</code> — 즉시 로드 (기본값)</li>
+        </ul>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

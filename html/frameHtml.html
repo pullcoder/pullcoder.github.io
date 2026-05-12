@@ -1,15 +1,93 @@
-<!DOCTYPE html> <!-- 문서 헤더 -->
-<html> <!-- 문서 시작 -->
+<!DOCTYPE html>
+<html lang="ko">
 
-<head> <!-- 문서의 요약 -->
-    <title>HTML 문서의 기본 구조</title>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본 HTML 프레임 구조</title>
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .structure-list {
+            list-style: none;
+        }
+        .structure-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .structure-list li:last-child { border-bottom: none; }
+        .tag-chip {
+            background: #2c3e50;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            min-width: 130px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .tag-desc {
+            color: #555;
+            font-size: 0.93rem;
+            padding-top: 2px;
+        }
+    </style>
 </head>
 
 <body>
-    <p>이 문서는 HTML의 기본 프레임으로만 생성된겁니다.</p>
-    <pre></pre>
+
+    <h1 class="page-title">기본 HTML 프레임 구조</h1>
+
+    <div class="card">
+        <p class="card-title">HTML 문서 기본 구조</p>
+        <p style="color:#666; margin-bottom:16px;">이 문서는 HTML의 기본 프레임으로만 생성된 것입니다. 모든 HTML 문서는 아래의 기본 태그들로 구성됩니다.</p>
+        <pre><code>&lt;!DOCTYPE html&gt;      &lt;!-- 문서 타입 선언 --&gt;
+&lt;html lang="ko"&gt;    &lt;!-- 문서 시작 --&gt;
+
+&lt;head&gt;               &lt;!-- 문서 요약 정보 --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;페이지 제목&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;               &lt;!-- 화면에 표시될 내용 --&gt;
+    &lt;p&gt;내용&lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;              &lt;!-- 문서 끝 --&gt;</code></pre>
+    </div>
+
+    <div class="card">
+        <p class="card-title">태그별 역할</p>
+        <ul class="structure-list">
+            <li>
+                <span class="tag-chip">&lt;!DOCTYPE html&gt;</span>
+                <span class="tag-desc">HTML5 문서임을 브라우저에 알려주는 선언. 반드시 최상단에 위치해야 합니다.</span>
+            </li>
+            <li>
+                <span class="tag-chip">&lt;html&gt;</span>
+                <span class="tag-desc">HTML 문서의 루트 요소. 모든 태그를 감싸며 <code>lang</code> 속성으로 언어를 지정합니다.</span>
+            </li>
+            <li>
+                <span class="tag-chip">&lt;head&gt;</span>
+                <span class="tag-desc">브라우저가 문서를 처리하는 데 필요한 메타 정보를 담습니다. 화면에 직접 표시되지 않습니다.</span>
+            </li>
+            <li>
+                <span class="tag-chip">&lt;title&gt;</span>
+                <span class="tag-desc">브라우저 탭과 즐겨찾기에 표시되는 문서 제목입니다.</span>
+            </li>
+            <li>
+                <span class="tag-chip">&lt;body&gt;</span>
+                <span class="tag-desc">사용자에게 실제로 표시되는 모든 콘텐츠(텍스트, 이미지, 링크 등)가 들어갑니다.</span>
+            </li>
+        </ul>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

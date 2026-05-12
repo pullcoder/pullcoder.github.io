@@ -1,39 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <title>하이퍼링크</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하이퍼링크 예제</title>
     <link rel="stylesheet" href="common.css">
-
+    <script src="../header.js"></script>
+    <style>
+        .content-box {
+            background: #f7f9fc;
+            border-left: 4px solid #3498db;
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.93rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        .link-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 18px;
+            background: #f7f9fc;
+            border: 1.5px solid #dde3ec;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .link-card:last-child { margin-bottom: 0; }
+        .link-card:hover { border-color: #3498db; background: #eaf4fb; }
+        .link-type {
+            background: #2c3e50;
+            color: white;
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .link-content .link-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .link-content .link-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            color: #999;
+            margin-bottom: 6px;
+        }
+        .link-content a { font-size: 0.92rem; }
+        .ai-content { list-style: none; }
+        .ai-content li {
+            padding: 8px 14px;
+            background: #f7f9fc;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        .ai-content li:hover { background: #eaf4fb; }
+        .section-label {
+            font-size: 0.88rem;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 20px 0 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <p id="ai">인공지능(AI, Artificial Intelligence)**은 인간의 지능을 기계나 컴퓨터가 모방하거나
-        구현하는 기술을 말합니다. 즉, 사람처럼 생각하고 학습하고 문제를 해결하는 능력을 기계에 부여하는 것입니다.</p>
-    <p>외부 사이트 하이퍼링크 인공지능</p>
-    <a href="https://ai.yit.ac.kr" target="_self">AI Software 홈페이지</a>
-    <p>내부 문서 하이퍼링크</p>
-    <a href="img.html" target="_blank">이미지 태그</a>
-    <p>메일보내기</p>
-    <a href="mailto:leejungwoo0790@gmail.com">메일보내기</a>
-    <pre>
-            ◇ 인공지능의 핵심 기능
-            학습 (Learning) - 데이터를 바탕으로 규칙과 패턴을 자동으로 학습
-            추론 (Reasoning) - 논리적으로 판단하고 문제 해결
-            자연어 처리 (NLP) - 사람의 언어를 이해하고 생성
-            컴퓨터 비전 (CV) - 이미지나 영상을 분석하여 의미를 이해
-            로보틱스 - 실제 환경에서 물리적인 작업을 수행
-            ◇ 인공지능의 분류
-            협의의 AI (Narrow AI)
-            특정 작업만 잘함 (예: 스팸 필터, 번역기, 음성비서)
-            범용 AI (General AI)
-            인간 수준의 지능을 갖춘 AI (아직 없음)
-            초지능 AI (Superintelligent AI)
-            인간 능력을 넘는 AI (이론적 단계)
-        </pre>
-    <p>내부 문서에서의 북마크</p>
-    <a href="#ai">인공지능이란?</a>
+
+    <h1 class="page-title">하이퍼링크 예제</h1>
+
+    <div class="card">
+        <p class="card-title">인공지능(AI)이란?</p>
+        <div class="content-box" id="ai">
+            인공지능(AI, Artificial Intelligence)은 인간의 지능을 기계나 컴퓨터가 모방하거나 구현하는 기술을 말합니다.
+            즉, 사람처럼 생각하고 학습하고 문제를 해결하는 능력을 기계에 부여하는 것입니다.
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">링크 종류별 예제</p>
+
+        <div class="link-card">
+            <span class="link-type">외부 링크</span>
+            <div class="link-content">
+                <div class="link-title">외부 사이트 하이퍼링크</div>
+                <div class="link-code">&lt;a href="https://..." target="_self"&gt;</div>
+                <a href="https://ai.yit.ac.kr" target="_self">AI Software 홈페이지 →</a>
+            </div>
+        </div>
+
+        <div class="link-card">
+            <span class="link-type">내부 링크</span>
+            <div class="link-content">
+                <div class="link-title">내부 문서 하이퍼링크</div>
+                <div class="link-code">&lt;a href="img.html" target="_blank"&gt;</div>
+                <a href="img.html" target="_blank">이미지 태그 예제 →</a>
+            </div>
+        </div>
+
+        <div class="link-card">
+            <span class="link-type">메일 링크</span>
+            <div class="link-content">
+                <div class="link-title">메일 보내기</div>
+                <div class="link-code">&lt;a href="mailto:이메일주소"&gt;</div>
+                <a href="mailto:leejungwoo0790@gmail.com">메일 보내기 →</a>
+            </div>
+        </div>
+
+        <div class="link-card">
+            <span class="link-type">북마크</span>
+            <div class="link-content">
+                <div class="link-title">같은 페이지 내 북마크 이동</div>
+                <div class="link-code">&lt;a href="#ai"&gt;</div>
+                <a href="#ai">↑ 위의 인공지능 설명으로 이동</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">인공지능의 핵심 기능 및 분류</p>
+        <p class="section-label">핵심 기능</p>
+        <ul class="ai-content">
+            <li>학습 (Learning) — 데이터를 바탕으로 규칙과 패턴을 자동으로 학습</li>
+            <li>추론 (Reasoning) — 논리적으로 판단하고 문제 해결</li>
+            <li>자연어 처리 (NLP) — 사람의 언어를 이해하고 생성</li>
+            <li>컴퓨터 비전 (CV) — 이미지나 영상을 분석하여 의미를 이해</li>
+            <li>로보틱스 — 실제 환경에서 물리적인 작업을 수행</li>
+        </ul>
+        <p class="section-label">분류</p>
+        <ul class="ai-content">
+            <li>협의의 AI (Narrow AI) — 특정 작업만 잘함 (예: 스팸 필터, 번역기, 음성비서)</li>
+            <li>범용 AI (General AI) — 인간 수준의 지능을 갖춘 AI (아직 없음)</li>
+            <li>초지능 AI (Superintelligent AI) — 인간 능력을 넘는 AI (이론적 단계)</li>
+        </ul>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

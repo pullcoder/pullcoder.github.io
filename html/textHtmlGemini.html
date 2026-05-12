@@ -5,69 +5,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>텍스트 서식 및 코드 예제</title>
+    <title>텍스트 서식 예제 (Gemini 버전)</title>
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .section { margin-bottom: 24px; }
+        .section h2 {
+            font-size: 1.05rem;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid #ecf0f1;
         }
-
-        h2 {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        pre {
-            background-color: #2d2d2d;
-            color: #ccc;
-            padding: 15px;
+        .item-list { list-style: none; }
+        .item-list li {
+            padding: 10px 14px;
             border-radius: 8px;
-            overflow-x: auto;
+            margin-bottom: 6px;
+            background: #f7f9fc;
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.6;
         }
-
-        .highlight {
-            color: #e74c3c;
-            font-weight: bold;
-        }
+        .item-list li:hover { background: #eaf4fb; }
+        .highlight { color: #e74c3c; font-weight: bold; }
     </style>
 </head>
 
 <body>
 
-    <h2>1. 텍스트 강조 및 스타일</h2>
-    <ul>
-        <li><strong>흘림체 및 굵게 (Italic Bold):</strong> <em><strong>이 텍스트는 기울임과 굵게가 동시에 적용되었습니다.</strong></em></li>
-        <li><strong>String 강조체:</strong> <span class="highlight">"String Content"</span></li>
-        <li><strong>Emphasized (강조/흘림):</strong> <em>이것은 강조된(Emphasized) 텍스트입니다.</em></li>
-    </ul>
+    <h1 class="page-title">텍스트 서식 예제 (Gemini 버전)</h1>
 
-    <hr>
+    <div class="card">
 
-    <h2>2. 수학적 표현 (첨자)</h2>
-    <p>위첨자와 아래첨자 표현입니다:</p>
-    <ul>
-        <li><strong>100의 제곱 (Superscript):</strong> 100<sup>2</sup> (또는 2³)</li>
-        <li><strong>로그 밑 (Subscript):</strong> Log<sub>10</sub></li>
-    </ul>
+        <div class="section">
+            <h2>1. 텍스트 강조 및 스타일</h2>
+            <ul class="item-list">
+                <li><strong>흘림체 및 굵게 (Italic Bold):</strong> <em><strong>이 텍스트는 기울임과 굵게가 동시에 적용되었습니다.</strong></em></li>
+                <li><strong>String 강조체:</strong> <span class="highlight">"String Content"</span></li>
+                <li><strong>Emphasized (강조/흘림):</strong> <em>이것은 강조된(Emphasized) 텍스트입니다.</em></li>
+            </ul>
+        </div>
 
-    <hr>
+        <hr>
 
-    <h2>3. 파이썬 프로그램 코드 예제</h2>
-    <p>아래는 간단한 파이썬 코드 블록입니다:</p>
-    <pre><code>
-# 파이썬 예제 코드
+        <div class="section">
+            <h2>2. 수학적 표현 (첨자)</h2>
+            <ul class="item-list">
+                <li><strong>위첨자 (Superscript):</strong> 100<sup>2</sup></li>
+                <li><strong>아래첨자 (Subscript):</strong> Log<sub>10</sub></li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2>3. 파이썬 프로그램 코드 예제</h2>
+            <p style="color:#666; margin-bottom:10px;">아래는 간단한 파이썬 코드 블록입니다:</p>
+            <pre><code># 파이썬 예제 코드
 def greet(name):
     print(f"Hello, {name}!")
 
@@ -76,9 +71,12 @@ numbers = [1, 2, 3, 4, 5]
 total = sum(numbers)
 
 print(f"합계: {total}")
-greet("사용자")
-    </code></pre>
+greet("사용자")</code></pre>
+        </div>
 
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

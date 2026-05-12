@@ -1,21 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <title>헤딩(heading)태그</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헤딩(Heading) 태그</title>
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .heading-demo { display: flex; flex-direction: column; gap: 2px; }
+        .heading-row {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: background 0.15s;
+        }
+        .heading-row:hover { background: #f7f9fc; }
+        .tag-chip {
+            background: #2c3e50;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            width: 36px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .size-label {
+            font-size: 0.78rem;
+            color: #bbb;
+            white-space: nowrap;
+            flex-shrink: 0;
+            width: 52px;
+        }
+        .heading-row h1 { font-size: 2rem;   margin: 0; line-height: 1.3; }
+        .heading-row h2 { font-size: 1.5rem;  margin: 0; line-height: 1.3; }
+        .heading-row h3 { font-size: 1.17rem; margin: 0; line-height: 1.3; }
+        .heading-row h4 { font-size: 1rem;    margin: 0; line-height: 1.3; }
+        .heading-row h5 { font-size: 0.83rem; margin: 0; line-height: 1.3; }
+        .heading-row h6 { font-size: 0.67rem; margin: 0; line-height: 1.3; }
+    </style>
 </head>
 
 <body>
-    <h1>h1:p태그는 Pharagraph를 뜻하며 한줄 띄고</h1>
-    <h2>h2:br태그는 Break를 의미하며 줄바꿈</h2>
-    <h3>h3:Pre태그는 </h3>
-    <h4>h4:pre-formatted를 의미하며</h4>
-    <h5>h5:편집기에서 표현한 그대로 표시</h5>
-    <h6>h6:heading 6</h6>
+
+    <h1 class="page-title">헤딩(Heading) 태그</h1>
+
+    <div class="card">
+        <p class="card-title">h1 ~ h6 크기 비교</p>
+        <div class="heading-demo">
+            <div class="heading-row">
+                <span class="tag-chip">h1</span>
+                <span class="size-label">32px</span>
+                <h1>p태그는 Pharagraph를 뜻하며 한줄 띄고</h1>
+            </div>
+            <div class="heading-row">
+                <span class="tag-chip">h2</span>
+                <span class="size-label">24px</span>
+                <h2>br태그는 Break를 의미하며 줄바꿈</h2>
+            </div>
+            <div class="heading-row">
+                <span class="tag-chip">h3</span>
+                <span class="size-label">18.7px</span>
+                <h3>Pre태그는</h3>
+            </div>
+            <div class="heading-row">
+                <span class="tag-chip">h4</span>
+                <span class="size-label">16px</span>
+                <h4>pre-formatted를 의미하며</h4>
+            </div>
+            <div class="heading-row">
+                <span class="tag-chip">h5</span>
+                <span class="size-label">13.3px</span>
+                <h5>편집기에서 표현한 그대로 표시</h5>
+            </div>
+            <div class="heading-row">
+                <span class="tag-chip">h6</span>
+                <span class="size-label">10.7px</span>
+                <h6>heading 6</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">코드 예제</p>
+        <pre><code>&lt;h1&gt;가장 큰 제목 (32px)&lt;/h1&gt;
+&lt;h2&gt;두 번째 제목 (24px)&lt;/h2&gt;
+&lt;h3&gt;세 번째 제목 (18.7px)&lt;/h3&gt;
+&lt;h4&gt;네 번째 제목 (16px)&lt;/h4&gt;
+&lt;h5&gt;다섯 번째 제목 (13.3px)&lt;/h5&gt;
+&lt;h6&gt;여섯 번째 제목 (10.7px)&lt;/h6&gt;</code></pre>
+    </div>
+
+    <!-- 2026 03 31 2번째 문제 -->
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>
-
-<!-- 2026 03 31 2번째 문제 -->

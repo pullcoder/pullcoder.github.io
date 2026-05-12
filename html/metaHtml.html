@@ -1,22 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <title>예제1-2 메타태그</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="HTML CSS Web3D">
     <meta name="description" content="html5&Web3D 강좌">
+    <title>메타 태그 예제</title>
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .meta-table th:first-child { border-radius: 8px 0 0 0; }
+        .meta-table th:last-child  { border-radius: 0 8px 0 0; }
+        .meta-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+        .meta-table tr:last-child td { border-bottom: none; }
+        .meta-table tr:hover td { background: #f7f9fc; }
+        .attr-badge {
+            display: inline-block;
+            background: #eaf4fb;
+            color: #2980b9;
+            border: 1px solid #bee3f8;
+            border-radius: 5px;
+            padding: 2px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        .val-text {
+            color: #27ae60;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        .desc-text { color: #666; }
+    </style>
 </head>
 
 <body>
-    <p>이 문서는 Html 문서의 구조를 나타낸 것 입니다.</p>
 
-    <!-- <meta name="keyword" content="HTML CSS Web3D">
-        <meta name="author" contnet="이정우">
-        <meta name="description" content="html5&Web3D 강좌"> -->
-    <pre name="keyword" content="HTML CSS Web3D" name="author" contnet="이정우" name="description"
-        content="html5&CSS3&javascript 강좌"></pre>
+    <h1 class="page-title">메타 태그 예제</h1>
+
+    <div class="card">
+        <p class="card-title">메타 태그란?</p>
+        <p style="color:#555;">이 문서는 HTML 문서의 구조를 나타낸 것입니다. <code>&lt;meta&gt;</code> 태그는 <code>&lt;head&gt;</code> 안에 위치하며, 브라우저와 검색 엔진에 문서 정보를 제공합니다.</p>
+    </div>
+
+    <div class="card">
+        <p class="card-title">메타 태그 종류</p>
+        <table class="meta-table">
+            <thead>
+                <tr>
+                    <th>속성 (name)</th>
+                    <th>값 (content)</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="attr-badge">charset</span></td>
+                    <td><span class="val-text">"UTF-8"</span></td>
+                    <td class="desc-text">문서의 문자 인코딩. 한글 깨짐 방지를 위해 필수입니다.</td>
+                </tr>
+                <tr>
+                    <td><span class="attr-badge">viewport</span></td>
+                    <td><span class="val-text">"width=device-width, initial-scale=1.0"</span></td>
+                    <td class="desc-text">모바일 환경에서 화면 너비를 디바이스에 맞춥니다.</td>
+                </tr>
+                <tr>
+                    <td><span class="attr-badge">author</span></td>
+                    <td><span class="val-text">"HTML CSS Web3D"</span></td>
+                    <td class="desc-text">문서 작성자 정보입니다.</td>
+                </tr>
+                <tr>
+                    <td><span class="attr-badge">description</span></td>
+                    <td><span class="val-text">"html5&amp;Web3D 강좌"</span></td>
+                    <td class="desc-text">검색 결과에 표시되는 페이지 설명입니다.</td>
+                </tr>
+                <tr>
+                    <td><span class="attr-badge">keyword</span></td>
+                    <td><span class="val-text">"HTML CSS Web3D"</span></td>
+                    <td class="desc-text">검색 엔진용 키워드입니다. (현재 대부분 무시됨)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <p class="card-title">코드 예제</p>
+        <pre><code>&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="author" content="HTML CSS Web3D"&gt;
+    &lt;meta name="description" content="html5&amp;Web3D 강좌"&gt;
+    &lt;meta name="keyword" content="HTML CSS Web3D"&gt;
+&lt;/head&gt;</code></pre>
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

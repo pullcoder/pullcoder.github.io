@@ -30,6 +30,8 @@
         .btn-html { background: #e44d26; }
         .btn-css  { background: #264de4; }
         .btn-js   { background: #c8a400; }
+        .btn-soon { background: #b0b8c1; cursor: default; pointer-events: none; }
+        .btn-soon::after { content: ' (준비 중)'; font-weight: normal; font-size: 0.75rem; }
 
         /* 3. 갤러리 스타일 */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
@@ -76,12 +78,12 @@
             <li class="tech-item">
                 <strong>CSS3</strong>
                 <span class="tech-desc">스타일링</span>
-                <a href="css/CssList.html" class="btn-example btn-css">예제 목록 →</a>
+                <span class="btn-example btn-soon">예제 목록</span>
             </li>
             <li class="tech-item">
                 <strong>JavaScript</strong>
                 <span class="tech-desc">동적 기능</span>
-                <a href="js/JsList.html" class="btn-example btn-js">예제 목록 →</a>
+                <span class="btn-example btn-soon">예제 목록</span>
             </li>
         </ul>
     </section>

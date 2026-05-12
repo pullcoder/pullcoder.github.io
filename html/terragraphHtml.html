@@ -1,20 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <title>예제1-3 문단태그</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문단 태그 (p, br, pre, hr)</title>
     <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+    <style>
+        .tag-section { margin-bottom: 22px; }
+        .tag-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .tag-chip {
+            background: #2c3e50;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        .tag-meaning {
+            color: #888;
+            font-size: 0.88rem;
+        }
+        .demo-box {
+            background: #f7f9fc;
+            border: 1.5px solid #dde3ec;
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        .demo-box p { margin-bottom: 6px; }
+        .demo-box hr { border-top: 2px solid #aaa; margin: 10px 0; }
+    </style>
 </head>
 
 <body>
-    <p>p태그는 Pharagraph를 뜻하며 한줄 띄고 줄바꿈</p>
-    <br>br태그는 Break를 의미하며 줄바꿈
-    <pre>Pre태그는
-            pre-formatted를 의미하며
-            편집기에서 표현한 그대로 표시
-        </pre>
-    <hr>hr태그는 horizontal로서 줄 긋기 표시
+
+    <h1 class="page-title">문단 태그 (p, br, pre, hr)</h1>
+
+    <div class="card">
+
+        <div class="tag-section">
+            <div class="tag-label">
+                <span class="tag-chip">&lt;p&gt;</span>
+                <span class="tag-meaning">Paragraph — 앞뒤로 여백을 가진 문단</span>
+            </div>
+            <div class="demo-box">
+                <p>p태그는 Pharagraph를 뜻하며 한줄 띄고 줄바꿈합니다.</p>
+                <p>두 번째 문단입니다. p태그는 자동으로 단락 간격을 만듭니다.</p>
+            </div>
+        </div>
+
+        <div class="tag-section">
+            <div class="tag-label">
+                <span class="tag-chip">&lt;br&gt;</span>
+                <span class="tag-meaning">Break — 단락 없이 줄만 바꿈</span>
+            </div>
+            <div class="demo-box">
+                br태그는 Break를 의미하며<br>줄바꿈만 합니다. (단락 간격 없음)
+            </div>
+        </div>
+
+        <div class="tag-section">
+            <div class="tag-label">
+                <span class="tag-chip">&lt;pre&gt;</span>
+                <span class="tag-meaning">Pre-formatted — 편집기 형식 그대로 출력</span>
+            </div>
+            <pre>Pre태그는
+    pre-formatted를 의미하며
+    편집기에서 표현한 그대로 표시합니다.
+    들여쓰기와 줄바꿈이 유지됩니다.</pre>
+        </div>
+
+        <div class="tag-section">
+            <div class="tag-label">
+                <span class="tag-chip">&lt;hr&gt;</span>
+                <span class="tag-meaning">Horizontal Rule — 수평 구분선</span>
+            </div>
+            <div class="demo-box">
+                hr태그는 horizontal로서 줄 긋기 표시입니다.
+                <hr>
+                위 선이 &lt;hr&gt; 태그로 만들어진 구분선입니다.
+            </div>
+        </div>
+
+    </div>
+
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>

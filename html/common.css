@@ -1,4 +1,4 @@
-/* common.css - HTML 예제 공통 스타일 */
+/* common.css - 공통 기본 스타일 */
 
 * {
     margin: 0;
@@ -16,80 +16,79 @@ body {
     margin: 0 auto;
 }
 
-/* 제목 */
 h1, h2, h3, h4, h5, h6 {
     color: #2c3e50;
     margin: 16px 0 8px;
 }
 
-/* 문단 */
-p {
-    margin-bottom: 10px;
+p { margin-bottom: 10px; }
+
+a { color: #3498db; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2980b9; }
+
+hr {
+    border: none;
+    border-top: 2px solid #ecf0f1;
+    margin: 20px 0;
 }
 
-/* 코드 블록 */
 pre {
     background: #2d2d2d;
     color: #f8f8f2;
-    padding: 15px;
-    border-radius: 6px;
+    padding: 16px 20px;
+    border-radius: 8px;
     overflow-x: auto;
     font-size: 0.9rem;
     margin: 10px 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 code {
     background: #f0f0f0;
     padding: 2px 6px;
-    border-radius: 3px;
+    border-radius: 4px;
     font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #e74c3c;
 }
 
-/* 이미지 */
+pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
 img {
     max-width: 100%;
     height: auto;
-    margin: 10px 0;
     border-radius: 4px;
+    margin: 8px 0;
 }
 
-/* 테이블 */
-table {
-    border-collapse: collapse;
-    width: 100%;
+/* ── 공통 레이아웃 컴포넌트 ── */
+
+.page-title {
+    font-size: 1.8rem;
+    border-bottom: 3px solid #2c3e50;
+    padding-bottom: 12px;
+    margin: 30px 0 28px;
+    color: #2c3e50;
+}
+
+.card {
     background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 15px 0;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    margin-bottom: 20px;
 }
 
-caption {
-    font-size: 1.1rem;
+.card-title {
+    font-size: 1.05rem;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-th {
-    background: #2c3e50;
-    color: white;
-    padding: 12px;
-}
-
-td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    color: #555;
-}
-
-tr:hover {
-    background: #f1f1f1;
-}
-
-/* 구분선 */
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 15px 0;
+    color: #2c3e50;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid #ecf0f1;
 }

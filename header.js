@@ -52,6 +52,25 @@
         .site-header nav a:hover {
             color: #5dade2;
         }
+        .site-header nav .nav-soon {
+            color: #7f8c8d;
+            cursor: default;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .site-header nav .soon-badge {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: normal;
+            background: rgba(255,255,255,0.15);
+            color: #bdc3c7;
+            padding: 2px 6px;
+            border-radius: 10px;
+            letter-spacing: 0;
+        }
         @media (max-width: 600px) {
             .site-header {
                 padding: 0.6rem 0.8rem;
@@ -65,6 +84,9 @@
             .site-header .back-btn {
                 font-size: 12px;
                 padding: 3px 8px;
+            }
+            .site-header nav .nav-soon {
+                font-size: 13px;
             }
         }
     `;
@@ -84,20 +106,25 @@
 
         var backBtn = isHome
             ? ''
-            : '<a href="' + base + 'index.html" class="back-btn">&#8592; 이전</a>';
+            : '<a href="#" onclick="history.back(); return false;" class="back-btn">&#8592; 이전</a>';
+
+        var navItems = isHome
+            ? '<li><a href="' + base + 'index.html#intro">소개</a></li>' +
+              '<li><a href="' + base + 'index.html#tech-stack">기술 스택</a></li>' +
+              '<li><a href="' + base + 'index.html#gallery">갤러리</a></li>' +
+              '<li><a href="' + base + 'index.html#server-security">보안 소개</a></li>' +
+              '<li><a href="' + base + 'index.html#sns-links">SNS</a></li>'
+            : '<li><a href="' + base + 'index.html">메인화면</a></li>' +
+              '<li><a href="' + base + 'html/HtmlList.html">HTML</a></li>' +
+              '<li><span class="nav-soon">CSS<span class="soon-badge">준비 중</span></span></li>' +
+              '<li><span class="nav-soon">JavaScript<span class="soon-badge">준비 중</span></span></li>';
 
         var html =
             '<header class="site-header">' +
                 '<div class="header-inner">' +
                     backBtn +
                     '<nav>' +
-                        '<ul>' +
-                            '<li><a href="' + base + 'index.html#intro">소개</a></li>' +
-                            '<li><a href="' + base + 'index.html#tech-stack">기술 스택</a></li>' +
-                            '<li><a href="' + base + 'index.html#gallery">갤러리</a></li>' +
-                            '<li><a href="' + base + 'index.html#server-security">보안 소개</a></li>' +
-                            '<li><a href="' + base + 'index.html#sns-links">SNS</a></li>' +
-                        '</ul>' +
+                        '<ul>' + navItems + '</ul>' +
                     '</nav>' +
                 '</div>' +
             '</header>';
