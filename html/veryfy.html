@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예제4-4 입력 검증 예시</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="../header.js"></script>
+</head>
+<body>
+    <p>9. 추가된 폼형식</p>
+    <form action="input.jsp" method="post">
+        <fieldset>
+            <legend>입력 검증 폼</legend>
+            <label for="Email">이메일:</label>
+            <input type="email" id="email" name="email"><br>
+            <label for="url">URL:</label>
+            <input type="url" id="url" name="url"><br>
+            <label for="tel">전화번호:</label>
+            <input type="tel" id="tel" name="tel"><br>
+            <label for="color">색상:</label>
+            <input type="color" id="color" name="color"><br>
+            <label for="month">월:</label>
+            <input type="month" id="month" name="month"><br>
+            <label for="date">날짜:</label>
+            <input type="date" id="date" name="date"><br>
+            <label for="week">요일:</label>
+            <input type="week" id="week" name="week"><br>
+            <label for="time">시간:</label>
+            <input type="time" id="time" name="time"><br>
+            <label for="loacldatetime">지역시간:</label>
+            <input type="datetime-local" id="loacldatetime" name="loacldatetime"><br>
+            <label for="number">숫자 (1~10):</label>
+            <input type="number" id="number" name="number" min="1" max="10" step="2"><br>
+            <label for="range">범위 (1~10):</label>
+            <input type="range" id="range" name="range" min="1" max="10" step="2"><br>
+            <input type="submit" value="제출">
+            <input type="reset" value="취소">
+        </fieldset>
+    </form>
+</body>
+</html>
