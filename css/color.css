@@ -1,0 +1,12 @@
+p{
+    color:gray;
+}
+h1,p{
+    background-color: magenta;
+}
+h2{
+    text-align: center;
+}
+div{
+    text-align: center;
+}
