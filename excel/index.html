@@ -43,7 +43,6 @@
   .sheet-tabs {
     display: flex;
     gap: 4px;
-    margin-left: 8px;
     overflow-x: auto;
   }
   .sheet-tab {
@@ -54,10 +53,12 @@
     color: #555;
     font-size: 0.8rem;
     cursor: pointer;
+    white-space: nowrap;
   }
   .sheet-tab.active { background: #4a90e2; color: #fff; border-color: #4a90e2; }
+  .sheet-tab.chart { background: #f4f4f4; color: #aaa; cursor: not-allowed; font-style: italic; }
 
-  .row-count { margin-left: auto; font-size: 0.8rem; color: #aaa; }
+  .row-count { margin-left: auto; font-size: 0.8rem; color: #aaa; white-space: nowrap; }
 
   .status {
     padding: 40px;
@@ -77,10 +78,11 @@
     color: #fff;
     padding: 10px 14px;
     text-align: left;
-    white-space: nowrap;
+    white-space: pre-line; /* 줄바꿈 처리 */
     border-right: 1px solid #3d5166;
     font-weight: 600;
     font-size: 0.8rem;
+    line-height: 1.4;
   }
 
   tbody tr:nth-child(even) { background: #f8f9fa; }
@@ -105,8 +107,8 @@
 </head>
 <body>
 
-<!-- ↓↓↓ 파일 목록 여기에 추가하세요 ↓↓↓ -->
 <script>
+// ↓↓↓ 파일 목록 여기에 추가하세요 ↓↓↓
 const FILES = [
   'excel_file/5월 생활가전 판매 현황.xlsx',
   'excel_file/드론판매현황.xlsx',
@@ -116,8 +118,8 @@ const FILES = [
   'excel_file/전기자동차 연비 현황.xlsx',
   'excel_file/차건강한 차 판매 현황.xlsx'
 ];
+// ↑↑↑ 파일 목록 여기에 추가하세요 ↑↑↑
 </script>
-<!-- ↑↑↑ 파일 목록 여기에 추가하세요 ↑↑↑ -->
 
 <div class="topbar">
   <label>파일 선택</label>
@@ -127,7 +129,7 @@ const FILES = [
 </div>
 
 <div id="content">
-  <div class="status">파일을 선택하세요</div>
+  <div class="status">불러오는 중...</div>
 </div>
 
 <script>
@@ -138,7 +140,8 @@ const sel = document.getElementById('fileSelect');
 FILES.forEach(f => {
   const opt = document.createElement('option');
   opt.value = f;
-  opt.textContent = f;
+  // 경로 제거하고 파일명만 표시
+  opt.textContent = f.split('/').pop().replace('.xlsx','').replace('.xls','');
   sel.appendChild(opt);
 });
 
@@ -158,7 +161,12 @@ function loadFile(path) {
     .then(data => {
       workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
       buildTabs();
-      loadSheet(workbook.SheetNames[0]);
+      // 첫 번째 데이터 시트(차트 시트 제외)를 자동 선택
+      const firstDataSheet = workbook.SheetNames.find(name => {
+        const ws = workbook.Sheets[name];
+        return ws['!type'] !== 'chart' && Object.keys(ws).filter(k => !k.startsWith('!')).length > 0;
+      });
+      if (firstDataSheet) loadSheet(firstDataSheet);
     })
     .catch(err => {
       document.getElementById('content').innerHTML = `<div class="status">⚠️ ${err.message}</div>`;
@@ -169,10 +177,12 @@ function buildTabs() {
   const tabs = document.getElementById('sheetTabs');
   tabs.innerHTML = '';
   workbook.SheetNames.forEach(name => {
+    const ws = workbook.Sheets[name];
+    const isChart = ws['!type'] === 'chart';
     const btn = document.createElement('button');
-    btn.className = 'sheet-tab';
-    btn.textContent = name;
-    btn.onclick = () => loadSheet(name);
+    btn.className = 'sheet-tab' + (isChart ? ' chart' : '');
+    btn.textContent = name + (isChart ? ' (차트)' : '');
+    if (!isChart) btn.onclick = () => loadSheet(name);
     tabs.appendChild(btn);
   });
 }
@@ -183,6 +193,7 @@ function loadSheet(name) {
   });
 
   const ws = workbook.Sheets[name];
+  // 첫 번째 열이 전부 비어있으면 제거
   const json = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
   const content = document.getElementById('content');
   content.innerHTML = '';
@@ -192,8 +203,12 @@ function loadSheet(name) {
     return;
   }
 
-  const headers = json[0];
-  const rows = json.slice(1);
+  // 첫 번째 열이 모두 비어있으면 제거
+  const firstColEmpty = json.every(row => row[0] === '' || row[0] === null || row[0] === undefined);
+  const data = firstColEmpty ? json.map(row => row.slice(1)) : json;
+
+  const headers = data[0];
+  const rows = data.slice(1).filter(row => row.some(cell => cell !== '' && cell !== null && cell !== undefined));
 
   const wrap = document.createElement('div');
   wrap.className = 'table-container';
@@ -204,7 +219,7 @@ function loadSheet(name) {
   const hrow = document.createElement('tr');
   headers.forEach(h => {
     const th = document.createElement('th');
-    th.textContent = h !== '' ? h : '-';
+    th.textContent = h !== '' && h !== null ? String(h) : '-';
     hrow.appendChild(th);
   });
   thead.appendChild(hrow);
@@ -215,7 +230,7 @@ function loadSheet(name) {
     const tr = document.createElement('tr');
     headers.forEach((_, j) => {
       const td = document.createElement('td');
-      td.textContent = row[j] !== undefined ? row[j] : '';
+      td.textContent = row[j] !== undefined && row[j] !== null ? String(row[j]) : '';
       tr.appendChild(td);
     });
     tbody.appendChild(tr);
