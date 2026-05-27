@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 03 — 연습문제</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+        .page-header { background: #e67e22; color: white; padding: 30px 20px; text-align: center; }
+        .page-header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.9rem; opacity: 0.85; }
+        .back-link { display: inline-block; margin: 24px 20px 0; color: #e67e22; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-link:hover { text-decoration: underline; }
+        .content { max-width: 900px; margin: 0 auto; padding: 20px 20px 60px; }
+        .code-section { margin-bottom: 40px; }
+        .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
+        footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chapter 03 — 연습문제</h1>
+        <p>Chapter 03 연습문제 및 미니프로젝트</p>
+    </div>
+    <a href="../index.html" class="back-link">&#8592; 목록으로</a>
+    <div class="content">
+        <section class="code-section">
+            <h2 class="code-title">Exer01.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer01 {
+
+	public static void main(String[] args) {
+
+		int num = 0;
+
+		for (int i = 1; i &lt;= 100; i++) {
+			if (i % 3 == 0 || i % 4 == 0) {
+				num = num + i;
+			}
+		}
+		System.out.println(num);
+
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer02.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class Exer02 {
+
+	public static void main(String[] args) {
+
+		String[] number = { "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE" };
+
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수를 입력하세요: ");
+		int num = sc.nextInt();
+
+		if (0 &lt; num &amp;&amp; num &lt; 10) {
+			System.out.println(number[num - 1]);
+		} else {
+			System.out.println("OTHER");
+		}
+		sc.close();
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer03.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer03 {
+
+	public static void main(String[] args) {
+
+		for (int i = 1; i &lt; 7; i++) {
+			for (int j = 1; j &lt; 7; j++) {
+				if (i + j == 6) {
+					System.out.printf("(%d,%d) , ", i, j);
+				}
+			}
+		}
+
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer04.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class Exer04 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("키를 입력하세요: ");
+		double key = sc.nextInt();
+		System.out.print("몸무게를 입력하세요: ");
+		double m = sc.nextDouble();
+
+		double num = (key - 100.0) * 0.9;
+
+		if (m &lt; num) {
+			System.out.println("정상입니다.");
+		} else {
+			System.out.println("과체중입니다.");
+		}
+
+		sc.close();
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer05.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer05 {
+
+	public static void main(String[] args) {
+
+		for (int i = 0; i &lt; 11; i++) {
+			for (int j = 0; j &lt; 11; j++) {
+				if (i * 3 + j * 10 == 100) {
+					System.out.printf("(%d,%d)\n", i, j);
+				}
+			}
+		}
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer06.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer06 {
+
+	public static void main(String[] args) {
+
+		for (int i = 2; i &lt;= 100; i++) {
+			boolean isPrime = true;
+
+			for (int j = 2; j &lt;= i-1; j++) {
+			    if (i % j == 0) {
+			        isPrime = false;
+			        break;
+			    }
+			}
+
+			if (isPrime) {
+				System.out.print(i + " ");
+			}
+		}
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer07.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer07 {
+
+	public static void main(String[] args) {
+
+		int count = 0;
+
+		for (int i = 1; i &lt;= 100; i++) {
+			for (int j = 1; j &lt;= 100; j++) {
+				for (int k = 1; k &lt;= 100; k++) {
+					if (i * i + j * j == k * k) {
+						System.out.println(i + " " + j + " " + k);
+						count++;
+					}
+				}
+			}
+		}
+		System.out.println(count + "개");
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer08.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class Exer08 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("연산을 입력하세요: ");
+		String op = sc.next();
+		if (!op.equals("+") &amp;&amp; !op.equals("-") &amp;&amp; !op.equals("*") &amp;&amp; !op.equals("/")) {
+			System.out.println("연산자를 제대로 입력하시오.");
+			return;
+		}
+		System.out.print("숫자 2개를 입력하세요: ");
+		double num1 = sc.nextDouble();
+		double num2 = sc.nextDouble();
+
+		double result = 0;
+
+		if (op.equals("+")) {
+			result = num1 + num2;
+		} else if (op.equals("-")) {
+			result = num1 - num2;
+		} else if (op.equals("*")) {
+			result = num1 * num2;
+		} else if (op.equals("/")) {
+			if (num2 != 0) {
+				result = num1 / num2;
+			} else {
+				System.out.println("0으로 나눌 수 없습니다!");
+				return;
+			}
+		} else {
+			System.out.println("잘못된 연산자입니다!");
+			return;
+		}
+		sc.close();
+		System.out.println(num1 + " " + op + " " + num2 + " = " + result);
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer09.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class Exer09 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("출력할 항의 갯수: ");
+		int num = sc.nextInt();
+		int a = 0, b = 1;
+
+		System.out.print(a + " " + b + " ");
+		for (int i = 2; i &lt; num; i++) {
+			int c = a + b;
+			System.out.print(c + " ");
+			a = b;
+			b = c;
+		}
+		sc.close();
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer10.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer10 {
+
+	public static void main(String[] args) {
+
+		double[] num = { 1, 2, 3, 4 };
+		double count = 0;
+		double max = 0;
+		for (int i = 0; i &lt; num.length; i++) {
+			System.out.print(num[i] + " ");
+			count += num[i];
+			if (num[i] &gt; max) {
+				max = num[i];
+			}
+		}
+		System.out.println("\n합은 " + count);
+		System.out.println("최대값은 " + max);
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer11.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+public class Exer11 {
+
+	public static void main(String[] args) {
+
+		String[] str = { "Hello", "Java", "World" };
+		for (int i = 0; i &lt; str.length; i++) {
+			System.out.println(str[i]);
+		}
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Exer12.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class Exer12 {
+
+	public static void main(String[] args) {
+
+		double sum = 0;
+		int count = 0;
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("성적을 입력할 학생 수는? ");
+		int students = sc.nextInt();
+
+		do {
+			System.out.print("성적을 입력하세요: ");
+			double score = sc.nextDouble();
+
+			sum += score;
+			count++;
+		} while (count != students);
+
+		sc.close();
+
+		System.out.println("합계: " + sum);
+		System.out.println("평균: " + sum / count);
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">MiniProject1.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.Scanner;
+
+public class MiniProject1 {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+
+		int answer = (int) (Math.random() * 100);
+		int guess;
+		int count = 0;
+				
+		do {
+			System.out.print("정답을 추측하여 보시오: ");
+			guess = sc.nextInt();
+			if(guess&lt;0) {
+				System.out.println("음수 불가.");
+			}else{
+				count++;
+				if(guess&lt;answer) System.out.println("HIGH");
+				if(guess&gt;answer) System.out.println("LOW");	
+			};
+		} while (guess != answer);
+		
+		sc.close();
+		
+		System.out.println("축하합니다. 시도횟수: "+count);
+				
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">MiniProject2.java</h2>
+            <pre><code class="language-java">package chap03exer;
+
+import java.util.ArrayList;
+
+public class MiniProject2 {
+
+    public static void main(String[] args) {
+
+        // 카드 무늬 4가지
+        String[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
+
+        // 카드 숫자 13가지
+        String[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+
+        // 카드 덱 저장할 리스트
+        ArrayList&lt;String&gt; deck = new ArrayList&lt;&gt;();
+
+        // 카드 52장 생성 (4 * 13)
+        for (int i = 0; i &lt; suits.length; i++) {
+            for (int j = 0; j &lt; ranks.length; j++) {
+                deck.add(suits[i] + " " + ranks[j]);
+            }
+        }
+
+        // 카드 섞기 (랜덤으로 자리 바꾸기)
+        for (int i = 0; i &lt; deck.size(); i++) {
+            int randomIndex = (int)(Math.random() * deck.size());
+
+            // 현재 카드와 랜덤 카드 위치 교환
+            String temp = deck.get(i);
+            deck.set(i, deck.get(randomIndex));
+            deck.set(randomIndex, temp);
+        }
+
+        // 앞에서 5장 출력 (중복 없음)
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(deck.get(i));
+        }
+    }
+}</code></pre>
+        </section>
+    </div>
+    <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+</body>
+</html>

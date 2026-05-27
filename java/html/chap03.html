@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 03 — 제어문</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+        .page-header { background: #e67e22; color: white; padding: 30px 20px; text-align: center; }
+        .page-header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.9rem; opacity: 0.85; }
+        .back-link { display: inline-block; margin: 24px 20px 0; color: #e67e22; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-link:hover { text-decoration: underline; }
+        .content { max-width: 900px; margin: 0 auto; padding: 20px 20px 60px; }
+        .code-section { margin-bottom: 40px; }
+        .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
+        footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chapter 03 — 제어문</h1>
+        <p>조건문, 반복문 실습</p>
+    </div>
+    <a href="../index.html" class="back-link">&#8592; 목록으로</a>
+    <div class="content">
+        <section class="code-section">
+            <h2 class="code-title">Averager.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Averager {
+
+	public static void main(String[] args) {
+		
+		int total = 0; // 정수형 total 선언
+		int count = 0; // 정수형 count 선언
+		Scanner sc = new Scanner(System.in); // scanner import
+		while (true) { // while true 로 무조건 참.
+			System.out.print("점수를 입력하시오: "); // 콘솔창 띄우기
+			int grade = sc.nextInt(); // 콘솔창에서 받은 값 정수로 받아 저장
+			if (grade &lt; 0) break; // 받은 값이 0보다 작으면 멈춤.
+			
+			total += grade; // 받은값 계속 더하기.
+			count++; // 횟수 계산.
+		}
+		
+		sc.close(); // scanner 닫기
+		
+		System.out.println("평균은 " + total / count); // 콘솔창 띄우기
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">CalSum.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class CalSum {
+
+	public static void main(String[] args) {
+		
+		int i = 1; // 정수 선언
+		int sum = 0; // 정수 선언
+		
+		while (i &lt; 11) { // 1~10까지 반복
+			sum+=1; // 1씩 더하기.
+			i++; // i 값 1씩 증가.
+		}
+		
+		System.out.println("합계="+sum); // 더한 값 출력.
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">CheckInput.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class CheckInput {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in); // 스캐너 불러오기.
+		int month; // 정수 선언
+		do { // do 문
+			System.out.println("올바른 월을 입력하시오 [1-12]"); // 콘솔창 띄우기
+			month = sc.nextInt(); // 콘솔창 값 정수로 저장.
+		} while (month &lt; 1 || month &gt; 12); // 콘솔창의 값이 0보다 작거나 13 이상일 경우 멈춤. 
+		
+		sc.close(); // scanner 닫기
+		
+		System.out.println("사용자가 입력한 월은 "+ month); // 콘솔창 띄우기.
+				
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">ContinueTest.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class ContinueTest {
+
+	public static void main(String[] args) {
+
+		for (int i = 1; i &lt;= 10; ++i) { // 1에서 10까지 반복
+			if (i % 3 == 0) continue; // 1부터 10까지 중 3으로 나눴을 때 몫이 없다면 패스.
+
+			System.out.print(i + " "); // 3으로 나눈것 중 딱 떨어지지 않은것 출력
+		}
+
+	}
+
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Divisor.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Divisor {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("양의 정수를 입력하시오: ");
+		int n = sc.nextInt();
+		
+		System.out.println(n + "의 약수는 다음과 같습니다.");
+		for (int i = 1; i &lt;= n; ++i) { // 1부터 사용자의 입력값까지 반복
+			if(n % i == 0) // 사용자 입력값과 1~사용자입력값 까지 나누어 떨어지는것들을 
+				System.out.print(" " + i); // 출력
+		}
+		
+		sc.close(); 
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">EvenOdd.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class EvenOdd {
+
+	public static void main(String[] args) {
+		
+		int number;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수를 입력하시오: ");
+		number = sc.nextInt();
+		
+		if(number % 2 == 0) { // 2로 나눴을 때 나머지가 없다면 짝수
+			System.out.println("입력된 정수는 짝수 입니다.");
+		}else { // 아니면 홀수
+			System.out.println("입력된 정수는 홀수 입니다.");
+		}
+		
+		sc.close();
+		System.out.println("프로그램이 종료되었습니다.");
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Factorial.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Factorial {
+
+	public static void main(String[] args) {
+		
+		long fact = 1;
+		int n;
+		
+		System.out.print("정수를 입력하시오: ");
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		
+		for (int i = 1; i &lt;= n; i++) // 1부터 입력값까지 계속 곱함.
+			fact *= i;
+
+		sc.close();
+		
+		System.out.printf("%d!은 %d입니다. \n", n, fact);
+	
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">ForExample1.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class ForExample1 {
+
+	public static void main(String[] args) {
+		
+		for (int i = 0; i &lt; 5; i++) { // 0부터 4까지 반복
+			System.out.println("i의 값은: "+ i); // 0,1,2,3,4 출력
+		}
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Grading.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Grading {
+
+	public static void main(String[] args) {
+
+		int score;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("성적을 입력하시오: ");
+		score = sc.nextInt();
+		
+		if (score &gt;= 90) { // 성적이 90보다 크다면 실행
+			System.out.println("학점 A");
+		} else if (score &gt;= 80) { // 성적이 80보다 크면 실행
+			System.out.println("학점 B");
+		} else if (score &gt;= 70) { // 성적이 70보다 크면 실행
+			System.out.println("학점 C");
+		} else if (score &gt;= 60) { // 성적이 60보다 크면 실행
+			System.out.println("학점 D");
+		} else { // 전부 아니라면 실행
+			System.out.println("학점 F");
+		}
+	
+		sc.close();
+		
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">LoopExample2.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class LoopExample2 {
+
+	public static void main(String[] args) {
+
+		int n;
+		int i = 1;
+		System.out.print("구구단 중에서 출력하고 싶은 단을 입력하시오: ");
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		while (i &lt; 10) { // 1부터 9까지 반복
+			System.out.println(n + "*" + i + "=" + n * i); // 받은 값*반복=값
+			i++; // i 값 증가.
+		}
+
+		sc.close();
+
+	}
+
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Nested.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Nested {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수를 입력하시오: ");
+		int number1 = sc.nextInt();
+		
+		if(number1 &gt; 0) { // 받은 값이 0보다 크면 양수
+			System.out.println("양수입니다.");
+		}else if(number1 == 0){ // 받은값이 0이면 0
+			System.out.println("0입니다.");
+		}else { // 위 조건이 모두 아니라면 음수
+			System.out.println("음수입니다.");
+		}
+	
+		sc.close();
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">NestedLoop.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class NestedLoop {
+
+	public static void main(String[] args) {
+		
+		for (int y = 0; y &lt; 5; y++) { // 0~4까지 반복
+			for (int x = 0; x &lt; 10; x++) { // 0~9까지 반복
+				System.out.print("*");
+			}
+			System.out.println("");
+		}
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">RockPaperScissor.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class RockPaperScissor {
+
+	final int SCISSOR = 0; // 상수 선언
+	final int ROCK = 1;
+	final int PAPER = 2;
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("가위(0), 바위(1), 보(2): ");
+		int user = sc.nextInt();
+		
+		int computer = (int) (Math.random() * 3);
+		
+		if (user == computer) {
+			System.out.println("인간과 컴퓨터가 비겼음");
+		} else if (user == (computer + 1) % 3) {
+			System.out.println("인간: "+user+" 컴퓨터: "+computer+" 인간 승리");
+		} else {
+			System.out.println("인간: "+user+" 컴퓨터: "+computer+" 컴퓨터 승리");
+		}		
+		
+		sc.close();
+		
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Score2Grade.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class Score2Grade {
+	
+	public static void main(String[] args) {
+		
+		int score, number;
+		char grade; // ''로 변수 선언.
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("성적을 입력하시오: ");
+		score = sc.nextInt();
+		number = score / 10; // 받은 성적을 10으로 나눔.
+		
+		switch (number) { // 나눈 성적이 몇인지 등급 나누기
+		case 10:
+		case 9:
+			grade = 'A';
+			break; // 종료
+		case 8:
+			grade = 'B';
+			break;
+		case 7:
+			grade = 'C';
+			break;
+		case 6:
+			grade = 'D';
+			break;
+		default: // 위 조건에 모두 맞지 않다면 실행.
+			grade = 'F';
+			break;
+		}
+		
+		sc.close();
+		System.out.println("학점: "+grade);
+		
+	}
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">StringSwitch.java</h2>
+            <pre><code class="language-java">package chap03;
+
+import java.util.Scanner;
+
+public class StringSwitch {
+
+	public static void main(String[] args) {
+
+		String month;
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("달의 이름을 입력 하시오: ");
+		month = sc.next();
+
+		int monthNumber;
+		switch (month) { // 영어로 받은 월을 숫자로 반환.
+		case "january":
+			monthNumber = 1;
+			break;
+		case "february":
+			monthNumber = 2;
+			break;
+		case "march":
+			monthNumber = 3;
+			break;
+		case "april":
+			monthNumber = 4;
+			break;
+		case "may":
+			monthNumber = 5;
+			break;
+		case "june":
+			monthNumber = 6;
+			break;
+		case "july":
+			monthNumber = 7;
+			break;
+		case "august":
+			monthNumber = 8;
+			break;
+		case "september":
+			monthNumber = 9;
+			break;
+		case "october":
+			monthNumber = 10;
+			break;
+		case "november":
+			monthNumber = 11;
+			break;
+		case "december":
+			monthNumber = 12;
+			break;
+		default:
+			monthNumber = 0;
+			break;
+		}
+		
+		sc.close();
+		System.out.println(monthNumber);
+		
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Sum.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class Sum {
+
+	public static void main(String[] args) {
+		
+		int sum = 0;
+		
+		for (int i = 1; i &lt;=10; i++) // 1~10까지 반복하여 더함.
+			sum += 1;
+		
+		System.out.printf("1부터 10까지의 정수의 합 = %d\n", sum);
+		
+	}
+	
+}
+</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">WelcomeLoop.java</h2>
+            <pre><code class="language-java">package chap03;
+
+public class WelcomeLoop {
+
+	public static void main(String[] args) {
+
+		int i = 0;
+		
+		while (i &lt; 5) { // 0~5까지 반복.
+			System.out.println("환영합니다!"); // 5번 출력
+			i++; // i 값 증가.
+		}
+		
+		System.out.println("반복이 종료되었습니다.");
+		
+	}
+	
+}
+</code></pre>
+        </section>
+    </div>
+    <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+</body>
+</html>

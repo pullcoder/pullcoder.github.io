@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVA 프로그래밍</title>
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .chapter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-top: 5px solid #e67e22;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chapter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+        }
+        .chapter-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .chapter-desc {
+            font-size: 0.88rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        .file-count {
+            font-size: 0.82rem;
+            color: #e67e22;
+            font-weight: bold;
+        }
+        .page-header {
+            background: #e67e22;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .page-header h1 { font-size: 1.8rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.95rem; opacity: 0.85; }
+        .back-link {
+            display: inline-block;
+            margin: 30px 20px 0;
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            background: #333;
+            color: white;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>JAVA 프로그래밍</h1>
+        <p>홍광희 교수님 | 챕터별 실습 코드 목록</p>
+    </div>
+
+    <a href="../index.html" class="back-link">&#8592; 수업 목록으로</a>
+
+    <div class="chapter-grid">
+
+        <a href="html/chap01.html" class="chapter-card">
+            <div class="chapter-title">Chapter 01 — 자바 소개</div>
+            <div class="chapter-desc">소개 및 기본 출력 실습</div>
+            <div class="file-count">4개 파일</div>
+        </a>
+
+        <a href="html/chap02.html" class="chapter-card">
+            <div class="chapter-title">Chapter 02 — 변수와 연산자</div>
+            <div class="chapter-desc">자료형, 변수 선언, 다양한 연산자 실습</div>
+            <div class="file-count">16개 파일</div>
+        </a>
+
+        <a href="html/chap02exer.html" class="chapter-card">
+            <div class="chapter-title">Chapter 02 — 연습문제</div>
+            <div class="chapter-desc">Chapter 02 연습문제 풀이</div>
+            <div class="file-count">6개 파일</div>
+        </a>
+
+        <a href="html/chap03.html" class="chapter-card">
+            <div class="chapter-title">Chapter 03 — 제어문</div>
+            <div class="chapter-desc">조건문, 반복문 실습</div>
+            <div class="file-count">17개 파일</div>
+        </a>
+
+        <a href="html/chap03arr.html" class="chapter-card">
+            <div class="chapter-title">Chapter 03 — 배열</div>
+            <div class="chapter-desc">1차원 배열, 2차원 배열, ArrayList 실습</div>
+            <div class="file-count">7개 파일</div>
+        </a>
+
+        <a href="html/chap03exer.html" class="chapter-card">
+            <div class="chapter-title">Chapter 03 — 연습문제</div>
+            <div class="chapter-desc">Chapter 03 연습문제 및 미니프로젝트</div>
+            <div class="file-count">14개 파일</div>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>© 2026 My Website — JAVA 프로그래밍</p>
+    </footer>
+
+</body>
+</html>
