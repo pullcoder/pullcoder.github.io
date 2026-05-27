@@ -28,18 +28,6 @@
 
   .topbar label { font-size: 0.85rem; color: #aaa; }
 
-  .nav-btn {
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: none;
-  background: #3d5166;
-  color: #fff;
-  cursor: pointer;
-  font-size: 0.85rem;
-  }
-  .nav-btn:hover { background: #4a90e2; }
-  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
   select {
     padding: 6px 10px;
     border-radius: 6px;
@@ -51,6 +39,34 @@
     outline: none;
   }
   select:focus { outline: 2px solid #4a90e2; }
+
+  .nav-btn {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: none;
+    background: #3d5166;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .nav-btn:hover { background: #4a90e2; }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* 이전 화면 버튼 */
+  .back-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    background: transparent;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .back-btn:hover { background: #3d5166; color: #fff; border-color: #3d5166; }
 
   .sheet-tabs {
     display: flex;
@@ -90,7 +106,7 @@
     color: #fff;
     padding: 10px 14px;
     text-align: left;
-    white-space: pre-line; /* 줄바꿈 처리 */
+    white-space: pre-line;
     border-right: 1px solid #3d5166;
     font-weight: 600;
     font-size: 0.8rem;
@@ -134,11 +150,14 @@ const FILES = [
 </script>
 
 <div class="topbar">
+  <!-- 이전 화면으로 버튼 -->
+  <button class="back-btn" onclick="history.back()">← 이전 화면</button>
+
   <label>파일 선택</label>
-  <button class="nav-btn" onclick="changeFile(-1)">◀</button>
+  <button class="nav-btn" id="prevBtn" onclick="changeFile(-1)">◀</button>
   <select id="fileSelect" onchange="loadFile(this.value)"></select>
-  <button class="nav-btn" onclick="changeFile(1)">▶</button>
-  <select id="fileSelect" onchange="loadFile(this.value)"></select>
+  <button class="nav-btn" id="nextBtn" onclick="changeFile(1)">▶</button>
+
   <div class="sheet-tabs" id="sheetTabs"></div>
   <span class="row-count" id="rowCount"></span>
 </div>
@@ -150,23 +169,34 @@ const FILES = [
 <script>
 let workbook = null;
 
-// 파일 목록 드롭다운 생성
 const sel = document.getElementById('fileSelect');
 FILES.forEach(f => {
   const opt = document.createElement('option');
   opt.value = f;
-  // 경로 제거하고 파일명만 표시
   opt.textContent = f.split('/').pop().replace('.xlsx','').replace('.xls','');
   sel.appendChild(opt);
 });
 
-// 첫 번째 파일 자동 로드
+updateNavBtns();
 if (FILES.length > 0) loadFile(FILES[0]);
+
+function changeFile(direction) {
+  const newIndex = sel.selectedIndex + direction;
+  if (newIndex < 0 || newIndex >= FILES.length) return;
+  sel.selectedIndex = newIndex;
+  loadFile(FILES[newIndex]);
+}
+
+function updateNavBtns() {
+  document.getElementById('prevBtn').disabled = sel.selectedIndex <= 0;
+  document.getElementById('nextBtn').disabled = sel.selectedIndex >= FILES.length - 1;
+}
 
 function loadFile(path) {
   document.getElementById('content').innerHTML = '<div class="status">불러오는 중...</div>';
   document.getElementById('sheetTabs').innerHTML = '';
   document.getElementById('rowCount').textContent = '';
+  updateNavBtns();
 
   fetch(path)
     .then(res => {
@@ -176,7 +206,6 @@ function loadFile(path) {
     .then(data => {
       workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
       buildTabs();
-      // 첫 번째 데이터 시트(차트 시트 제외)를 자동 선택
       const firstDataSheet = workbook.SheetNames.find(name => {
         const ws = workbook.Sheets[name];
         return ws['!type'] !== 'chart' && Object.keys(ws).filter(k => !k.startsWith('!')).length > 0;
@@ -202,21 +231,12 @@ function buildTabs() {
   });
 }
 
-function changeFile(direction) {
-  const sel = document.getElementById('fileSelect');
-  const newIndex = sel.selectedIndex + direction;
-  if (newIndex < 0 || newIndex >= FILES.length) return;
-  sel.selectedIndex = newIndex;
-  loadFile(FILES[newIndex]);
-}
-
 function loadSheet(name) {
   document.querySelectorAll('.sheet-tab').forEach(t => {
     t.classList.toggle('active', t.textContent === name);
   });
 
   const ws = workbook.Sheets[name];
-  // 첫 번째 열이 전부 비어있으면 제거
   const json = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
   const content = document.getElementById('content');
   content.innerHTML = '';
@@ -226,7 +246,6 @@ function loadSheet(name) {
     return;
   }
 
-  // 첫 번째 열이 모두 비어있으면 제거
   const firstColEmpty = json.every(row => row[0] === '' || row[0] === null || row[0] === undefined);
   const data = firstColEmpty ? json.map(row => row.slice(1)) : json;
 
