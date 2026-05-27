@@ -4,59 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>수업 목록</title>
-
+    <title>이정우 | 포트폴리오</title>
 </head>
 <body>
 
-    <main class="professor-page">
-        <h1 class="page-title">수업 목록</h1>
-
-        <div class="professor-grid">
-
-            <div class="professor-card">
-                <div class="professor-name">박경배 교수님</div>
-                <ul class="course-list">
-                    <li>
-                        <span class="course-item">IT개론</span>
-                    </li>
-                    <li>
-                        <a href="ai_web/index.html" class="course-item course-link">AI웹프로그래밍</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="professor-card">
-                <div class="professor-name">홍성준 교수님</div>
-                <ul class="course-list">
-                    <li>
-                        <span class="course-item">컴퓨터활용능력</span>
-                    </li>
-                    <li>
-                        <span class="course-item">AI콘텐츠활용</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="professor-card">
-                <div class="professor-name">홍광희 교수님</div>
-                <ul class="course-list">
-                    <li>
-                        <a href="java/index.html" class="course-item course-link">JAVA프로그래밍</a>
-                    </li>
-                    <li>
-                        <span class="course-item">인공지능활용</span>
-                    </li>
-                </ul>
-            </div>
-
+    <!-- 히어로 -->
+    <header class="hero">
+        <div class="hero-inner">
+            <h1 class="hero-name">이정우</h1>
+            <p class="hero-sub">AI소프트웨어과 · 2026학번</p>
+            <p class="hero-desc">배운 것들을 기록하고 만든 것들을 공유하는 공간입니다.</p>
         </div>
+    </header>
+
+    <main class="site-main">
+
+        <!-- 수업 목록 -->
+        <section class="section">
+            <h2 class="section-title">수업 목록</h2>
+            <div class="professor-grid">
+
+                <div class="professor-card">
+                    <div class="professor-name">박경배 교수님</div>
+                    <ul class="course-list">
+                        <li><span class="course-item">IT개론</span></li>
+                        <li><a href="ai_web/index.html" class="course-item course-link">AI웹프로그래밍</a></li>
+                    </ul>
+                </div>
+
+                <div class="professor-card">
+                    <div class="professor-name">홍성준 교수님</div>
+                    <ul class="course-list">
+                        <li><span class="course-item">컴퓨터활용능력</span></li>
+                        <li><span class="course-item">AI콘텐츠활용</span></li>
+                    </ul>
+                </div>
+
+                <div class="professor-card">
+                    <div class="professor-name">홍광희 교수님</div>
+                    <ul class="course-list">
+                        <li><a href="java/index.html" class="course-item course-link">JAVA프로그래밍</a></li>
+                        <li><span class="course-item">인공지능활용</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 내 사이트 -->
+        <section class="section">
+            <h2 class="section-title">내 사이트</h2>
+            <a href="mySite/index.html" class="mysite-card">
+                <div class="mysite-info">
+                    <div class="mysite-name">My Website</div>
+                    <div class="mysite-desc">직접 만든 개인 웹사이트</div>
+                </div>
+                <div class="mysite-arrow">→</div>
+            </a>
+        </section>
+
     </main>
 
-    <footer>
-        <p>© 2026 My Website. All rights reserved.</p>
+    <footer class="site-footer">
+        <p>© 2026 이정우. All rights reserved.</p>
     </footer>
-
 
 </body>
 </html>
