@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Viewer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: #2c3e50;
+    color: #fff;
+    flex-wrap: wrap;
+  }
+
+  .topbar label { font-size: 0.85rem; color: #aaa; }
+
+  select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.85rem;
+    background: #3d5166;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  select:focus { outline: 2px solid #4a90e2; }
+
+  .sheet-tabs {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+    overflow-x: auto;
+  }
+  .sheet-tab {
+    padding: 5px 14px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: #f4f4f4;
+    color: #555;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .sheet-tab.active { background: #4a90e2; color: #fff; border-color: #4a90e2; }
+
+  .row-count { margin-left: auto; font-size: 0.8rem; color: #aaa; }
+
+  .status {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .table-container { flex: 1; overflow: auto; }
+
+  table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: 0.85rem; }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #2c3e50;
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+    border-right: 1px solid #3d5166;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  tbody tr:nth-child(even) { background: #f8f9fa; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody tr:hover { background: #e8f0fe; }
+
+  tbody td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    white-space: nowrap;
+    vertical-align: middle;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #f0f0f0; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ↓↓↓ 파일 목록 여기에 추가하세요 ↓↓↓ -->
+<script>
+const FILES = [
+  'excel_file/5월 생활가전 판매 현황.xlsx',
+  'excel_file/드론판매현황.xlsx',
+  'excel_file/야생화 씨앗 판매 현황.xlsx',
+  'excel_file/온라인 가전제품 판매 현황.xlsx',
+  'excel_file/자동차판매현황.xlsx',
+  'excel_file/전기자동차 연비 현황.xlsx',
+  'excel_file/차건강한 차 판매 현황.xlsx'
+];
+</script>
+<!-- ↑↑↑ 파일 목록 여기에 추가하세요 ↑↑↑ -->
+
+<div class="topbar">
+  <label>파일 선택</label>
+  <select id="fileSelect" onchange="loadFile(this.value)"></select>
+  <div class="sheet-tabs" id="sheetTabs"></div>
+  <span class="row-count" id="rowCount"></span>
+</div>
+
+<div id="content">
+  <div class="status">파일을 선택하세요</div>
+</div>
+
+<script>
+let workbook = null;
+
+// 파일 목록 드롭다운 생성
+const sel = document.getElementById('fileSelect');
+FILES.forEach(f => {
+  const opt = document.createElement('option');
+  opt.value = f;
+  opt.textContent = f;
+  sel.appendChild(opt);
+});
+
+// 첫 번째 파일 자동 로드
+if (FILES.length > 0) loadFile(FILES[0]);
+
+function loadFile(path) {
+  document.getElementById('content').innerHTML = '<div class="status">불러오는 중...</div>';
+  document.getElementById('sheetTabs').innerHTML = '';
+  document.getElementById('rowCount').textContent = '';
+
+  fetch(path)
+    .then(res => {
+      if (!res.ok) throw new Error(`파일을 찾을 수 없습니다: ${path}`);
+      return res.arrayBuffer();
+    })
+    .then(data => {
+      workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
+      buildTabs();
+      loadSheet(workbook.SheetNames[0]);
+    })
+    .catch(err => {
+      document.getElementById('content').innerHTML = `<div class="status">⚠️ ${err.message}</div>`;
+    });
+}
+
+function buildTabs() {
+  const tabs = document.getElementById('sheetTabs');
+  tabs.innerHTML = '';
+  workbook.SheetNames.forEach(name => {
+    const btn = document.createElement('button');
+    btn.className = 'sheet-tab';
+    btn.textContent = name;
+    btn.onclick = () => loadSheet(name);
+    tabs.appendChild(btn);
+  });
+}
+
+function loadSheet(name) {
+  document.querySelectorAll('.sheet-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent === name);
+  });
+
+  const ws = workbook.Sheets[name];
+  const json = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+
+  if (!json || json.length === 0) {
+    content.innerHTML = '<div class="status">데이터가 없습니다.</div>';
+    return;
+  }
+
+  const headers = json[0];
+  const rows = json.slice(1);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'table-container';
+
+  const table = document.createElement('table');
+
+  const thead = document.createElement('thead');
+  const hrow = document.createElement('tr');
+  headers.forEach(h => {
+    const th = document.createElement('th');
+    th.textContent = h !== '' ? h : '-';
+    hrow.appendChild(th);
+  });
+  thead.appendChild(hrow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    headers.forEach((_, j) => {
+      const td = document.createElement('td');
+      td.textContent = row[j] !== undefined ? row[j] : '';
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  content.appendChild(wrap);
+
+  document.getElementById('rowCount').textContent = `총 ${rows.length}행`;
+}
+</script>
+</body>
+</html>
