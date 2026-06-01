@@ -20,6 +20,14 @@
         .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
         footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+        .code-title { display: flex; align-items: center; justify-content: space-between; }
+        .copy-btn { font-size: 0.72rem; padding: 3px 10px; border-radius: 4px; cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap; border: 1px solid; }
+        .copy-btn.copied { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+        .copy-name-btn { background: #f0f0f0; color: #666; border-color: #ccc; flex-shrink: 0; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-name-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+        .pre-wrapper { position: relative; }
+        .copy-code-btn { position: absolute; top: 8px; right: 8px; z-index: 10; background: rgba(255,255,255,0.1); color: #bbb; border-color: #555; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-code-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
     </style>
 </head>
 <body>
@@ -424,5 +432,41 @@ public class MiniProject2 {
         </section>
     </div>
     <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+    <script>
+        var COPY_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+        document.querySelectorAll('.code-section').forEach(function (sec) {
+            var titleEl = sec.querySelector('.code-title');
+            var className = titleEl.textContent.trim();
+
+            var nameBtn = document.createElement('button');
+            nameBtn.className = 'copy-btn copy-name-btn';
+            nameBtn.innerHTML = COPY_ICON;
+            nameBtn.title = '클래스명 복사';
+            titleEl.appendChild(nameBtn);
+            nameBtn.addEventListener('click', function () { copyText(nameBtn, className); });
+
+            var preEl = sec.querySelector('pre');
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pre-wrapper';
+            preEl.parentNode.insertBefore(wrapper, preEl);
+            wrapper.appendChild(preEl);
+            var codeBtn = document.createElement('button');
+            codeBtn.className = 'copy-btn copy-code-btn';
+            codeBtn.innerHTML = COPY_ICON;
+            codeBtn.title = '코드 복사';
+            wrapper.appendChild(codeBtn);
+            codeBtn.addEventListener('click', function () { copyText(codeBtn, preEl.querySelector('code').innerText); });
+        });
+
+        function copyText(btn, text) {
+            var orig = btn.innerHTML;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(function () { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
