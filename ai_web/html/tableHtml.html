@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -13,27 +13,51 @@
 </head>
 
 <body>
-    <table border="1">
-        <caption>Table.1HTML&amp;X3D</caption>
-        <tr>
-            <th>HTML5</th>
-            <th>CSS3</th>
-            <th>Web3D</th>
-        </tr>
-        <tr>
-            <td>colspan</td>
-            <td>rowspan</td>
-            <td>병합</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-    </table>
+
+    <h1 class="page-title">테이블 태그</h1>
+
+    <div class="card">
+        <p class="card-title">기본 테이블 예제</p>
+        <div class="table-wrapper">
+            <table class="demo-table">
+                <caption>Table.1 HTML &amp; X3D</caption>
+                <thead>
+                    <tr>
+                        <th>HTML5</th>
+                        <th>CSS3</th>
+                        <th>Web3D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>colspan</td>
+                        <td>rowspan</td>
+                        <td>병합</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">테이블 기본 태그</p>
+        <pre><code>&lt;table&gt;          — 테이블 전체 정의
+  &lt;caption&gt;     — 테이블 제목
+  &lt;thead&gt;       — 헤더 영역 (선택)
+  &lt;tbody&gt;       — 본문 영역 (선택)
+  &lt;tr&gt;          — 행 (Table Row)
+    &lt;th&gt;        — 헤더 셀 (굵게, 가운데 정렬)
+    &lt;td&gt;        — 데이터 셀 (일반 내용)
+&lt;/table&gt;</code></pre>
+    </div>
+
+    <!-- 2026 03 31 3번째 문제 -->
+    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
 
 </html>
-
-
-<!-- 2026 03 31 3번째 문제 -->

@@ -11,6 +11,7 @@ body {
     background: #f4f4f4;
     color: #333;
     line-height: 1.7;
+    padding: 20px;
 }
 
 /* 제목 */
@@ -51,6 +52,13 @@ code {
     font-family: 'Courier New', monospace;
 }
 
+pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+}
+
 /* 이미지 */
 img {
     max-width: 100%;
@@ -71,32 +79,9 @@ table {
 caption {
     font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-th {
-    background: #2c3e50;
-    color: white;
-    padding: 12px;
-}
-
-td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    color: #555;
-}
-
-tr:hover {
-    background: #f1f1f1;
-}
-
-/* 구분선 */
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 15px 0;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 /* ── 인덱스 페이지 (htmlTag.html) 전용 ── */
