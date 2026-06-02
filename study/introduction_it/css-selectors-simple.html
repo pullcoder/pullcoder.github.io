@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 선택자 6가지</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #222;
+      background: #fff;
+    }
+
+    /* ── 페이지 레이아웃 (인쇄 기준 2페이지) ── */
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      margin: 0 auto 20px;
+      padding: 50px 60px;
+      background: #fff;
+      box-shadow: 0 0 12px rgba(0,0,0,0.12);
+      page-break-after: always;
+    }
+
+    /* ── 헤더 ── */
+    .doc-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      margin-bottom: 6px;
+    }
+    .doc-sub {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    /* ── 선택자 항목 ── */
+    .item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0;
+      margin-bottom: 22px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .item-left {
+      background: #f0f4ff;
+      border-right: 1px solid #e2e8f0;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .num {
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .selector-badge {
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: #2563eb;
+      background: #dbeafe;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .selector-name {
+      font-size: 10px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .item-right {
+      padding: 14px 18px;
+    }
+
+    .item-right p {
+      color: #374151;
+      font-size: 12.5px;
+      margin-bottom: 10px;
+    }
+
+    /* ── 코드 ── */
+    code, pre {
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+    }
+
+    code {
+      padding: 1px 5px;
+      color: #be123c;
+    }
+
+    pre {
+      padding: 10px 14px;
+      line-height: 1.7;
+      color: #1e293b;
+      white-space: pre;
+    }
+
+    .kw   { color: #7c3aed; }
+    .prop { color: #0369a1; }
+    .val  { color: #16a34a; }
+    .cm   { color: #94a3b8; }
+
+    /* ── 요약 테이블 ── */
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      border-left: 4px solid #2563eb;
+      padding-left: 10px;
+      margin: 28px 0 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    td:first-child {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      color: #2563eb;
+      white-space: nowrap;
+    }
+
+    /* ── 사용 팁 박스 ── */
+    .tip-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #78350f;
+    }
+
+    .tip-box strong { color: #92400e; }
+
+    /* ── 푸터 ── */
+    .page-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 10px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    @media print {
+      body { background: none; }
+      .page { box-shadow: none; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ 1페이지 ══════════ -->
+<div class="page">
+  <h1 class="doc-title">CSS 선택자 6가지 완벽 정리</h1>
+  <p class="doc-sub">HTML 요소를 정확하게 지목하는 CSS 선택자의 핵심 유형과 코드 예제</p>
+
+  <!-- 01 전체 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">01</span>
+      <span class="selector-badge">*</span>
+      <span class="selector-name">전체 선택자</span>
+    </div>
+    <div class="item-right">
+      <p>문서 안의 <strong>모든 요소</strong>를 동시에 선택합니다. 브라우저 기본 스타일을 초기화하는 CSS Reset에 주로 사용됩니다.</p>
+      <pre><span class="kw">*</span> {
+  <span class="prop">margin</span>: <span class="val">0</span>;
+  <span class="prop">padding</span>: <span class="val">0</span>;
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>; <span class="cm">/* 모든 요소에 적용 */</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- 02 클래스 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">02</span>
+      <span class="selector-badge">.class</span>
+      <span class="selector-name">클래스 선택자</span>
+    </div>
+    <div class="item-right">
+      <p>점(<code>.</code>) 뒤에 클래스 이름을 붙여, 해당 <code>class</code> 속성을 가진 <strong>모든 요소</strong>를 선택합니다. 재사용이 가능해 실무에서 가장 많이 사용됩니다.</p>
+      <pre><span class="kw">.highlight</span> {
+  <span class="prop">background</span>: <span class="val">yellow</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>; <span class="cm">/* class="highlight"인 요소 전체 */</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- 03 ID 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">03</span>
+      <span class="selector-badge">#id</span>
+      <span class="selector-name">ID 선택자</span>
+    </div>
+    <div class="item-right">
+      <p>샵(<code>#</code>) 뒤에 ID를 붙여 <strong>고유한 단 하나</strong>의 요소를 선택합니다. 특이성(Specificity)이 높아 다른 스타일을 쉽게 덮어씁니다.</p>
+      <pre><span class="kw">#main-title</span> {
+  <span class="prop">font-size</span>: <span class="val">32px</span>;
+  <span class="prop">color</span>: <span class="val">#2563eb</span>; <span class="cm">/* id="main-title"인 요소 1개만 */</span>
+}</pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>CSS 선택자 6가지 완벽 정리</span>
+    <span>1 / 2</span>
+  </div>
+</div>
+
+<!-- ══════════ 2페이지 ══════════ -->
+<div class="page">
+
+  <!-- 04 자손 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">04</span>
+      <span class="selector-badge">A &nbsp;B</span>
+      <span class="selector-name">자손 선택자</span>
+    </div>
+    <div class="item-right">
+      <p>두 선택자 사이에 <strong>공백</strong>을 두어, 왼쪽 요소의 하위(자식·손자 포함) 요소 중 오른쪽 조건을 만족하는 요소를 선택합니다.</p>
+      <pre><span class="kw">.card span</span> {
+  <span class="prop">color</span>: <span class="val">hotpink</span>; <span class="cm">/* .card 안의 모든 span */</span>
+}
+<span class="kw">.card > p</span> {
+  <span class="prop">margin</span>: <span class="val">0</span>; <span class="cm">/* 직계 자식 p만 (> 사용) */</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- 05 속성 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">05</span>
+      <span class="selector-badge">[attr]</span>
+      <span class="selector-name">속성 선택자</span>
+    </div>
+    <div class="item-right">
+      <p>대괄호 <code>[]</code> 안에 조건을 넣어 <strong>특정 속성이나 속성값</strong>을 가진 요소를 선택합니다. 시작(<code>^=</code>), 끝(<code>$=</code>), 포함(<code>*=</code>) 패턴을 지원합니다.</p>
+      <pre><span class="kw">a[href^="https"]</span> { <span class="prop">color</span>: <span class="val">green</span>; } <span class="cm">/* https로 시작 */</span>
+<span class="kw">a[href$=".pdf"]</span>  { <span class="prop">color</span>: <span class="val">red</span>; }   <span class="cm">/* .pdf로 끝남 */</span>
+<span class="kw">input[type="text"]</span> { <span class="prop">border</span>: <span class="val">2px solid blue</span>; }</pre>
+    </div>
+  </div>
+
+  <!-- 06 가상 클래스 선택자 -->
+  <div class="item">
+    <div class="item-left">
+      <span class="num">06</span>
+      <span class="selector-badge">:pseudo</span>
+      <span class="selector-name">가상 클래스</span>
+    </div>
+    <div class="item-right">
+      <p>콜론(<code>:</code>)으로 시작하며 요소의 <strong>특정 상태나 위치</strong>를 기반으로 선택합니다. 마우스 오버·첫 번째 자식·홀짝수 행 등 다양한 조건에 사용합니다.</p>
+      <pre><span class="kw">a:hover</span>              { <span class="prop">color</span>: <span class="val">red</span>; }    <span class="cm">/* 마우스 오버 */</span>
+<span class="kw">li:first-child</span>       { <span class="prop">font-weight</span>: <span class="val">bold</span>; } <span class="cm">/* 첫 번째 */</span>
+<span class="kw">tr:nth-child(even)</span>   { <span class="prop">background</span>: <span class="val">#f5f5f5</span>; }</pre>
+    </div>
+  </div>
+
+  <!-- 요약 테이블 -->
+  <p class="section-title">선택자 한눈에 비교</p>
+  <table>
+    <thead>
+      <tr>
+        <th>선택자</th>
+        <th>종류</th>
+        <th>선택 대상</th>
+        <th>특이성</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>*</td>
+        <td>전체</td>
+        <td>문서 내 모든 요소</td>
+        <td>0, 0, 0</td>
+      </tr>
+      <tr>
+        <td>.class</td>
+        <td>클래스</td>
+        <td>해당 클래스를 가진 모든 요소</td>
+        <td>0, 1, 0</td>
+      </tr>
+      <tr>
+        <td>#id</td>
+        <td>ID</td>
+        <td>해당 ID를 가진 고유 요소 1개</td>
+        <td>1, 0, 0</td>
+      </tr>
+      <tr>
+        <td>A B</td>
+        <td>자손</td>
+        <td>A 하위의 모든 B 요소</td>
+        <td>조합에 따라 상이</td>
+      </tr>
+      <tr>
+        <td>[attr]</td>
+        <td>속성</td>
+        <td>특정 속성 또는 값을 가진 요소</td>
+        <td>0, 1, 0</td>
+      </tr>
+      <tr>
+        <td>:pseudo</td>
+        <td>가상 클래스</td>
+        <td>특정 상태·위치의 요소</td>
+        <td>0, 1, 0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tip-box">
+    <strong>💡 특이성(Specificity) 우선순위:</strong> &nbsp;
+    인라인 스타일 &gt; ID 선택자 &gt; 클래스·속성·가상 클래스 &gt; 태그 선택자 &gt; 전체 선택자
+  </div>
+
+  <div class="page-footer">
+    <span>CSS 선택자 6가지 완벽 정리</span>
+    <span>2 / 2</span>
+  </div>
+</div>
+
+</body>
+</html>
