@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>예제4-2 form input</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <p>8. 폼태그 input 2</p>
+    <form action="text.jsp" method="post">
+        <fieldset>
+            <legend>회원정보:</legend>
+            <label for="file">파일 선택:</label>
+            <input type="file" id="file" name="file"><br>
+            <label for="image">이미지 전송:</label>
+            <input type="image" id="image" name="image" src="../img/logo.png" width="40" height="20" alt="전송"><br>
+            <label for="search">찾기:</label>
+            <input type="search" id="search" name="search"><br>
+            <input type="hidden" name="hidden" value="secretToken123">
+        </fieldset>
+    </form>
+</body>
+
+</html>
