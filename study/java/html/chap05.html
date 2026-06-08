@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 05 — 메서드와 배열</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        .page-header { background: #e67e22; color: white; padding: 30px 20px; text-align: center; }
+        .page-header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.9rem; opacity: 0.85; }
+        .back-link { display: inline-block; margin: 24px 20px 0; color: #e67e22; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-link:hover { text-decoration: underline; }
+        .content { max-width: 900px; margin: 0 auto; padding: 20px 20px 60px; flex: 1; }
+        .code-section { margin-bottom: 40px; }
+        .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
+        footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+        .code-title { display: flex; align-items: center; justify-content: space-between; }
+        .copy-btn { font-size: 0.72rem; padding: 3px 10px; border-radius: 4px; cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap; border: 1px solid; }
+        .copy-btn.copied { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+        .copy-name-btn { background: #f0f0f0; color: #666; border-color: #ccc; flex-shrink: 0; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-name-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+        .pre-wrapper { position: relative; }
+        .copy-code-btn { position: absolute; top: 8px; right: 8px; z-index: 10; background: rgba(255,255,255,0.1); color: #bbb; border-color: #555; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-code-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chapter 05 — 메서드와 배열</h1>
+        <p>정적 멤버, 메서드 매개변수, 객체 배열, ArrayList, 내부 클래스 실습</p>
+    </div>
+    <a href="../index.html" class="back-link">&#8592; 목록으로</a>
+    <div class="content">
+        <section class="code-section">
+            <h2 class="code-title">PizzaTest.java</h2>
+            <pre><code class="language-java">package chap05;
+
+class Pizza {
+	private String toppings;
+	static int count = 0;
+
+	public Pizza(String toppings) {
+		this.toppings = toppings;
+		count++;
+	}
+}
+
+public class PizzaTest {
+	public static void main(String[] args) {
+		Pizza p1 = new Pizza("Super Supreme");
+		Pizza p2 = new Pizza("Cheese");
+		Pizza p3 = new Pizza("Pepperoni");
+
+		int n = Pizza.count;
+		System.out.println("지금까지 판매된 피자 개수 = " + n);
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">MyMathTest.java</h2>
+            <pre><code class="language-java">package chap05;
+
+class MyMath {
+	public static int abs(int x) {
+		return x &gt; 0 ? x : -x;
+	}
+
+	public static int power(int base, int exponent) {
+		int result = 1;
+		for (int i = 1; i &lt;= exponent; i++) {
+			result *= base;
+		}
+		return result;
+	}
+}
+
+public class MyMathTest {
+	public static void main(String[] args) {
+		System.out.println("10의 3승은 " + MyMath.power(10, 3));
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">PizzaTest2.java</h2>
+            <pre><code class="language-java">package chap05;
+
+class Pizza2 {
+	int radius;
+
+	public Pizza2(int radius) {
+		this.radius = radius;
+	}
+
+	Pizza2 whosLargest(Pizza2 p1, Pizza2 p2) {
+		if (p1.radius &gt; p2.radius) {
+			return p1;
+		} else {
+			return p2;
+		}
+	}
+
+}
+
+public class PizzaTest2 {
+	public static void main(String[] args) {
+		Pizza2 obj1 = new Pizza2(14);
+		Pizza2 obj2 = new Pizza2(18);
+
+		Pizza2 larglargest = obj1.whosLargest(obj1, obj2);
+		System.out.println(larglargest.radius + "인치 피자가 더 큼.");
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">ArratArgumentTest.java</h2>
+            <pre><code class="language-java">package chap05;
+
+public class ArratArgumentTest {
+
+	public static double minArray(double[] list) {
+		double min = list[0];
+
+		for (int i = 1; i &lt; list.length; i++) {
+			if (list[i] &lt; min) {
+				min = list[i];
+			}
+		}
+		return min;
+	}
+
+	public static void main(String[] args) {
+		double[] a = { 1.1, 2.2, 3.3, 4.4, 0.1, 0.2 };
+		double[] b = { -2.0, 3.0, -9.0, 2.9, 1.5 };
+
+		double min;
+
+		min = minArray(a);
+		System.out.println("첫 번째 배열의 최소값="+min);
+		min = minArray(b);
+		System.out.println("두 번째 배열의 최소값="+min);
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">MovieArrayTest.java</h2>
+            <pre><code class="language-java">package chap05;
+
+import java.util.Scanner;
+
+class Movie{
+	String title, director;
+	Movie(String title,String director){
+		this.title = title;
+		this.director = director;
+	}
+}
+
+public class MovieArrayTest {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		Movie[] list = new Movie[2];
+
+		for(int i=0;i&lt;list.length;i++) {
+			System.out.print("영화제목: ");
+			String title = sc.nextLine();
+			System.out.print("영화감독: ");
+			String director = sc.nextLine();
+			list[i] = new Movie(title, director);
+		}
+
+		sc.close();
+
+		for(int i=0;i&lt;list.length;i++) {
+			System.out.println("{ "+list[i].title+", "+list[i].director+" }");
+		}
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">ArrayListTest.java</h2>
+            <pre><code class="language-java">package chap05;
+
+import java.util.ArrayList;
+
+public class ArrayListTest {
+	public static void main(String[] args) {
+
+		ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+		list.add("홍콩");
+		list.add("싱가포르");
+		list.add("괌");
+		list.add("사이판");
+		list.add("하와이");
+
+		System.out.println("여행지 추천 시스템입니다.");
+		int index = (int) (Math.random() * list.size());
+		System.out.println("추천 여행지는 "+list.get(index));
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">ArrayListTest2.java</h2>
+            <pre><code class="language-java">package chap05;
+
+import java.util.ArrayList;
+
+class Person {
+	String name;
+	String tel;
+
+	Person(String name, String tel) {
+		this.name = name;
+		this.tel = tel;
+	}
+}
+
+public class ArrayListTest2 {
+	public static void main(String[] args) {
+
+		ArrayList&lt;Person&gt; list = new ArrayList&lt;Person&gt;();
+		list.add(new Person("홍길동", "01012345678"));
+		list.add(new Person("김유신", "01012345679"));
+		list.add(new Person("최자영", "01012345680"));
+		list.add(new Person("김영희", "01012345681"));
+
+		for (Person obj : list) {
+			System.out.println("(" + obj.name + "," + obj.tel + ")");
+		}
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">InnerTest2.java</h2>
+            <pre><code class="language-java">package chap05;
+
+class Circle {
+	class Point {
+		int x, y;
+
+		Point(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+
+	int radius;
+	Point center;
+
+	Circle(int radius, int x, int y) {
+		this.radius = radius;
+		this.center = new Point(x, y);
+	}
+
+	double calcArea() {
+		return 3.14 * radius * radius;
+	}
+}
+
+public class InnerTest2 {
+	public static void main(String[] args) {
+		Circle obj = new Circle(10, 0, 0);
+		System.out.println("원의 면적="+obj.calcArea());
+	}
+}</code></pre>
+        </section>
+    </div>
+    <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+    <script>
+        var COPY_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+        document.querySelectorAll('.code-section').forEach(function (sec) {
+            var titleEl = sec.querySelector('.code-title');
+            var className = titleEl.textContent.trim();
+
+            var nameBtn = document.createElement('button');
+            nameBtn.className = 'copy-btn copy-name-btn';
+            nameBtn.innerHTML = COPY_ICON;
+            nameBtn.title = '클래스명 복사';
+            titleEl.appendChild(nameBtn);
+            nameBtn.addEventListener('click', function () { copyText(nameBtn, className); });
+
+            var preEl = sec.querySelector('pre');
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pre-wrapper';
+            preEl.parentNode.insertBefore(wrapper, preEl);
+            wrapper.appendChild(preEl);
+            var codeBtn = document.createElement('button');
+            codeBtn.className = 'copy-btn copy-code-btn';
+            codeBtn.innerHTML = COPY_ICON;
+            codeBtn.title = '코드 복사';
+            wrapper.appendChild(codeBtn);
+            codeBtn.addEventListener('click', function () { copyText(codeBtn, preEl.querySelector('code').innerText); });
+        });
+
+        function copyText(btn, text) {
+            var orig = btn.innerHTML;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(function () { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

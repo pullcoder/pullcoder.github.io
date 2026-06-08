@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 04 — 연습문제</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        .page-header { background: #e67e22; color: white; padding: 30px 20px; text-align: center; }
+        .page-header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.9rem; opacity: 0.85; }
+        .back-link { display: inline-block; margin: 24px 20px 0; color: #e67e22; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-link:hover { text-decoration: underline; }
+        .content { max-width: 900px; margin: 0 auto; padding: 20px 20px 60px; flex: 1; }
+        .code-section { margin-bottom: 40px; }
+        .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
+        footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+        .code-title { display: flex; align-items: center; justify-content: space-between; }
+        .copy-btn { font-size: 0.72rem; padding: 3px 10px; border-radius: 4px; cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap; border: 1px solid; }
+        .copy-btn.copied { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+        .copy-name-btn { background: #f0f0f0; color: #666; border-color: #ccc; flex-shrink: 0; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-name-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+        .pre-wrapper { position: relative; }
+        .copy-code-btn { position: absolute; top: 8px; right: 8px; z-index: 10; background: rgba(255,255,255,0.1); color: #bbb; border-color: #555; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-code-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chapter 04 — 연습문제</h1>
+        <p>Chapter 04 연습문제 풀이</p>
+    </div>
+    <a href="../index.html" class="back-link">&#8592; 목록으로</a>
+    <div class="content">
+        <section class="code-section">
+            <h2 class="code-title">Student.java</h2>
+            <pre><code class="language-java">// exer01
+package chap04exer;
+
+public class Student {
+	String name;
+	String rollno;
+	int age;
+
+	Student(String name, String rollno, int age) {
+		this.name = name;
+		this.rollno = rollno;
+		this.age = age;
+	}
+
+	void Print() {
+		System.out.println("학생의 이름: " + name);
+		System.out.println("학생의 학번: " + rollno);
+		System.out.println("학생의 나이: " + age);
+	}
+
+	public static void main(String[] args) {
+		Student st = new Student("이정우", "20260790", 24);
+		st.Print();
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Dog.java</h2>
+            <pre><code class="language-java">// exer02
+package chap04exer;
+
+public class Dog {
+
+	String breed;
+	int age;
+	String color;
+
+	private String barking(String bk) {
+		return bk;
+	}
+
+	private String hungry(boolean hg) {
+		if (hg) {
+			return "배고픔";
+		} else {
+			return "안고픔";
+		}
+	}
+
+	private String sleeping(boolean sp) {
+		if (sp) {
+			return "졸림";
+		} else {
+			return "안졸림";
+		}
+	}
+
+	Dog(String breed, int age, String color) {
+		this.breed = breed;
+		this.age = age;
+		this.color = color;
+	}
+
+	void Print() {
+		System.out.println("(" + breed + "," + age + "," + color + ")");
+
+	}
+
+	public static void main(String[] args) {
+		Dog animal = new Dog("york", 1, "orange");
+		animal.Print();
+		animal.barking("왈왈");
+		animal.hungry(true);
+		animal.sleeping(false);
+		System.out.println(animal.barking("왈왈"));
+		System.out.println(animal.hungry(true));
+		System.out.println(animal.sleeping(false));
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Date.java</h2>
+            <pre><code class="language-java">// exer03
+package chap04exer;
+
+public class Date {
+	private int year;
+	private int month;
+	private int day;
+
+	private static final String[] MONTH_NAMES = { "", "January", "February", "March", "April", "May", "June", "July",
+			"August", "September", "October", "November", "December" };
+
+	public Date(int year, int month, int day) {
+		this.year = year;
+		this.month = month;
+		this.day = day;
+	}
+
+	public void print1() {
+		System.out.println(year + "." + month + "." + day);
+	}
+
+	public void print2() {
+		System.out.println(MONTH_NAMES[month] + " " + day + ", " + year);
+	}
+
+	public static void main(String[] args) {
+		Date d1 = new Date(2012, 7, 12);
+		d1.print1();
+		d1.print2();
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Complex.java</h2>
+            <pre><code class="language-java">// exer04
+package chap04exer;
+
+public class Complex {
+
+    double real;
+    double imag;
+
+    Complex(double real, double imag) {
+        this.real = real;
+        this.imag = imag;
+    }
+
+    void print() {
+        if (imag >= 0)
+            System.out.println(real + " + " + imag + "i");
+        else
+            System.out.println(real + " - " + (-imag) + "i");
+    }
+
+    Complex add(Complex other) {
+        return new Complex(this.real + other.real, this.imag + other.imag);
+    }
+
+    Complex subtract(Complex other) {
+        return new Complex(this.real - other.real, this.imag - other.imag);
+    }
+
+    Complex multiply(Complex other) {
+        double r = this.real * other.real - this.imag * other.imag;
+        double i = this.real * other.imag + this.imag * other.real;
+        return new Complex(r, i);
+    }
+
+    Complex divide(Complex other) {
+        double denom = other.real * other.real + other.imag * other.imag;
+        double r = (this.real * other.real + this.imag * other.imag) / denom;
+        double i = (this.imag * other.real - this.real * other.imag) / denom;
+        return new Complex(r, i);
+    }
+
+    double abs() {
+        return Math.sqrt(real * real + imag * imag);
+    }
+
+    Complex conjugate() {
+        return new Complex(real, -imag);
+    }
+
+    public static void main(String[] args) {
+        Complex c1 = new Complex(10, 20);
+
+        c1.print();
+
+        System.out.print("절댓값 = ");
+        System.out.println(c1.abs());
+
+        System.out.print("켤레복소수 = ");
+        c1.conjugate().print();
+    }
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Account.java</h2>
+            <pre><code class="language-java">// exer05
+package chap04exer;
+
+public class Account {
+
+	private int balance = 0;
+
+	public int deposit() {
+		return balance;
+	}
+
+	public void withdraw(int balance) {
+		this.balance = balance;
+	}
+
+	public static void main(String[] args) {
+
+		Account customer1 = new Account();
+		Account customer2 = new Account();
+
+		System.out.println("새로운 계좌가 만들어 졌습니다.");
+		System.out.println("50000원 저축");
+		customer1.withdraw(50000);
+		System.out.println("새로운 계좌가 만들어 졌습니다.");
+		System.out.println("100000원 저축");
+		customer2.withdraw(100000);
+
+		System.out.println("고객 #1 계좌 잔고=" + customer1.deposit());
+		System.out.println("고객 #2 계좌 잔고=" + customer2.deposit());
+	}
+
+}</code></pre>
+        </section>
+    </div>
+    <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+    <script>
+        var COPY_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+        document.querySelectorAll('.code-section').forEach(function (sec) {
+            var titleEl = sec.querySelector('.code-title');
+            var className = titleEl.textContent.trim();
+
+            var nameBtn = document.createElement('button');
+            nameBtn.className = 'copy-btn copy-name-btn';
+            nameBtn.innerHTML = COPY_ICON;
+            nameBtn.title = '클래스명 복사';
+            titleEl.appendChild(nameBtn);
+            nameBtn.addEventListener('click', function () { copyText(nameBtn, className); });
+
+            var preEl = sec.querySelector('pre');
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pre-wrapper';
+            preEl.parentNode.insertBefore(wrapper, preEl);
+            wrapper.appendChild(preEl);
+            var codeBtn = document.createElement('button');
+            codeBtn.className = 'copy-btn copy-code-btn';
+            codeBtn.innerHTML = COPY_ICON;
+            codeBtn.title = '코드 복사';
+            wrapper.appendChild(codeBtn);
+            codeBtn.addEventListener('click', function () { copyText(codeBtn, preEl.querySelector('code').innerText); });
+        });
+
+        function copyText(btn, text) {
+            var orig = btn.innerHTML;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(function () { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

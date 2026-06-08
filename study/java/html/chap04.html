@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 04 — 클래스와 객체</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        .page-header { background: #e67e22; color: white; padding: 30px 20px; text-align: center; }
+        .page-header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .page-header p { font-size: 0.9rem; opacity: 0.85; }
+        .back-link { display: inline-block; margin: 24px 20px 0; color: #e67e22; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-link:hover { text-decoration: underline; }
+        .content { max-width: 900px; margin: 0 auto; padding: 20px 20px 60px; flex: 1; }
+        .code-section { margin-bottom: 40px; }
+        .code-title { font-size: 1.1rem; color: #2c3e50; margin-bottom: 10px; padding: 8px 14px; background: white; border-left: 5px solid #e67e22; border-radius: 0 6px 6px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        pre { border-radius: 8px; overflow-x: auto; font-size: 0.88rem; }
+        footer { text-align: center; padding: 20px; background: #333; color: #aaa; font-size: 0.85rem; margin-top: 20px; }
+        .code-title { display: flex; align-items: center; justify-content: space-between; }
+        .copy-btn { font-size: 0.72rem; padding: 3px 10px; border-radius: 4px; cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap; border: 1px solid; }
+        .copy-btn.copied { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+        .copy-name-btn { background: #f0f0f0; color: #666; border-color: #ccc; flex-shrink: 0; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-name-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+        .pre-wrapper { position: relative; }
+        .copy-code-btn { position: absolute; top: 8px; right: 8px; z-index: 10; background: rgba(255,255,255,0.1); color: #bbb; border-color: #555; width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+        .copy-code-btn:hover { background: #e67e22; color: white; border-color: #e67e22; }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chapter 04 — 클래스와 객체</h1>
+        <p>클래스 정의, 객체 생성, 생성자, 접근 제어 실습</p>
+    </div>
+    <a href="../index.html" class="back-link">&#8592; 목록으로</a>
+    <div class="content">
+        <section class="code-section">
+            <h2 class="code-title">Account.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class Account {
+
+	private int regNumber;
+	private String name;
+	private int balance;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public static void main(String[] args) {
+		Account obj = new Account();
+		obj.setName("Tom");
+		obj.setBalance(100000);
+		System.out.println("이름은 " + obj.getName() + " 통장 잔고는 " + obj.getBalance() + "입니다. ");
+	}
+
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Circle.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class Circle {
+
+	int radius;
+
+	void setRadius(int r) {
+		radius = r;
+	}
+
+	double calcArea() {
+		return 3.14 * radius * radius;
+	}
+
+	void print() {
+		System.out.println("원의 반지름: "+radius);
+		System.out.println("원의 면적: "+calcArea());
+	}
+
+	public static void main(String[] args) {
+		Circle obj;
+		obj = new Circle();
+		obj.setRadius(100);
+
+		obj.print();
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">FrameTest.java</h2>
+            <pre><code class="language-java">package chap04;
+
+import javax.swing.JFrame;
+
+public class FrameTest {
+	public static void main(String[] args) {
+		JFrame f = new JFrame("Frame Test");
+
+		f.setSize(300, 200);
+		f.setVisible(true);
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">FrameTest2.java</h2>
+            <pre><code class="language-java">package chap04;
+
+import javax.swing.JFrame;
+
+public class FrameTest2 {
+	public static void main(String[] args) {
+		for (int i = 0; i &lt; 10; i++) {
+			JFrame f = new JFrame("Frame Test");
+
+			f.setSize(300, 200);
+			f.setLocation(i * 30, 20);
+			f.setVisible(true);
+		}
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Television.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class Television {
+
+	private int channel;
+	private int volume;
+	private boolean onOff;
+
+	Television(int c, int v, boolean o) {
+		channel = c;
+		volume = v;
+		onOff = o;
+	}
+
+	void print() {
+		System.out.println("채널은 " + channel + "이고 볼륨은 " + volume + "입니다.");
+	}
+
+	public static void main(String[] args) {
+		Television myTv = new Television(7, 10, true);
+		myTv.print();
+		Television yourTv = new Television(11, 20, true);
+		yourTv.print();
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Pizza.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class Pizza {
+
+	int size;
+	String type;
+
+	public Pizza() {
+		size = 12;
+		type = "슈퍼슈프림";
+	}
+
+	public Pizza(int s, String t) {
+		size = s;
+		type = t;
+	}
+
+	public static void main(String[] args) {
+		Pizza obj1 = new Pizza();
+		System.out.println("("+obj1.type+", "+obj1.size+")");
+
+		Pizza obj2 = new Pizza(24, "포테이토");
+		System.out.println("("+obj2.type+", "+obj2.size+")");
+	}
+
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">Box.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class Box {
+	int width, height, depth;
+
+	public static void main(String[] args) {
+		Box b = new Box();
+
+		System.out.println("상자의 크기: ("+b.width+","+b.height+","+b.depth+")");
+	}
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">test.java</h2>
+            <pre><code class="language-java">package chap04;
+
+public class test {
+
+	public static void A() {
+
+	}
+
+	public static void B() {
+
+	}
+
+	int a;
+	int b;
+
+
+}</code></pre>
+        </section>
+        <section class="code-section">
+            <h2 class="code-title">MyMathTest.java</h2>
+            <pre><code class="language-java">package chap04;
+
+class MyMath {
+	int square(int i) {
+		return i * i;
+	}
+
+	double square(double i) {
+		return i * i;
+	}
+}
+
+public class MyMathTest {
+	public static void main(String[] args) {
+		MyMath obj = new MyMath();
+		System.out.println(obj.square(10));
+		System.out.println(obj.square(3.14));
+	}
+}</code></pre>
+        </section>
+    </div>
+    <footer><p>© 2026 My Website — JAVA 프로그래밍</p></footer>
+    <script>
+        var COPY_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+        document.querySelectorAll('.code-section').forEach(function (sec) {
+            var titleEl = sec.querySelector('.code-title');
+            var className = titleEl.textContent.trim();
+
+            var nameBtn = document.createElement('button');
+            nameBtn.className = 'copy-btn copy-name-btn';
+            nameBtn.innerHTML = COPY_ICON;
+            nameBtn.title = '클래스명 복사';
+            titleEl.appendChild(nameBtn);
+            nameBtn.addEventListener('click', function () { copyText(nameBtn, className); });
+
+            var preEl = sec.querySelector('pre');
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pre-wrapper';
+            preEl.parentNode.insertBefore(wrapper, preEl);
+            wrapper.appendChild(preEl);
+            var codeBtn = document.createElement('button');
+            codeBtn.className = 'copy-btn copy-code-btn';
+            codeBtn.innerHTML = COPY_ICON;
+            codeBtn.title = '코드 복사';
+            wrapper.appendChild(codeBtn);
+            codeBtn.addEventListener('click', function () { copyText(codeBtn, preEl.querySelector('code').innerText); });
+        });
+
+        function copyText(btn, text) {
+            var orig = btn.innerHTML;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(function () { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
