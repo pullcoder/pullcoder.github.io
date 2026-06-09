@@ -129,32 +129,38 @@ a.course-item.course-link:hover {
 }
 
 /* ── 내 사이트 카드 ── */
+.mysite-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
 .mysite-card {
     display: flex;
-    align-items: center;
-    gap: 18px;
+    flex-direction: column;
+    gap: 14px;
     background: white;
     border-radius: 14px;
     padding: 22px 24px;
     text-decoration: none;
     color: #333;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-    border-left: 5px solid #3498db;
+    border-top: 4px solid #3498db;
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
 }
 
 .mysite-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.mysite-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-}
-
-.mysite-info {
-    flex: 1;
+.mysite-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #3498db;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .mysite-name {
@@ -167,16 +173,18 @@ a.course-item.course-link:hover {
 .mysite-desc {
     font-size: 0.88rem;
     color: #888;
+    line-height: 1.5;
+    flex: 1;
 }
 
 .mysite-arrow {
-    font-size: 1.3rem;
+    font-size: 0.82rem;
     color: #aaa;
-    transition: transform 0.2s, color 0.2s;
+    transition: color 0.2s;
+    align-self: flex-end;
 }
 
 .mysite-card:hover .mysite-arrow {
-    transform: translateX(5px);
     color: #3498db;
 }
 

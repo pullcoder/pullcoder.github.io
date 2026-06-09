@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groq Dark Chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #07070f;
+            --bg-secondary: #0d0d1a;
+            --bg-card: #12121e;
+            --bg-hover: #1a1a2e;
+            --border: #252538;
+            --text-primary: #e4e4f0;
+            --text-secondary: #7070a0;
+            --accent-purple: #7c3aed;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Header ── */
+        .header {
+            padding: 12px 24px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+            letter-spacing: -0.3px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .model-select {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 10px;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .model-select:focus { border-color: var(--accent-purple); }
+        .model-select option { background: var(--bg-card); }
+
+        /* ── Mood bar ── */
+        .mood-bar {
+            padding: 10px 24px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mood-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .chips { display: flex; gap: 7px; flex-wrap: wrap; }
+
+        .chip {
+            padding: 5px 13px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.18s;
+            user-select: none;
+        }
+        .chip:hover { color: var(--text-primary); border-color: #3a3a5c; }
+        .chip.active { color: #fff; font-weight: 600; border-color: transparent; }
+
+        .chip[data-mood="friendly"].active    { background: linear-gradient(135deg,#f59e0b,#ef4444); }
+        .chip[data-mood="professional"].active{ background: linear-gradient(135deg,#2563eb,#0891b2); }
+        .chip[data-mood="creative"].active    { background: linear-gradient(135deg,#7c3aed,#db2777); }
+        .chip[data-mood="empathetic"].active  { background: linear-gradient(135deg,#059669,#0d9488); }
+        .chip[data-mood="humorous"].active    { background: linear-gradient(135deg,#d97706,#dc2626); }
+        .chip[data-mood="philosophical"].active{ background: linear-gradient(135deg,#4f46e5,#7c3aed); }
+
+        /* ── Chat area ── */
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            scroll-behavior: smooth;
+        }
+        .chat-area::-webkit-scrollbar { width: 4px; }
+        .chat-area::-webkit-scrollbar-track { background: transparent; }
+        .chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        /* ── Messages ── */
+        .message {
+            display: flex;
+            gap: 10px;
+            max-width: 78%;
+            animation: fadeUp 0.25s ease;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message.ai   { align-self: flex-start; }
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .message.user .avatar { background: linear-gradient(135deg,#7c3aed,#2563eb); }
+        .message.ai  .avatar  { background: var(--bg-card); border: 1px solid var(--border); }
+
+        .msg-body {}
+
+        .bubble {
+            padding: 11px 15px;
+            border-radius: 16px;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .message.user .bubble {
+            background: linear-gradient(135deg,#7c3aed,#2563eb);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .message.ai .bubble {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg-meta {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            padding: 0 3px;
+        }
+        .message.user .msg-meta { text-align: right; }
+
+        /* ── Typing indicator ── */
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 11px 15px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+        .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            animation: bounce 1.3s infinite;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%,60%,100% { transform: translateY(0); }
+            30%          { transform: translateY(-7px); }
+        }
+
+        /* ── Welcome ── */
+        .welcome {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-secondary);
+            margin: auto;
+        }
+        .welcome h2 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg,#7c3aed,#06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .welcome p { font-size: 0.88rem; line-height: 1.7; }
+
+        /* ── Input area ── */
+        .input-area {
+            padding: 14px 24px 18px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 9px;
+            align-items: flex-end;
+        }
+
+        .input-box {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 15px;
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            max-height: 130px;
+            line-height: 1.55;
+            transition: border-color 0.2s;
+        }
+        .input-box:focus { border-color: var(--accent-purple); }
+        .input-box::placeholder { color: var(--text-secondary); }
+
+        .btn-send {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg,#7c3aed,#2563eb);
+            color: #fff;
+            transition: all 0.18s;
+            white-space: nowrap;
+            align-self: flex-end;
+        }
+        .btn-send:hover   { opacity: 0.88; transform: scale(1.02); }
+        .btn-send:disabled{ opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        .action-row {
+            display: flex;
+            gap: 7px;
+            margin-top: 9px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 5px 13px;
+            border-radius: 7px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.77rem;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.18s;
+            font-family: inherit;
+        }
+        .btn-sm:hover { color: var(--text-primary); border-color: #3a3a5c; }
+        .btn-danger:hover { color: #f87171; border-color: #7f1d1d; background: rgba(239,68,68,0.08); }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            opacity: 0;
+            transition: opacity 0.25s;
+            z-index: 999;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show { opacity: 1; }
+
+        /* ── Secret Settings Modal ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: 420px;
+            max-width: 90vw;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transform: translateY(10px);
+            transition: transform 0.2s;
+        }
+        .modal-overlay.open .modal { transform: translateY(0); }
+
+        .modal-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .modal-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .modal-input-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--bg-secondary);
+            border: 1px solid #3a2e6e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .modal-input-wrap:focus-within {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+        }
+        .modal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            outline: none;
+            font-family: 'Courier New', monospace;
+        }
+        .modal-input::placeholder { color: var(--text-secondary); font-family: 'Segoe UI', sans-serif; }
+        .modal-eye {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px 12px;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .modal-eye:hover { color: var(--text-primary); }
+        .modal-status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            width: fit-content;
+        }
+        .modal-status.ok    { background: rgba(5,150,105,0.2); color: #34d399; border: 1px solid rgba(5,150,105,0.3); }
+        .modal-status.empty { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .modal-save {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg,#7c3aed,#2563eb);
+            color: #fff;
+            transition: opacity 0.18s;
+        }
+        .modal-save:hover { opacity: 0.85; }
+        .modal-close {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.18s;
+            font-family: inherit;
+        }
+        .modal-close:hover { color: var(--text-primary); }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="logo" id="logo">✦ Groq Dark Chat</div>
+    <select class="model-select" id="modelSelect">
+        <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B</option>
+        <option value="llama-3.1-8b-instant">Llama 3.1 8B (빠름)</option>
+        <option value="llama3-70b-8192">Llama 3 70B</option>
+        <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+        <option value="gemma2-9b-it">Gemma 2 9B</option>
+        <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
+    </select>
+</div>
+
+<!-- Mood bar -->
+<div class="mood-bar">
+    <span class="mood-label">응답 스타일:</span>
+    <div class="chips">
+        <div class="chip active" data-mood="friendly">😊 친근한</div>
+        <div class="chip" data-mood="professional">💼 전문적인</div>
+        <div class="chip" data-mood="creative">🎨 창의적인</div>
+        <div class="chip" data-mood="empathetic">💚 공감적인</div>
+        <div class="chip" data-mood="humorous">😄 유머러스</div>
+        <div class="chip" data-mood="philosophical">🔮 철학적인</div>
+    </div>
+</div>
+
+<!-- Chat -->
+<div class="chat-area" id="chatArea">
+    <div class="welcome" id="welcome">
+        <h2>안녕하세요!</h2>
+        <p>원하는 응답 스타일을 선택한 뒤<br>대화를 시작해보세요.<br><br>
+        대화 내용은 자동으로 저장되며<br>텍스트 또는 JSON으로 내보낼 수 있습니다.</p>
+    </div>
+</div>
+
+<!-- Input -->
+<div class="input-area">
+    <div class="input-row">
+        <textarea class="input-box" id="inputBox" rows="1"
+            placeholder="메시지 입력... (Enter 전송 / Shift+Enter 줄바꿈)"></textarea>
+        <button class="btn-send" id="sendBtn" onclick="send()">전송</button>
+    </div>
+    <div class="action-row">
+        <button class="btn-sm" onclick="saveText()">📄 텍스트 저장</button>
+        <button class="btn-sm" onclick="saveJSON()">💾 JSON 저장</button>
+        <button class="btn-sm btn-danger" onclick="clearChat()">🗑 초기화</button>
+    </div>
+</div>
+
+<!-- Secret Settings Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal">
+        <div class="modal-title">🔑 API 키 설정</div>
+        <div>
+            <div class="modal-label">Groq API Key</div>
+            <div class="modal-input-wrap">
+                <input type="password" class="modal-input" id="modalApiKey"
+                    placeholder="gsk_..." />
+                <button class="modal-eye" onclick="toggleModalEye()">👁</button>
+            </div>
+        </div>
+        <div class="modal-status empty" id="modalStatus">미입력</div>
+        <div class="modal-btns">
+            <button class="modal-close" onclick="closeModal()">닫기</button>
+            <button class="modal-save" onclick="saveKey()">저장</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MOODS = {
+    friendly:     { label:'친근한',     prompt:'당신은 친근하고 따뜻한 AI입니다. 편안한 구어체를 사용하고 이모지를 적절히 써서 활기차게 대화합니다.' },
+    professional: { label:'전문적인',   prompt:'당신은 전문적이고 격식 있는 AI입니다. 정확하고 논리적인 답변을 체계적으로 제공합니다.' },
+    creative:     { label:'창의적인',   prompt:'당신은 창의적이고 독창적인 AI입니다. 새로운 아이디어와 독특한 관점으로 대화하며 예상치 못한 연결고리를 찾습니다.' },
+    empathetic:   { label:'공감적인',   prompt:'당신은 공감적이고 감성적인 AI입니다. 상대방의 감정에 깊이 공감하며 따뜻하고 위로가 되는 방식으로 대화합니다.' },
+    humorous:     { label:'유머러스',   prompt:'당신은 유머 감각이 풍부한 AI입니다. 재치 있는 농담과 가벼운 유머로 대화를 즐겁게 만들지만 중요한 정보는 정확하게 전달합니다.' },
+    philosophical:{ label:'철학적인',   prompt:'당신은 철학적이고 사색적인 AI입니다. 깊은 통찰과 철학적 관점으로 대화하며 질문 뒤에 숨겨진 더 깊은 의미를 탐구합니다.' }
+};
+
+let mood = 'friendly';
+let history = [];
+let busy = false;
+
+// ── Secret logo click (5회) ───────────────────────────────
+let logoClicks = 0, logoTimer = null;
+document.getElementById('logo').addEventListener('click', () => {
+    logoClicks++;
+    clearTimeout(logoTimer);
+    if (logoClicks >= 5) {
+        logoClicks = 0;
+        openModal();
+    } else {
+        logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+    }
+});
+
+// ── Modal ─────────────────────────────────────────────────
+function openModal() {
+    const saved = localStorage.getItem('gc_apikey') || '';
+    const input = document.getElementById('modalApiKey');
+    input.value = saved;
+    input.type = 'password';
+    document.getElementById('modalEye')?.textContent === '🙈' && (document.querySelector('.modal-eye').textContent = '👁');
+    updateModalStatus();
+    document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function toggleModalEye() {
+    const input = document.getElementById('modalApiKey');
+    const btn = document.querySelector('.modal-eye');
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁'; }
+}
+
+function updateModalStatus() {
+    const val = document.getElementById('modalApiKey').value.trim();
+    const el = document.getElementById('modalStatus');
+    if (val) { el.textContent = '입력됨 ✓'; el.className = 'modal-status ok'; }
+    else     { el.textContent = '미입력';    el.className = 'modal-status empty'; }
+}
+
+document.getElementById('modalApiKey').addEventListener('input', updateModalStatus);
+
+function saveKey() {
+    const val = document.getElementById('modalApiKey').value.trim();
+    if (val) {
+        localStorage.setItem('gc_apikey', val);
+        toast('API 키가 저장되었습니다.');
+    } else {
+        localStorage.removeItem('gc_apikey');
+        toast('API 키가 삭제되었습니다.');
+    }
+    closeModal();
+}
+
+// ── Persistence ──────────────────────────────────────────
+function persist() {
+    localStorage.setItem('gc_history', JSON.stringify(history));
+    localStorage.setItem('gc_mood', mood);
+    localStorage.setItem('gc_model', document.getElementById('modelSelect').value);
+}
+
+function restore() {
+    const m     = localStorage.getItem('gc_mood');
+    const model = localStorage.getItem('gc_model');
+    const hist  = localStorage.getItem('gc_history');
+
+    if (model) document.getElementById('modelSelect').value = model;
+    if (m && MOODS[m]) setMood(m);
+
+    if (hist) {
+        history = JSON.parse(hist);
+        if (history.length) {
+            document.getElementById('welcome')?.remove();
+            history.forEach(msg => renderMsg(msg.role, msg.content, msg.time));
+        }
+    }
+}
+
+// ── Mood ─────────────────────────────────────────────────
+function setMood(m) {
+    mood = m;
+    document.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('active', c.dataset.mood === m)
+    );
+}
+document.querySelectorAll('.chip').forEach(c =>
+    c.addEventListener('click', () => setMood(c.dataset.mood))
+);
+
+// ── Input ────────────────────────────────────────────────
+const inputBox = document.getElementById('inputBox');
+inputBox.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+inputBox.addEventListener('input', () => {
+    inputBox.style.height = 'auto';
+    inputBox.style.height = Math.min(inputBox.scrollHeight, 130) + 'px';
+});
+
+// ── Render ───────────────────────────────────────────────
+function now() {
+    return new Date().toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
+}
+
+function renderMsg(role, text, time) {
+    document.getElementById('welcome')?.remove();
+
+    const chatArea = document.getElementById('chatArea');
+    const isUser = role === 'user';
+
+    const wrap = document.createElement('div');
+    wrap.className = `message ${isUser ? 'user' : 'ai'}`;
+
+    const av = document.createElement('div');
+    av.className = 'avatar';
+    av.textContent = isUser ? '👤' : '✦';
+
+    const body = document.createElement('div');
+    body.className = 'msg-body';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
+
+    const meta = document.createElement('div');
+    meta.className = 'msg-meta';
+    meta.textContent = time || now();
+
+    body.appendChild(bubble);
+    body.appendChild(meta);
+    wrap.appendChild(av);
+    wrap.appendChild(body);
+    chatArea.appendChild(wrap);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function showTyping() {
+    const chatArea = document.getElementById('chatArea');
+    const wrap = document.createElement('div');
+    wrap.className = 'message ai';
+    wrap.id = 'typing';
+
+    const av = document.createElement('div');
+    av.className = 'avatar';
+    av.textContent = '✦';
+
+    const t = document.createElement('div');
+    t.className = 'typing';
+    for (let i=0; i<3; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        t.appendChild(d);
+    }
+
+    wrap.appendChild(av);
+    wrap.appendChild(t);
+    chatArea.appendChild(wrap);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function hideTyping() {
+    document.getElementById('typing')?.remove();
+}
+
+// ── Send ─────────────────────────────────────────────────
+async function send() {
+    if (busy) return;
+
+    const apiKey = localStorage.getItem('gc_apikey') || '';
+    if (!apiKey) { toast('서비스 준비 중입니다. 잠시 후 다시 시도해주세요.'); return; }
+
+    const text = inputBox.value.trim();
+    if (!text) return;
+
+    const t = now();
+    history.push({ role: 'user', content: text, time: t });
+    renderMsg('user', text, t);
+    inputBox.value = '';
+    inputBox.style.height = 'auto';
+
+    busy = true;
+    document.getElementById('sendBtn').disabled = true;
+    showTyping();
+
+    try {
+        const model = document.getElementById('modelSelect').value;
+        const systemPrompt = MOODS[mood].prompt;
+
+        const messages = [
+            { role: 'system', content: systemPrompt },
+            ...history.map(m => ({
+                role: m.role === 'model' ? 'assistant' : 'user',
+                content: m.content
+            }))
+        ];
+
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model,
+                messages,
+                temperature: 0.9,
+                max_tokens: 1500
+            })
+        });
+
+        if (!res.ok) {
+            const errData = await res.json();
+            const msg = errData.error?.message || `HTTP ${res.status}`;
+            if (res.status === 429) {
+                const retryMatch = msg.match(/try again in ([\d.]+)s/i);
+                const seconds = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) : null;
+                const retryHint = seconds ? ` (${seconds}초 후 재시도)` : '';
+                throw new Error(`요청 한도 초과${retryHint}`);
+            }
+            if (res.status === 401) throw new Error('API 키가 올바르지 않습니다.');
+            throw new Error(msg);
+        }
+
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content ?? '응답을 받지 못했습니다.';
+
+        const t2 = now();
+        history.push({ role: 'model', content: reply, time: t2 });
+        hideTyping();
+        renderMsg('model', reply, t2);
+        persist();
+
+    } catch (err) {
+        hideTyping();
+        renderMsg('model', `오류: ${err.message}`, now());
+    } finally {
+        busy = false;
+        document.getElementById('sendBtn').disabled = false;
+    }
+}
+
+// ── Save ─────────────────────────────────────────────────
+function saveText() {
+    if (!history.length) { toast('저장할 대화가 없습니다.'); return; }
+    let out = `Groq Dark Chat 대화 기록\n저장: ${new Date().toLocaleString('ko-KR')}\n스타일: ${MOODS[mood].label}\n${'─'.repeat(50)}\n\n`;
+    history.forEach(m => {
+        out += `[${m.time}] ${m.role === 'user' ? '나' : 'Groq'}:\n${m.content}\n\n`;
+    });
+    dl(out, `chat_${Date.now()}.txt`, 'text/plain');
+    toast('텍스트 파일로 저장되었습니다!');
+}
+
+function saveJSON() {
+    if (!history.length) { toast('저장할 대화가 없습니다.'); return; }
+    const payload = {
+        exportedAt: new Date().toISOString(),
+        mood,
+        moodLabel: MOODS[mood].label,
+        model: document.getElementById('modelSelect').value,
+        messages: history
+    };
+    dl(JSON.stringify(payload, null, 2), `chat_${Date.now()}.json`, 'application/json');
+    toast('JSON 파일로 저장되었습니다!');
+}
+
+function dl(content, filename, type) {
+    const a = Object.assign(document.createElement('a'), {
+        href: URL.createObjectURL(new Blob([content], { type })),
+        download: filename
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function clearChat() {
+    if (!history.length) return;
+    if (!confirm('대화 기록을 모두 초기화할까요?')) return;
+    history = [];
+    localStorage.removeItem('gc_history');
+    const chatArea = document.getElementById('chatArea');
+    chatArea.innerHTML = `<div class="welcome" id="welcome">
+        <h2>안녕하세요!</h2>
+        <p>원하는 응답 스타일을 선택한 뒤<br>대화를 시작해보세요.<br><br>
+        대화 내용은 자동으로 저장되며<br>텍스트 또는 JSON으로 내보낼 수 있습니다.</p>
+    </div>`;
+    toast('대화가 초기화되었습니다.');
+}
+
+// ── Toast ─────────────────────────────────────────────────
+function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+// ── Init ──────────────────────────────────────────────────
+restore();
+</script>
+</body>
+</html>

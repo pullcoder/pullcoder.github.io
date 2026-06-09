@@ -3,42 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>AI콘텐츠활용</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Pretendard', Arial, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #07070f;
+            color: #e4e4f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 16px 28px;
+            background: #0d0d1a;
+            border-bottom: 1px solid #252538;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-btn {
+            font-size: 0.82rem;
+            color: #7070a0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: #e4e4f0; }
+
+        main {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            color: #333;
+            padding: 48px 24px;
+            gap: 48px;
         }
-        .container { text-align: center; padding: 40px 20px; }
-        .icon { font-size: 4rem; margin-bottom: 24px; }
-        h1 { font-size: 1.6rem; color: #2c3e50; margin-bottom: 12px; }
-        p { font-size: 1rem; color: #888; margin-bottom: 32px; }
-        .back-btn {
-            display: inline-block;
-            padding: 10px 24px;
-            background: #2c3e50;
-            color: white;
+
+        .hero {
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            font-size: 0.92rem;
+            color: #7070a0;
+            line-height: 1.7;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: #12121e;
+            border: 1px solid #252538;
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: 260px;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
         }
-        .back-btn:hover { background: #34495e; }
+        .card:hover {
+            border-color: #7c3aed;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+        }
+        .card-icon { font-size: 2rem; }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e4e4f0;
+        }
+        .card-desc {
+            font-size: 0.82rem;
+            color: #7070a0;
+            line-height: 1.6;
+        }
+        .card-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: rgba(124,58,237,0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(124,58,237,0.3);
+            width: fit-content;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: #3a3a5c;
+            border-top: 1px solid #252538;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">🚧</div>
-        <h1>아직 준비되지 않았습니다.</h1>
-        <p>현재 제작 중인 페이지입니다. 조금만 기다려 주세요!</p>
-        <a href="../../index.html" class="back-btn">← 돌아가기</a>
+
+<header>
+    <h1>✦ AI콘텐츠활용</h1>
+    <a href="../../index.html" class="back-btn">← 돌아가기</a>
+</header>
+
+<main>
+    <div class="hero">
+        <h2>AI 도구 모음</h2>
+        <p>수업에서 만든 AI 활용 프로젝트들을 모아둔 공간입니다.<br>직접 만들고 사용해본 도구들을 체험해보세요.</p>
     </div>
+
+    <div class="cards">
+        <a href="chatbot.html" class="card">
+            <div class="card-icon">✦</div>
+            <div class="card-title">Groq Dark Chat</div>
+            <div class="card-desc">Groq API를 활용한 멀티모델 챗봇. 응답 스타일을 바꿔가며 대화할 수 있습니다.</div>
+            <div class="card-tag">Groq API</div>
+        </a>
+    </div>
+</main>
+
+<footer>© 2026 이정우</footer>
+
 </body>
 </html>
