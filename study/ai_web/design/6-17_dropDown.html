@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>예제6-17 수직 메뉴</title>
+    <link rel="stylesheet" href="css/color.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        #dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        #dropdown h4 {
+            text-align: center;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #dropdownMenu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 320px;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 0;
+            margin-top: 5px;
+        }
+
+        #dropdown:hover #dropdownMenu {
+            display: block;
+        }
+
+        #dropdownMenu a {
+            display: block;
+            padding: 10px 15px;
+            color: black;
+            text-decoration: none;
+        }
+
+        #dropdownMenu a:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="dropdown">
+        <!-- 드롭다운 제목 -->
+        <h4>DropDown 메뉴</h4>
+
+        <div id="dropdownMenu">
+            <a href="#">AI 역사</a>
+            <a href="#">html과 CSS3</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

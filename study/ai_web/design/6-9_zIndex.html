@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>예제 6-9 z-Index</title>
+  <style>
+    body {
+      position: relative;
+      height: 200px;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    #box1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 50px;
+      background: red;
+       color: white;
+      z-index: 20;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    #box2 {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 150px;
+      height: 50px;
+      background: blue;
+      color: white;
+      z-index: 10;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    #box3 {
+      position: absolute;
+      top: 60px;
+      left: 60px;
+      width: 150px;
+      height: 50px;
+      background: green;
+      color: white;
+      z-index: 0;
+      line-height: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="box1">Number #1 Z-index=20</div>
+
+  <div id="box2">Number #2 Z-index=10</div>
+
+  <div id="box3">Number #3 Z-index=0</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
