@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>예제7-1 translate (버튼 토글 + 밝은 테마 스크롤 코드)</title> 
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/color.css">
+    <style> 
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        /* 컨트롤 영역 및 버튼 스타일 */
+        .controls {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-right: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.btn-code {
+            background-color: #28a745;
+        }
+
+        button.btn-code:hover {
+            background-color: #218838;
+        }
+
+        /* 요소별 스타일 속성 표시용 code 태그 */
+        .inline-code {
+            display: inline-block;
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        /* 도형 박스 기본 스타일 */
+        .box {
+            width: 150px;
+            height: 80px;
+            color: white;
+            line-height: 80px;
+            text-align: center;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease;
+            border-radius: 6px;
+        }
+
+        /* 초기 transform 설정 */
+        div#trnsXY {
+            background-color: #e74c3c;
+            transform: translate(100px, 200px);
+        }
+
+        div#trnsX {
+            background-color: #2ecc71;
+            transform: translateX(150px);
+        }
+
+        div#trnsY {
+            background-color: #3498db;
+            transform: translateY(-50px);
+        }
+
+        /* ==========================================
+           전체 코드 표시 영역 (밝고 선명한 디자인)
+           ========================================== */
+        .code-container {
+            display: none; /* 기본 상태: 숨김 */
+            margin-top: 25px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #dcdfe6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            max-width: 900px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .code-header h3 {
+            margin: 0;
+            color: #333333;
+            font-size: 16px;
+        }
+
+        /* 스크롤바가 생성되는 코드 박스 영역 (밝은 테마) */
+        .code-scroll-box {
+            background-color: #f5f7fa; /* 밝은 회색 배경 */
+            border-radius: 6px;
+            max-height: 350px; /* 높이 제한 및 스크롤바 적용 */
+            overflow: auto;
+            border: 1px solid #e4e7ed;
+        }
+
+        /* 커스텀 스크롤바 스타일링 (밝은 톤) */
+        .code-scroll-box::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .code-scroll-box::-webkit-scrollbar-track {
+            background: #f5f7fa;
+        }
+
+        .code-scroll-box::-webkit-scrollbar-thumb {
+            background: #c0c4cc;
+            border-radius: 4px;
+        }
+
+        .code-scroll-box::-webkit-scrollbar-thumb:hover {
+            background: #909399;
+        }
+
+        pre#fullCodeBlock {
+            margin: 0;
+            padding: 15px;
+        }
+
+        pre#fullCodeBlock code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            color: #2c3e50; /* 짙은 네이비/블랙으로 선명한 가독성 */
+            white-space: pre;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Transform - translate()</h1>
+
+    <!-- 조작 및 코드 보기 버튼 영역 -->
+    <div class="controls">
+        <h3>1. 스타일 변경 동작</h3>
+        <button onclick="applyTransform('trnsXY', 'translate(150px, 50px)')">box1: translate(150px, 50px)</button>
+        <button onclick="applyTransform('trnsX', 'translateX(250px)')">box2: translateX(250px)</button>
+        <button onclick="applyTransform('trnsY', 'translateY(50px)')">box3: translateY(50px)</button>
+        <button onclick="resetTransforms()">원래대로 리셋</button>
+
+        <h3 style="margin-top: 15px;">2. 소스코드 확인</h3>
+        <button class="btn-code" id="toggleCodeBtn" onclick="toggleFullCode()">전체 코드 보기 <code>&lt;/&gt;</code></button>
+    </div>
+
+    <!-- 변형 박스 요소 목록 -->
+    <div>
+        <!-- <strong>Box 1:</strong> -->
+        <!-- <code class="inline-code" id="code-trnsXY">transform: translate(100px, 200px);</code> -->
+        <div id="trnsXY" class="box">Box 1</div>
+    </div>
+
+    <div>
+        <!-- <strong>Box 2:</strong> -->
+        <!-- <code class="inline-code" id="code-trnsX">transform: translateX(150px);</code> -->
+        <div id="trnsX" class="box">Box 2</div>
+    </div>
+
+    <div>
+        <!-- <strong>Box 3:</strong> -->
+        <!-- <code class="inline-code" id="code-trnsY">transform: translateY(-50px);</code> -->
+        <div id="trnsY" class="box">Box 3</div>
+    </div>
+
+    <!-- 전체 소스코드 스크롤 영역 (버튼 클릭 시 토글됨) -->
+    <div class="code-container" id="codeContainer">
+        <div class="code-header">
+            <h3>📄전체 소스코드</h3>
+            <button onclick="copyCode()" style="background-color: #17a2b8; margin: 0;">코드 복사하기</button>
+        </div>
+        <div class="code-scroll-box">
+            <pre><code id="fullCodeBlock"></code></pre>
+        </div>
+    </div>
+
+    <!-- JavaScript 로직 -->
+    <script>
+        // 현재 및 초기 스타일 값
+        const currentStyles = {
+            'trnsXY': 'translate(100px, 200px)',
+            'trnsX': 'translateX(150px)',
+            'trnsY': 'translateY(-50px)'
+        };
+
+        const defaultStyles = { ...currentStyles };
+
+        // 개별 transform 변경 함수
+        function applyTransform(elementId, transformValue) {
+            currentStyles[elementId] = transformValue;
+            document.getElementById(elementId).style.transform = transformValue;
+            document.getElementById('code-' + elementId).textContent = `transform: ${transformValue};`;
+            updateFullCode();
+        }
+
+        // 전체 초기화
+        function resetTransforms() {
+            for (let id in defaultStyles) {
+                applyTransform(id, defaultStyles[id]);
+            }
+        }
+
+        // 전체 코드 영역 열기/닫기 토글 기능
+        function toggleFullCode() {
+            const container = document.getElementById('codeContainer');
+            const btn = document.getElementById('toggleCodeBtn');
+            
+            if (container.style.display === 'block') {
+                container.style.display = 'none';
+                btn.innerHTML = '전체 코드 보기 <code>&lt;/&gt;</code>';
+            } else {
+                updateFullCode();
+                container.style.display = 'block';
+                btn.innerHTML = '코드 접기 ▲';
+            }
+        }
+
+        // 전체 소스코드 실시간 업데이트 함수
+        function updateFullCode() {
+            const fullHtmlCode = `<!DOCTYPE html>
+<html>
+<head>
+    <title>예제7-1 translate</title> 
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/color.css">
+    <style> 
+        div#trnsXY {
+            width: 150px;
+            height: 80px;
+            background-color: red;
+            transform: ${currentStyles['trnsXY']};
+        }
+
+        div#trnsX {
+            width: 150px;
+            height: 80px;
+            background-color: green;
+            transform: ${currentStyles['trnsX']};
+        }
+
+        div#trnsY {
+            width: 150px;
+            height: 80px;
+            background-color: blue;
+            transform: ${currentStyles['trnsY']};
+        }
+    </style>
+</head>
+<body>
+    <h1>Transform - translate()</h1>
+
+    <div id="trnsXY">translate</div><br>
+    <div id="trnsX">translateX</div><br>
+    <div id="trnsY">translateY</div>
+</body>
+</html>`;
+
+            document.getElementById('fullCodeBlock').textContent = fullHtmlCode;
+        }
+
+        // 코드 복사 기능
+        function copyCode() {
+            const codeText = document.getElementById('fullCodeBlock').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('전체 코드가 클립보드에 복사되었습니다!');
+            });
+        }
+    </script>
+</body>
+</html>

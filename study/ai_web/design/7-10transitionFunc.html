@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+transition-timing-function은 CSS transition의 속도 곡선(속도 변화 방식)을 제어하는 속성. 
+애니메이션이 시작해서 끝날 때까지 어떤 속도로 변화할 것인지를 설정.
+
+값			    설	명
+linear			시작부터 끝까지 일정한 속도로 진행
+ease			  기본값, 느리게 시작 → 빠르게 진행 → 느리게 끝남
+ease-in			느리게 시작, 끝은 빠름
+ease-out		빠르게 시작, 느리게 끝남
+ease-in-out		느리게 시작하고 느리게 끝남
+cubic-bezier(n,n,n,n)	사용자가 직접 속도 곡선을 정의
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>예제7-10 transition-timing-function</title>
+  <style>
+    /* 공통 박스 스타일 */
+    .box {
+      width: 100px;                 /* 박스 너비 */
+      height: 20px;                 /* 박스 높이 */
+      background-color: tomato;     /* 배경색 */
+      margin: 10px;                 /* 바깥 여백 */
+      transition: transform 1s;     /* transform 속성 1초 동안 변화 */
+    }
+
+    /* 마우스를 container 위에 올리면 모든 박스가 오른쪽으로 이동 */
+    .container:hover .linear { transform: translateX(300px); }
+    .container:hover .ease { transform: translateX(300px); }
+    .container:hover .ease-in { transform: translateX(300px); }
+    .container:hover .ease-out { transform: translateX(300px); }
+    .container:hover .ease-in-out { transform: translateX(300px); }
+
+    /* timing-function 별 차이 */
+    .linear { transition-timing-function: linear; }
+    /* 일정한 속도로 이동 */
+
+    .ease { transition-timing-function: ease; }
+    /* 천천히 시작 → 빠르게 → 다시 천천히 끝 */
+
+    .ease-in { transition-timing-function: ease-in; }
+    /* 느리게 시작 → 점점 빨라짐 */
+
+    .ease-out { transition-timing-function: ease-out; }
+    /* 빠르게 시작 → 점점 느려짐 */
+
+    .ease-in-out { transition-timing-function: ease-in-out; }
+    /* 느리게 시작 → 빨라짐 → 다시 느려짐 */
+  </style>
+</head>
+<body>
+  <h3>마우스를 아래 박스 위에 올려보세요</h3>
+  <div class="container">
+    <!-- 일정한 속도 -->
+    <div class="box linear">linear</div>
+
+    <!-- 천천히 시작 → 빠르게 → 천천히 끝 -->
+    <div class="box ease">ease</div>
+
+    <!-- 느리게 시작 → 점점 빨라짐 -->
+    <div class="box ease-in">ease-in</div>
+
+    <!-- 빠르게 시작 → 점점 느려짐 -->
+    <div class="box ease-out">ease-out</div>
+
+    <!-- 느리게 시작 → 빨라짐 → 다시 느려짐 -->
+    <div class="box ease-in-out">ease-in-out</div>
+  </div>
+</body>
+</html>

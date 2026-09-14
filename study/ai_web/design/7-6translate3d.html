@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+=========================================
+CSS 3D Transform 핵심 요약
+=========================================
+
+■ 3D Transform
+- x, y, z축을 이용한 입체적인 변형
+- 원근감(Perspective) 표현 가능
+- 애니메이션과 함께 사용하면 역동적인 UI 구현
+
+■ 주요 속성
+- transform            : 2D/3D 변형 적용
+- transform-origin     : 변형 기준점 설정
+- transform-style      : 3D 렌더링 방식 지정
+- perspective          : 원근감(시점) 설정
+- perspective-origin   : 시점 위치 설정
+- backface-visibility  : 뒷면 표시 여부
+
+■ 주요 메소드
+- translate3d(x,y,z) : 3축 이동
+- translateX/Y/Z()   : 축별 이동
+- scale3d(x,y,z)     : 3축 확대/축소
+- scaleX/Y/Z()       : 축별 크기 변경
+- rotate3d(...)      : 3축 회전
+- rotateX()          : X축 회전
+- rotateY()          : Y축 회전
+- rotateZ()          : Z축 회전
+- perspective(n)     : 원근감 적용
+- matrix3d(...)      : 행렬 기반 3D 변형
+
+※ 핵심
+- 2D : x, y축 변형
+- 3D : x, y, z축 + 원근감(Perspective)
+- translate3d, rotate3d, scale3d를 사용하여 입체 효과 구현
+-->
+<html>
+<head>
+    <title>3D Transform</title> 
+    <meta charset="utf-8">
+    <style> 
+        /* trns01: 가까운 원근(perspective 100px) + Z축 이동 */
+        div#trns01 {
+            width: 150px;
+            height: 80px;
+            background-color: green;   
+            transform: perspective(100px) translate3D(50px, 20px, 50px);
+            /* perspective(100px): 깊이감이 크게 보임 (근접 원근)
+               translate3D(X=50px, Y=20px, Z=50px): 오른쪽 50px, 아래 20px, 화면 앞으로 50px 이동 */
+        }
+
+        /* trns02: 중간 원근(perspective 200px) + Z축 이동 없음 */
+        div#trns02 {
+            width: 150px;
+            height: 80px;
+            background-color: orange;  
+            transform: perspective(200px) translate3D(50px, 20px, 0px);
+            /* perspective(200px): 원근 효과 중간
+               translate3D(X=50px, Y=20px, Z=0px): 오른쪽 50px, 아래 20px, Z축 이동 없음 */
+        }
+
+        /* trns03: 넓은 원근(perspective 300px) + Z축 뒤로 이동 */
+        div#trns03 {
+            width: 150px;
+            height: 80px;
+            background-color: blue; 
+            transform: perspective(300px) translate3D(50px, 20px, -50px);
+            /* perspective(300px): 원근 효과가 완만
+               translate3D(X=50px, Y=20px, Z=-50px): 오른쪽 50px, 아래 20px, 화면 뒤로 50px 이동 */
+        }
+
+        /* trns04: 넓은 원근 + Z축 앞으로 이동 */
+        div#trns04 {
+            width: 150px;
+            height: 80px;
+            background-color: red;  
+            transform: perspective(300px) translate3D(50px, 20px, 50px);
+            /* perspective(300px): 원근 효과 완만
+               translate3D(X=50px, Y=20px, Z=50px): 오른쪽 50px, 아래 20px, 화면 앞으로 50px 이동 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Transform3D - translate()</h1>
+
+    <!-- 가까운 원근 + 앞으로 이동 -->
+    <div id="trns01">transform: perspective(100px)</div>
+
+    <!-- 중간 원근 + Z축 이동 없음 -->
+    <div id="trns02">transform: perspective(200px)</div>
+
+    <!-- 넓은 원근 + 뒤로 이동 -->
+    <div id="trns03">transform: perspective(300px)</div>
+
+    <!-- 넓은 원근 + 앞으로 이동 -->
+    <div id="trns04">transform: translate3D(50px,20px,50px)</div>
+</body>
+</html>
