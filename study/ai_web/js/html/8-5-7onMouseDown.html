@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>onmousedown 예제</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 100px;
+            background-color: #2196F3;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>onmousedown / onmouseup 실습</h2>
+
+    <!-- 마우스 버튼을 누를 때(onmousedown)와 뗄 때(onmouseup) 각각 이벤트 호출 -->
+    <!-- ※ onclick은 "눌렀다 뗀 후" 한 번 실행, onmousedown은 "누르는 순간" 바로 실행 -->
+    <div id="box"
+         onmousedown="handleMouseDown(this, event)"
+         onmouseup="handleMouseUp(this)">
+        마우스를 눌러보세요
+    </div>
+
+    <p id="result"></p>
+
+    <script>
+        // 마우스 버튼을 누르는 순간 실행
+        function handleMouseDown(element, event) {
+            element.style.backgroundColor = "#f44336";
+            element.innerText = "누르고 있음!";
+
+            // event.button : 0 = 왼쪽, 1 = 가운데(휠), 2 = 오른쪽 버튼
+            var buttons = ["왼쪽", "가운데", "오른쪽"];
+            document.getElementById("result").innerHTML =
+                "누른 버튼: <b>" + buttons[event.button] + "</b>";
+        }
+
+        // 마우스 버튼을 떼면 실행 (원상복구)
+        function handleMouseUp(element) {
+            element.style.backgroundColor = "#2196F3";
+            element.innerText = "마우스를 눌러보세요";
+        }
+    </script>
+</body>
+</html>

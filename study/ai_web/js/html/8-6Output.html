@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- 
+자바스크립트 출력 방법 요약
+
+1. document.write() : HTML 문서에 직접 출력
+2. innerHTML : 특정 요소의 콘텐츠 변경하여 출력
+3. window.alert() : 팝업 경고창으로 메시지 표시
+4. console.log() : 개발자 도구 콘솔에 출력 (디버깅용)
+-->
+
+<html>
+<head>
+    <title>예제8-6 출력문</title>
+</head>
+<body>
+<h1>JavaScript Output</h1>
+<p id="output"></p>
+    <script>
+        document.write("outPut1:write"); 
+        // document.write() : HTML 문서에 직접 문자열 출력
+
+        document.getElementById("output").innerHTML = "outPut2:innerHTML"; 
+        // innerHTML : 특정 요소(id="output") 안에 내용 삽입
+
+        window.alert("outPut3:alert"); 
+        // alert : 팝업 창으로 메시지 출력
+
+        console.log("outPut4:console"); 
+        // console.log : 브라우저 개발자 도구 콘솔에 메시지 출력
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+버튼 함수를 이용한 연산자 예제
+
+1. 두 개의 input에 숫자를 입력
+2. 연산자 버튼을 클릭하면 onclick 이벤트로 함수 호출
+3. 함수 안에서 input 값을 읽어 연산 후 innerHTML로 결과 출력
+
+※ input의 value는 항상 "문자열"이므로 Number()로 숫자 변환이 필요
+   (변환하지 않으면 "10" + "6" = "106" 처럼 문자열 연결이 됨)
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예제8-8 버튼함수를 이용한 연산자</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { width: 80px; padding: 5px; font-size: 16px; }
+        button { min-width: 50px; margin: 3px; padding: 6px 10px; font-size: 15px; cursor: pointer; }
+        .group { margin: 12px 0; }
+        .group b { display: inline-block; width: 110px; }
+        #result { margin-top: 20px; padding: 12px; border: 2px solid #4a90e2; border-radius: 8px; font-size: 18px; min-height: 24px; }
+    </style>
+</head>
+<body>
+    <h3>버튼함수를 이용한 오퍼레이션</h3>
+
+    <!-- 1. 값 입력 -->
+    x = <input type="number" id="x" value="10">
+    y = <input type="number" id="y" value="6">
+
+    <!-- 2. 연산자 버튼 : 클릭하면 calc() 함수에 연산자 기호를 전달 -->
+    <div class="group">
+        <b>산술 연산자</b>
+        <button onclick="calc('+')">+</button>
+        <button onclick="calc('-')">-</button>
+        <button onclick="calc('*')">*</button>
+        <button onclick="calc('/')">/</button>
+        <button onclick="calc('**')">**</button>
+        <button onclick="calc('%')">%</button>
+    </div>
+
+    <div class="group">
+        <b>증감 연산자</b>
+        <button onclick="increase()">x++</button>
+        <button onclick="decrease()">x--</button>
+    </div>
+
+    <div class="group">
+        <b>문자열 연산</b>
+        <button onclick="concat()">x + y (문자열)</button>
+    </div>
+
+    <div class="group">
+        <b>비교 연산자</b>
+        <button onclick="calc('==')">==</button>
+        <button onclick="calc('===')">===</button>
+        <button onclick="calc('!=')">!=</button>
+        <button onclick="calc('>')">&gt;</button>
+        <button onclick="calc('<')">&lt;</button>
+    </div>
+
+    <div class="group">
+        <b>논리 연산자</b>
+        <button onclick="calc('&&')">x&gt;5 &amp;&amp; y&gt;5</button>
+        <button onclick="calc('||')">x&gt;5 || y&gt;5</button>
+        <button onclick="calc('!')">!(x&gt;y)</button>
+    </div>
+
+    <!-- 3. 결과 출력 영역 -->
+    <div id="result">버튼을 눌러보세요.</div>
+
+    <p><a href="8-8operation.html">← 연산자 예제로 돌아가기</a></p>
+
+    <script>
+        // input 값을 숫자로 읽어오는 함수
+        function getX() { return Number(document.getElementById("x").value); }
+        function getY() { return Number(document.getElementById("y").value); }
+
+        // 결과를 화면에 출력하는 함수
+        function show(text) {
+            document.getElementById("result").innerHTML = text;
+        }
+
+        // 연산자 기호(op)에 따라 계산하는 함수
+        function calc(op) {
+            var x = getX(), y = getY();
+            var r;
+
+            switch (op) {
+                // 산술 연산자
+                case '+':   r = x + y;   break;
+                case '-':   r = x - y;   break;
+                case '*':   r = x * y;   break;
+                case '/':   r = x / y;   break;
+                case '**':  r = x ** y;  break;
+                case '%':   r = x % y;   break;
+                // 비교 연산자 (결과는 true / false)
+                case '==':  r = x == y;  break;
+                case '===': r = x === y; break;
+                case '!=':  r = x != y;  break;
+                case '>':   r = x > y;   break;
+                case '<':   r = x < y;   break;
+                // 논리 연산자
+                case '&&':  show("(" + x + " > 5) && (" + y + " > 5) = <b>" + (x > 5 && y > 5) + "</b>"); return;
+                case '||':  show("(" + x + " > 5) || (" + y + " > 5) = <b>" + (x > 5 || y > 5) + "</b>"); return;
+                case '!':   show("!(" + x + " > " + y + ") = <b>" + !(x > y) + "</b>"); return;
+            }
+            show(x + " " + op + " " + y + " = <b>" + r + "</b>");
+        }
+
+        // 증가 연산자 : x 값을 1 올려서 input에 다시 넣음
+        function increase() {
+            var x = getX();
+            x++;
+            document.getElementById("x").value = x;
+            show("x++ → x = <b>" + x + "</b>");
+        }
+
+        // 감소 연산자 : x 값을 1 내려서 input에 다시 넣음
+        function decrease() {
+            var x = getX();
+            x--;
+            document.getElementById("x").value = x;
+            show("x-- → x = <b>" + x + "</b>");
+        }
+
+        // 문자열 연산 : Number()로 바꾸지 않고 value 그대로 더하면 문자열 연결
+        function concat() {
+            var x = document.getElementById("x").value;
+            var y = document.getElementById("y").value;
+            show('"' + x + '" + "' + y + '" = <b>"' + (x + y) + '"</b> (문자열 연결)');
+        }
+    </script>
+</body>
+</html>
