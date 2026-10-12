@@ -75,7 +75,7 @@
             {
                 id: 'js', label: 'JavaScript', color: '#c99a06',
                 desc: '출력, 변수, 연산자, 함수, 이벤트, 조건문, 반복문',
-                list: 'js/jsTag.html', dir: 'js/html/',
+                list: 'js/jsTag.html', dir: 'js/',
                 items: [
                     ['8-1externjs.html', '외부 자바스크립트'],
                     ['8-2Onexternjs.html', '이벤트 외부 자바스크립트'],
