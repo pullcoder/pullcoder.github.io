@@ -3,76 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
     <title>이정우 | 포트폴리오</title>
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="assets/js/site-header.js" defer></script>
 </head>
 <body>
 
-    <!-- 히어로 -->
-    <header class="hero">
-        <div class="hero-inner">
-            <h1 class="hero-name">이정우</h1>
-            <p class="hero-sub">AI소프트웨어과 · 2026학번</p>
-            <p class="hero-desc">배운 것들을 기록하고 만든 것들을 공유하는 공간입니다.</p>
-        </div>
-    </header>
+    <main class="wrap">
 
-    <main class="site-main">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="fade-up">
+                <p class="eyebrow">// portfolio</p>
+                <h1>안녕하세요,<br><span class="grad">이정우</span>입니다.</h1>
+                <p class="role">AI소프트웨어과 · 2026학번</p>
+                <p class="desc">배운 것들을 기록하고 만든 것들을 공유하는 공간입니다.</p>
+                <div class="btn-row">
+                    <a class="btn btn-primary" href="#courses">수업 자료 보기 →</a>
+                    <a class="btn btn-ghost" href="https://github.com/pullcoder/pullcoder.github.io" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+
+            <div class="terminal fade-up" aria-hidden="true">
+                <div class="t-head"><i></i><i></i><i></i><span>~/pullcoder</span></div>
+<pre><span class="t-prompt">$</span> <span class="t-cmd">cat profile.json</span>
+{
+  <span class="t-key">"name"</span>: <span class="t-str">"이정우"</span>,
+  <span class="t-key">"major"</span>: <span class="t-str">"AI소프트웨어과"</span>,
+  <span class="t-key">"year"</span>: <span class="t-num">2026</span>,
+  <span class="t-key">"learning"</span>: [<span class="t-str">"Web"</span>, <span class="t-str">"Java"</span>, <span class="t-str">"AI"</span>]
+}
+<span class="t-prompt">$</span> <span class="t-cmd">ls study/</span>
+introduction_it  ai_web  excel
+ai_content  java
+<span class="t-prompt">$</span> <span class="t-cursor"></span></pre>
+            </div>
+        </section>
 
         <!-- 수업 목록 -->
-        <section class="section">
-            <h2 class="section-title">수업 목록</h2>
-            <div class="professor-grid">
-
-                <div class="professor-card">
-                    <div class="professor-name">박경배 교수님</div>
-                    <ul class="course-list">
-                        <li><a href="study/introduction_it/index.html" class="course-item course-link">IT개론</a></li>
-                        <li><a href="study/ai_web/index.html" class="course-item course-link">AI웹프로그래밍</a></li>
-                    </ul>
-                </div>
-
-                <div class="professor-card">
-                    <div class="professor-name">홍성준 교수님</div>
-                    <ul class="course-list">
-                        <li><a href="study/excel/index.html" class="course-item course-link">컴퓨터활용능력</a></li>
-                        <li><a href="study/ai_content/index.html" class="course-item course-link">AI콘텐츠활용</a></li>
-                    </ul>
-                </div>
-
-                <div class="professor-card">
-                    <div class="professor-name">홍광희 교수님</div>
-                    <ul class="course-list">
-                        <li><a href="study/java/index.html" class="course-item course-link">JAVA프로그래밍</a></li>
-                        <li><span class="course-item">인공지능활용</span></li>
-                        <!-- <li><a href="study/utilizing_artificial_intelligence/index.html" class="course-item course-link">인공지능활용</a></li> -->
-                    </ul>
-                </div>
-
-            </div>
+        <section class="section" id="courses">
+            <h2 class="section-title"><span class="no">01.</span>수업 목록</h2>
+            <ul class="course-grid">
+                <li>
+                    <a class="course-card" style="--c:#0891b2" href="study/introduction_it/index.html">
+                        <span class="prof">박경배 교수님</span>
+                        <span class="name">IT개론</span>
+                        <span class="desc">OSI 7계층 · 보안 위협 · CSS 선택자 정리 자료</span>
+                        <span class="meta"><span>introduction_it/</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="course-card" style="--c:#4f46e5" href="study/ai_web/index.html">
+                        <span class="prof">박경배 교수님</span>
+                        <span class="name">AI웹프로그래밍</span>
+                        <span class="desc">HTML · CSS · JavaScript 수업 예제와 CSS 디자인 실습</span>
+                        <span class="meta"><span>ai_web/</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="course-card" style="--c:#16a34a" href="study/excel/index.html">
+                        <span class="prof">홍성준 교수님</span>
+                        <span class="name">컴퓨터활용능력</span>
+                        <span class="desc">엑셀 실습 파일을 브라우저에서 바로 보는 뷰어</span>
+                        <span class="meta"><span>excel/</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="course-card" style="--c:#9333ea" href="study/ai_content/index.html">
+                        <span class="prof">홍성준 교수님</span>
+                        <span class="name">AI콘텐츠활용</span>
+                        <span class="desc">수업에서 만든 AI 활용 프로젝트 (Groq 챗봇)</span>
+                        <span class="meta"><span>ai_content/</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="course-card" style="--c:#ea580c" href="study/java/index.html">
+                        <span class="prof">홍광희 교수님</span>
+                        <span class="name">JAVA프로그래밍</span>
+                        <span class="desc">챕터별 실습 코드와 연습문제 풀이</span>
+                        <span class="meta"><span>java/</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <div class="course-card is-soon" style="--c:#64748b">
+                        <span class="prof">홍광희 교수님</span>
+                        <span class="name">인공지능활용</span>
+                        <span class="desc">준비 중입니다.</span>
+                        <span class="meta"><span>coming soon</span><span>…</span></span>
+                    </div>
+                    <!-- 준비되면 div 를 a 로 바꾸고 href="study/utilizing_artificial_intelligence/index.html" 연결 -->
+                </li>
+            </ul>
         </section>
 
         <!-- 내 사이트 -->
         <!-- <section class="section">
-            <h2 class="section-title">내 사이트</h2>
-            <div class="mysite-grid">
-
-                <a href="https://pullcoder.github.io/mysite/" target="_blank" rel="noopener" class="mysite-card">
-                    <div class="mysite-num">No. 01</div>
-                    <div>
-                        <div class="mysite-name">익명사이트</div>
-                        <div class="mysite-desc">직접 만든 첫 번째 개인 웹사이트</div>
-                    </div>
-                    <div class="mysite-arrow">↗ pullcoder.github.io</div>
-                </a>
-
-            </div>
+            <h2 class="section-title"><span class="no">02.</span>내 사이트</h2>
+            <ul class="course-grid">
+                <li>
+                    <a class="course-card" href="https://pullcoder.github.io/mysite/" target="_blank" rel="noopener">
+                        <span class="prof">No. 01</span>
+                        <span class="name">익명사이트</span>
+                        <span class="desc">직접 만든 첫 번째 개인 웹사이트</span>
+                        <span class="meta"><span>pullcoder.github.io</span><span class="go">↗</span></span>
+                    </a>
+                </li>
+            </ul>
         </section> -->
 
     </main>
 
     <footer class="site-footer">
-        <p>© 2026 이정우. All rights reserved.</p>
+        <div class="wrap">
+            <p>© 2026 이정우. All rights reserved.</p>
+            <p class="mono"><a href="https://github.com/pullcoder" target="_blank" rel="noopener">github.com/pullcoder</a></p>
+        </div>
     </footer>
 
 </body>

@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excel Viewer</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="../../assets/js/site-header.js" defer></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
+    font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #f6f8fb;
+    color: #1e293b;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,36 +22,39 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 16px;
-    background: #2c3e50;
-    color: #fff;
+    padding: 10px clamp(16px, 4vw, 32px);
+    background: #fff;
+    color: #1e293b;
+    border-bottom: 1px solid #e3e8ef;
     flex-wrap: wrap;
   }
 
-  .topbar label { font-size: 0.85rem; color: #aaa; }
+  .topbar label { font-size: 0.85rem; color: #64748b; font-weight: 500; }
 
   select {
     padding: 6px 10px;
-    border-radius: 6px;
-    border: none;
+    border-radius: 8px;
+    border: 1px solid #e3e8ef;
+    font: inherit;
     font-size: 0.85rem;
-    background: #3d5166;
-    color: #fff;
+    background: #f1f5f9;
+    color: #1e293b;
     cursor: pointer;
     outline: none;
+    max-width: 100%;
   }
-  select:focus { outline: 2px solid #4a90e2; }
+  select:focus { outline: 2px solid #16a34a; }
 
   .nav-btn {
     padding: 5px 10px;
-    border-radius: 6px;
-    border: none;
-    background: #3d5166;
-    color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e3e8ef;
+    background: #f1f5f9;
+    color: #1e293b;
     cursor: pointer;
     font-size: 0.85rem;
   }
-  .nav-btn:hover { background: #4a90e2; }
+  .nav-btn:hover { background: #16a34a; border-color: #16a34a; color: #fff; }
   .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   /* 이전 화면 버튼 */
@@ -83,7 +88,7 @@
     cursor: pointer;
     white-space: nowrap;
   }
-  .sheet-tab.active { background: #4a90e2; color: #fff; border-color: #4a90e2; }
+  .sheet-tab.active { background: #16a34a; color: #fff; border-color: #16a34a; }
   .sheet-tab.chart { background: #f4f4f4; color: #aaa; cursor: not-allowed; font-style: italic; }
 
   .row-count { margin-left: auto; font-size: 0.8rem; color: #aaa; white-space: nowrap; }
@@ -102,12 +107,13 @@
   thead th {
     position: sticky;
     top: 0;
-    background: #2c3e50;
-    color: #fff;
+    background: #f0fdf4;
+    color: #14532d;
+    border-bottom: 1px solid #bbf7d0;
     padding: 10px 14px;
     text-align: left;
     white-space: pre-line;
-    border-right: 1px solid #3d5166;
+    border-right: 1px solid #dcfce7;
     font-weight: 600;
     font-size: 0.8rem;
     line-height: 1.4;
@@ -115,7 +121,7 @@
 
   tbody tr:nth-child(even) { background: #f8f9fa; }
   tbody tr:nth-child(odd) { background: #fff; }
-  tbody tr:hover { background: #e8f0fe; }
+  tbody tr:hover { background: #ecfdf5; }
 
   tbody td {
     padding: 8px 14px;
@@ -150,9 +156,6 @@ const FILES = [
 </script>
 
 <div class="topbar">
-  <!-- 이전 화면으로 버튼 -->
-  <button class="back-btn" onclick="history.back()">← 이전 화면</button>
-
   <label>파일 선택</label>
   <button class="nav-btn" id="prevBtn" onclick="changeFile(-1)">◀</button>
   <select id="fileSelect" onchange="loadFile(this.value)"></select>

@@ -3,81 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>AI 웹 프로그래밍</title>
-    <script src="header.js"></script>
+    <title>AI 웹 프로그래밍 | pullcoder</title>
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="header.js" defer></script>
 </head>
 <body>
 
-    <section id="intro">
-        <h2>01. 홈페이지 소개</h2>
-        <div class="intro-box">
-            <p>안녕하세요! 이 웹사이트는 저의 학습 기록과 프로젝트를 담는 공간입니다. <strong>AI 웹 프로그래밍</strong> 수업을 통해 배운 기술들을 정리하고, 다양한 웹 개발 정보를 공유합니다.</p>
-        </div>
-    </section>
+    <main class="wrap">
 
-    <section id="tech-stack">
-        <h2>02. 웹 기술 스택</h2>
-        <ul class="tech-list">
-            <li class="tech-item">
-                <a href="html/htmlTag.html">HTML5</a>
-            </li>
-            <li class="tech-item">
-                <a href="css/cssTag.html">CSS3</a>
-            </li>
-            <li class="tech-item">
-                <a href="js/jsTag.html">JavaScript</a>
-            </li>
-            <li class="tech-item">
-                <a href="design/designTag.html">CSS 디자인</a>
-            </li>
-        </ul>
-    </section>
+        <!-- Hero -->
+        <section class="hero" id="intro">
+            <div class="fade-up">
+                <p class="eyebrow">// AI Web Programming</p>
+                <h1>배운 것을 <span class="grad">코드로 기록</span>하는<br>웹 개발 학습 노트</h1>
+                <p>HTML · CSS · JavaScript 수업 예제를 정리한 공간입니다. 각 예제는 실제로 동작하는 페이지로 확인할 수 있습니다.</p>
+                <div class="btn-row">
+                    <a class="btn btn-primary" href="#tech-stack">예제 둘러보기 →</a>
+                    <a class="btn btn-ghost" href="https://github.com/pullcoder/pullcoder.github.io" target="_blank" rel="noopener">GitHub</a>
+                </div>
+                <div class="chips">
+                    <span class="chip">HTML5</span>
+                    <span class="chip">CSS3</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive</span>
+                </div>
+            </div>
 
-    <section id="gallery">
-        <h2>03. 사진 갤러리</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="img/gallery_08.jpg" alt="갤러리 이미지" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            <div class="terminal fade-up" aria-hidden="true">
+                <div class="t-head"><i></i><i></i><i></i><span>~/study/ai_web</span></div>
+<pre><span class="t-prompt">$</span> <span class="t-cmd">whoami</span>
+pullcoder
+<span class="t-prompt">$</span> <span class="t-cmd">cat about.json</span>
+{
+  <span class="t-key">"course"</span>: <span class="t-str">"AI 웹 프로그래밍"</span>,
+  <span class="t-key">"stack"</span>: [<span class="t-str">"HTML"</span>, <span class="t-str">"CSS"</span>, <span class="t-str">"JS"</span>],
+  <span class="t-key">"focus"</span>: <span class="t-str">"web + server security"</span>
+}
+<span class="t-com"># 아래에서 예제를 골라보세요</span>
+<span class="t-prompt">$</span> <span class="t-cursor"></span></pre>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery_09.jpg" alt="갤러리 이미지" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            </div>
-            <div class="gallery-item">
-                <img src="img/gallery_01.jpg" alt="갤러리 이미지" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            </div>
-            <div class="gallery-item">
-                <img src="img/gallery_03.jpg" alt="갤러리 이미지" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="server-security">
-        <h2>04. 서버 보안 소개</h2>
-        <div class="security-box">
-            <p>서버 보안은 서비스의 안정성을 보장하는 방어 체계입니다. 데이터의 기밀성, 무결성, 가용성 유지를 위해 필수적인 요소들을 학습합니다.</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li>침입 방지 시스템(IPS/IDS) 운용</li>
-                <li>SSL/TLS 암호화 통신 적용</li>
-                <li>최소 권한 원칙의 계정 관리</li>
+        <!-- 01. 소개 -->
+        <section class="section" id="about">
+            <h2 class="section-title"><span class="no">01.</span>홈페이지 소개</h2>
+            <div class="card intro">
+                <p>안녕하세요! 이 웹사이트는 저의 학습 기록과 프로젝트를 담는 공간입니다. <strong>AI 웹 프로그래밍</strong> 수업을 통해 배운 기술들을 정리하고, 다양한 웹 개발 정보를 공유합니다.</p>
+            </div>
+        </section>
+
+        <!-- 02. 기술 스택 (예제 개수는 header.js 목록에서 자동 계산) -->
+        <section class="section" id="tech-stack">
+            <h2 class="section-title"><span class="no">02.</span>웹 기술 스택</h2>
+            <ul class="stack-grid">
+                <li>
+                    <a class="stack-card c-html" href="html/htmlTag.html">
+                        <span class="ext">&lt;html&gt;</span>
+                        <span class="name">HTML5</span>
+                        <span class="desc">문서 구조, 텍스트, 테이블, 이미지, 폼, 멀티미디어</span>
+                        <span class="meta"><span><span data-lesson-count="html">-</span> examples</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="stack-card c-css" href="css/cssTag.html">
+                        <span class="ext">{ css }</span>
+                        <span class="name">CSS3</span>
+                        <span class="desc">선택자, 폰트, 색상, 경계선, 박스 모델</span>
+                        <span class="meta"><span><span data-lesson-count="css">-</span> examples</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="stack-card c-js" href="js/jsTag.html">
+                        <span class="ext">( ) =&gt; js</span>
+                        <span class="name">JavaScript</span>
+                        <span class="desc">출력, 변수, 연산자, 함수, 이벤트, 조건문, 반복문</span>
+                        <span class="meta"><span><span data-lesson-count="js">-</span> examples</span><span class="go">→</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="stack-card c-design" href="design/designTag.html">
+                        <span class="ext">@keyframes</span>
+                        <span class="name">CSS 디자인</span>
+                        <span class="desc">position, float, 네비게이션, transform, animation</span>
+                        <span class="meta"><span><span data-lesson-count="design">-</span> examples</span><span class="go">→</span></span>
+                    </a>
+                </li>
             </ul>
+        </section>
+
+        <!-- 03. 갤러리 -->
+        <section class="section" id="gallery">
+            <h2 class="section-title"><span class="no">03.</span>사진 갤러리</h2>
+            <div class="gallery">
+                <figure><img src="img/gallery_08.jpg" alt="갤러리 이미지 1" loading="lazy"></figure>
+                <figure><img src="img/gallery_09.jpg" alt="갤러리 이미지 2" loading="lazy"></figure>
+                <figure><img src="img/gallery_01.jpg" alt="갤러리 이미지 3" loading="lazy"></figure>
+                <figure><img src="img/gallery_03.jpg" alt="갤러리 이미지 4" loading="lazy"></figure>
+            </div>
+        </section>
+
+        <!-- 04. 서버 보안 -->
+        <section class="section" id="server-security">
+            <h2 class="section-title"><span class="no">04.</span>서버 보안 소개</h2>
+            <div class="card">
+                <p>서버 보안은 서비스의 안정성을 보장하는 방어 체계입니다. 데이터의 기밀성, 무결성, 가용성 유지를 위해 필수적인 요소들을 학습합니다.</p>
+                <ul class="checklist">
+                    <li>침입 방지 시스템(IPS/IDS) 운용</li>
+                    <li>SSL/TLS 암호화 통신 적용</li>
+                    <li>최소 권한 원칙의 계정 관리</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 05. SNS -->
+        <section class="section" id="sns-links">
+            <h2 class="section-title"><span class="no">05.</span>소셜 네트워크 (SNS)</h2>
+            <ul class="sns">
+                <li><a class="insta" href="https://www.instagram.com/jw_351_/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a class="blog" href="#">Naver Blog</a></li>
+                <li><a class="github" href="https://github.com/pullcoder/pullcoder.github.io" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <div class="wrap">
+            <p>Email: leejungwoo0790@gmail.com | Phone: 010-4856-1521</p>
+            <p class="mono">© 2026 pullcoder · <a href="../../index.html">메인 사이트로 →</a></p>
         </div>
-    </section>
-
-    <section id="sns-links">
-        <h2>05. 소셜 네트워크 (SNS)</h2>
-        <ul class="sns-menu">
-            <li><a href="https://www.instagram.com/jw_351_/" class="btn-insta">Instagram</a></li>
-            <li><a href="#" class="btn-blog">Naver Blog</a></li>
-            <li><a href="https://github.com/pullcoder/pullcoder.github.io" target="_blank" class="btn-github">GitHub</a></li>
-        </ul>
-    </section>
-
-    <footer id="contact">
-        <p>Email: leejungwoo0790@gmail.com | Phone: 010-4856-1521</p>
-        <p>© 2026 My Website. All rights reserved.</p>
     </footer>
 
-    <script>loadHeader({ base: '', backUrl: '../../index.html', isHome: false });</script>
 </body>
 </html>

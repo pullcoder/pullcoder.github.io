@@ -1,286 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Design 예제목록</title>
-    <link rel="stylesheet" href="../css/common.css">
-    <script src="../header.js"></script>
+    <title>CSS 디자인 예제 목록 | pullcoder</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <script src="../header.js" defer></script>
 </head>
-
 <body>
 
-    <main>
-        <h1>CSS Design 예제 목록</h1>
-        <p class="subtitle">항목을 클릭하면 해당 CSS Design 파일을 볼 수 있습니다.</p>
+    <main class="wrap" style="--accent: var(--c-design);">
+        <div class="page-head">
+            <p class="eyebrow">~/ai_web/design</p>
+            <h1>CSS 디자인 예제 목록</h1>
+            <p>position, float, 네비게이션, transform, transition, animation 예제입니다.</p>
+        </div>
 
-        <ul class="file-list">
-            <li>
-                <a href="6-1_display.html" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">display 속성</div>
-                        <!-- <div class="filename">display.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-2_marginPadding.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">margin과 padding</div>
-                        <!-- <div class="filename">marginPadding.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-3_static.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">position: static</div>
-                        <!-- <div class="filename">static.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-4_relative.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">position: relative</div>
-                        <!-- <div class="filename">relative.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-5_absolute.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">position: absolute</div>
-                        <!-- <div class="filename">absolute.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-6_fixed.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">position: fixed</div>
-                        <!-- <div class="filename">fixed.html</div> -->
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-7_sticky.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">position: sticky</div>
-                        <div class="filename">sticky.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-8_position.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">다양한 position</div>
-                        <div class="filename">position.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-9_zIndex.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">z-index</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-10_opacity.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">투명도 (opacity)</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-11_overflow.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">overflow 속성</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-12_floatClear.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">float와 clear</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-13_headerStyle.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">헤더 스타일</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-14_navigation.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">네비게이션</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-15_horizontalNav.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">수평 메뉴</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-16_verticallNav.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">수직 메뉴</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="6-17_dropDown.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">드롭다운 메뉴</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-1translate.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">2D transform: translate()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-2scale.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">2D transform: scale()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-3skew.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">2D transform: skew()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-4rotate.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">2D transform: rotate()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-5matrix.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">2D transform: matrix()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-6translate3d.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">3D transform: translate3d()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-7scale3d.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">3D transform: scale3d()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-8rotate3d.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">3D transform: rotate3d()</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-8transition.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">transition-timing-function 비교</div>
-                        <div class="filename">7-8transition.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-9transition.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">transition 기본</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-10transitionFunc.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">transition-timing-function</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-11keyFrameBorder.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">keyframes 색상 애니메이션</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-12translationAni.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">이동 애니메이션</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="7-13iterationAni.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">반복(iteration) 애니메이션</div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+        <!-- 목록은 header.js 의 SITE.sections('design') 데이터로 자동 생성됩니다 -->
+        <div data-lesson-list="design"></div>
     </main>
 
-    <footer>
-        <p>© 2026 My Website — CSS Design 예제 모음</p>
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>© 2026 pullcoder — CSS 디자인 예제 모음</p>
+            <p class="mono"><a href="../index.html">← 홈으로</a></p>
+        </div>
     </footer>
 
-    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
-
 </html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+예제 8-10 ~ 8-12 함수(Function) 종합 정리
+
+1. 이벤트 함수 (8-10)
+   - 버튼의 onclick 속성에 함수 이름을 적으면, 클릭할 때 그 함수가 실행됨
+   - 함수 안에서 innerHTML 로 문서 내용을 바꿀 수 있음
+
+2. 값을 계산하는 함수 (8-11)
+   - input 의 value 는 항상 "문자열" → parseInt() 로 정수 변환 후 계산
+   - 변환하지 않으면 "10" + "20" = "1020" (문자열 연결)
+
+3. 내장 함수 (8-12) : 브라우저가 기본으로 제공하는 대화상자
+   - alert(메시지)            : 확인 버튼만 있는 알림창 (반환값 없음)
+   - confirm(메시지)          : 확인 → true, 취소 → false 반환
+   - prompt(메시지, 기본값)    : 입력한 문자열 반환, 취소하면 null 반환
+
+※ 중복 제거
+   - 세 예제 모두 document.getElementById(...) 를 반복해서 사용했음
+   → 공통 함수 $() 와 print() 로 한 번만 정의하고 재사용
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예제8-10~12 함수(Function) 종합</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.7; }
+        section { margin: 16px 0; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+        h3 { margin-top: 0; }
+        input[type="text"] { width: 80px; padding: 4px; }
+        button { padding: 6px 12px; margin: 2px; cursor: pointer; }
+        .result { color: #4f46e5; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>JavaScript 함수(Function)</h1>
+
+<!-- ============ 8-10 이벤트 함수 ============ -->
+<section>
+    <h3>① 이벤트 함수 (8-10)</h3>
+    <!-- 버튼 클릭(onclick) → eventFunc() 실행 -->
+    <button onclick="eventFunc()">눌러주세요</button>
+    <p id="first"></p>
+    <p id="second"></p>
+</section>
+
+<!-- ============ 8-11 함수 계산 ============ -->
+<section>
+    <h3>② 함수로 계산하기 (8-11)</h3>
+    <p>두 개의 정수를 입력하세요.</p>
+    정수1 <input type="text" id="x">
+    + 정수2 <input type="text" id="y">
+    <button onclick="calc()">확인</button>
+    <!-- 계산 결과가 표시될 자리 -->
+    <p>합계: <span id="sum" class="result"></span></p>
+</section>
+
+<!-- ============ 8-12 내장 함수 ============ -->
+<section>
+    <h3>③ 내장 함수 alert / confirm / prompt (8-12)</h3>
+    <p>버튼을 누르면 대화상자가 나타나고, 반환값이 아래에 표시됩니다.</p>
+    <button onclick="alertMsg()">alert</button>
+    <button onclick="confirmMsg()">confirm</button>
+    <button onclick="promptMsg()">prompt</button>
+    <p>반환값: <span id="dialog" class="result"></span></p>
+</section>
+
+<script>
+    // ===== 공통 함수 (세 예제에서 반복되던 코드를 한 곳으로) =====
+
+    // id 로 요소를 찾아 돌려주는 함수
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    // id 요소 안에 내용을 출력하는 함수
+    function print(id, text) {
+        $(id).innerHTML = text;
+    }
+
+    // ===== ① 8-10 이벤트 함수 =====
+    function eventFunc() {
+        alert("눌렀군요!");
+        print("first", "first");    // 문자 출력
+        print("second", "second");  // 문자 출력
+    }
+
+    // ===== ② 8-11 계산 함수 =====
+    function calc() {
+        var x = parseInt($("x").value);  // 입력값(문자열) → 정수로 변환
+        var y = parseInt($("y").value);
+
+        // 숫자가 아닌 값을 입력한 경우 (parseInt 결과가 NaN)
+        if (isNaN(x) || isNaN(y)) {
+            print("sum", "정수를 입력하세요.");
+            return;  // 함수 종료
+        }
+        print("sum", x + " + " + y + " = " + (x + y));
+    }
+
+    // ===== ③ 8-12 내장 함수 =====
+    function alertMsg() {
+        alert("실행할까요?");                     // 반환값 없음
+        print("dialog", "alert 는 반환값이 없습니다 (undefined)");
+    }
+
+    function confirmMsg() {
+        var result = confirm("계속 진행할까요?");  // 확인 → true, 취소 → false
+        if (result) {
+            print("dialog", "true (확인을 눌렀습니다)");
+        } else {
+            print("dialog", "false (취소를 눌렀습니다)");
+        }
+    }
+
+    function promptMsg() {
+        var answer = prompt("무엇이든지 물어보세요?", "질문은 여기에");  // 입력값 또는 null
+        if (answer === null) {
+            print("dialog", "null (취소를 눌렀습니다)");
+        } else {
+            print("dialog", '"' + answer + '" 을(를) 입력했습니다');
+        }
+    }
+</script>
+</body>
+</html>

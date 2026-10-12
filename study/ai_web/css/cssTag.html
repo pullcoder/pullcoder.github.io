@@ -1,146 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS 예제 목록</title>
-    <link rel="stylesheet" href="common.css">
-    <script src="../header.js"></script>
+    <title>CSS 예제 목록 | pullcoder</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <script src="../header.js" defer></script>
 </head>
-
 <body>
 
-    <main>
-        <h1>CSS 예제 목록</h1>
-        <p class="subtitle">항목을 클릭하면 해당 CSS 파일을 볼 수 있습니다.</p>
+    <main class="wrap" style="--accent: var(--c-css);">
+        <div class="page-head">
+            <p class="eyebrow">~/ai_web/css</p>
+            <h1>CSS 예제 목록</h1>
+            <p>CSS 적용 방법, 선택자, 폰트, 색상, 경계선, 박스 모델 예제입니다.</p>
+        </div>
 
-        <ul class="file-list">
-            <li>
-                <a href="exCss.html" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">외부 CSS 파일 연동</div>
-                        <div class="filename">exCss.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="innerCss.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">style 태그를 이용한 내부 스타일</div>
-                        <div class="filename">innerCss.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="inlineCss.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">style 속성을 이용한 인라인 스타일</div>
-                        <div class="filename">inlineCss.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="typeSelector.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">요소(태그) 선택자 스타일 적용</div>
-                        <div class="filename">typeSelector.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="idSelector.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">id / class 선택자 스타일 적용</div>
-                        <div class="filename">idSelector.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="classSelector.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">class 선택자</div>
-                        <div class="filename">classSelector.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="idClassS.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">id / class 선택자</div>
-                        <div class="filename">idClassS.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="pseduo.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">의사 선택자</div>
-                        <div class="filename">pseduo.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="fontText.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">폰트와 텍스트</div>
-                        <div class="filename">fontText.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="color.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">색상표현</div>
-                        <div class="filename">color.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="border.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">경계선 스타일</div>
-                        <div class="filename">border.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="borderMix.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">경계선 혼합 스타일</div>
-                        <div class="filename">borderMix.html</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="box&Shadoow.html" target="_blank" class="file-card">
-                    <div class="icon">📄</div>
-                    <div class="info">
-                        <div class="title">박스 모델과 그림자</div>
-                        <div class="filename">box&Shadoow.html</div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+        <!-- 목록은 header.js 의 SITE.sections('css') 데이터로 자동 생성됩니다 -->
+        <div data-lesson-list="css"></div>
     </main>
 
-    <footer>
-        <p>© 2026 My Website — CSS 예제 모음</p>
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>© 2026 pullcoder — CSS 예제 모음</p>
+            <p class="mono"><a href="../index.html">← 홈으로</a></p>
+        </div>
     </footer>
 
-    <script>loadHeader({ base: '../', isHome: false });</script>
 </body>
-
 </html>

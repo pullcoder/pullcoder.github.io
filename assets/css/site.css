@@ -1,0 +1,201 @@
+/* ==========================================================================
+   site.css — 포트폴리오 루트 / 수업 목록 페이지 공통 스타일
+   (study/ai_web 은 자체 assets/css/site.css 를 사용 — 같은 디자인 토큰)
+   ========================================================================== */
+
+/* ---------- 1. 디자인 토큰 ---------- */
+:root {
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --line: #e3e8ef;
+  --text: #1e293b;
+  --text-2: #475569;
+  --muted: #64748b;
+
+  --primary: #4f46e5;
+  --primary-soft: #eef2ff;
+  --cyan: #0891b2;
+  --accent: var(--primary);
+
+  --term-bg: #1e2235;
+  --term-line: #2e3350;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 4px 16px rgba(15, 23, 42, .06);
+  --shadow-lg: 0 2px 4px rgba(15, 23, 42, .04), 0 12px 32px rgba(15, 23, 42, .10);
+
+  --font: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+
+/* ---------- 2. 기본 ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+img { max-width: 100%; display: block; }
+a { color: var(--primary); }
+[hidden] { display: none !important; }
+
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding-inline: var(--gutter); }
+
+/* ---------- 3. 공통 컴포넌트 ---------- */
+.eyebrow { font-family: var(--mono); font-size: .85rem; color: var(--accent); margin-bottom: 8px; }
+
+.section { padding-block: clamp(40px, 7vw, 72px) 0; }
+.section-title {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  font-size: clamp(1.35rem, 3vw, 1.7rem); font-weight: 700; letter-spacing: -.02em;
+  margin-bottom: 20px;
+}
+.section-title .no { font-family: var(--mono); font-size: .9rem; font-weight: 500; color: var(--muted); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: .78rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--surface-2); color: var(--text-2); border: 1px solid var(--line);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 44px; padding: 0 20px; border-radius: var(--radius-sm);
+  font: inherit; font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer;
+  transition: transform .15s, box-shadow .15s, border-color .15s, color .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--primary); color: #fff; border: 0; box-shadow: 0 6px 16px rgba(79, 70, 229, .3); }
+.btn-ghost { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---------- 4. 메인 Hero ---------- */
+.hero {
+  padding-block: clamp(40px, 8vw, 88px) 0;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 5vw, 56px); align-items: center;
+}
+.hero h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); line-height: 1.2; letter-spacing: -.03em; margin-bottom: 12px; }
+.hero h1 .grad {
+  background: linear-gradient(90deg, var(--primary), var(--cyan));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .role { font-family: var(--mono); color: var(--text-2); margin-bottom: 16px; }
+.hero p.desc { color: var(--text-2); font-size: 1.02rem; margin-bottom: 24px; }
+.hero .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+.terminal {
+  background: var(--term-bg); border: 1px solid var(--term-line); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); overflow: hidden; min-width: 0;
+  font-family: var(--mono); font-size: clamp(.78rem, 1.6vw, .88rem); color: #cbd5e1;
+}
+.terminal .t-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--term-line); color: #8b93b8; font-size: .78rem; }
+.terminal .t-head i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.terminal .t-head i:nth-child(1) { background: #ff5f57; }
+.terminal .t-head i:nth-child(2) { background: #febc2e; }
+.terminal .t-head i:nth-child(3) { background: #28c840; }
+.terminal .t-head span { margin-left: 8px; }
+.terminal pre { padding: 18px 20px; line-height: 1.85; white-space: pre-wrap; word-break: break-word; }
+.t-prompt { color: #34d399; } .t-cmd { color: #f1f5f9; } .t-key { color: #93c5fd; }
+.t-str { color: #fcd34d; } .t-num { color: #f9a8d4; } .t-com { color: #7c86a8; }
+.t-cursor { display: inline-block; width: .6em; height: 1.1em; background: #a5b4fc; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- 5. 메인: 수업 카드 ---------- */
+.course-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.course-card {
+  --c: var(--primary);
+  position: relative; display: flex; flex-direction: column; gap: 8px; height: 100%;
+  padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); text-decoration: none; color: var(--text); overflow: hidden;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.course-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--c); }
+a.course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--c); }
+.course-card .prof { font-size: .8rem; color: var(--muted); }
+.course-card .name { font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em; }
+.course-card .desc { font-size: .88rem; color: var(--muted); line-height: 1.6; flex: 1; }
+.course-card .meta {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: .78rem; color: var(--c);
+  padding-top: 12px; border-top: 1px dashed var(--line);
+}
+.course-card .meta .go { transition: transform .2s; }
+a.course-card:hover .meta .go { transform: translateX(4px); }
+.course-card.is-soon { opacity: .65; box-shadow: none; }
+.course-card.is-soon .meta { color: var(--muted); }
+
+/* ---------- 6. 목록 페이지 (수업 자료, 챕터) ---------- */
+.page-head { padding-block: clamp(32px, 6vw, 56px) 24px; }
+.page-head h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -.03em; line-height: 1.3; margin-bottom: 8px; }
+.page-head p { color: var(--text-2); }
+
+.item-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.item-card {
+  display: flex; align-items: center; gap: 14px; height: 100%;
+  padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  text-decoration: none; color: var(--text);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.item-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.item-card .no {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+  font-family: var(--mono); font-size: .85rem; font-weight: 700;
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, #fff);
+}
+.item-card .info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.item-card .title { font-weight: 700; font-size: .97rem; line-height: 1.45; }
+.item-card .sub { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+.item-card .badge {
+  flex-shrink: 0; font-family: var(--mono); font-size: .72rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 999px; color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, #fff);
+}
+.item-card .badge.html { color: #e44d26; background: #fef0ec; }
+.item-card .arrow { color: var(--muted); transition: transform .15s, color .15s; }
+.item-card:hover .arrow { color: var(--accent); transform: translateX(3px); }
+
+/* ---------- 7. 준비 중 ---------- */
+.empty-state { flex: 1; display: grid; place-items: center; text-align: center; padding: 64px var(--gutter); }
+.empty-state .code {
+  font-family: var(--mono); font-size: .9rem; color: var(--muted);
+  background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius-sm);
+  padding: 10px 16px; display: inline-block; margin-bottom: 24px;
+}
+.empty-state h1 { font-size: clamp(1.4rem, 4vw, 1.9rem); letter-spacing: -.02em; margin-bottom: 8px; }
+.empty-state p { color: var(--text-2); margin-bottom: 28px; }
+
+/* ---------- 8. 푸터 ---------- */
+.site-footer { margin-top: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: .85rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 28px; }
+.site-footer .mono { font-family: var(--mono); }
+.site-footer a { color: var(--text-2); text-decoration: none; }
+.site-footer a:hover { color: var(--primary); }
+
+/* ---------- 9. 애니메이션 ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up { animation: fadeUp .5s ease both; }
+  .fade-up:nth-child(2) { animation-delay: .08s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+}
+
+/* ---------- 10. 반응형 ---------- */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .course-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .course-grid, .item-grid { grid-template-columns: 1fr; }
+  .btn-row .btn { flex: 1; }
+  .site-footer .wrap { flex-direction: column; }
+}

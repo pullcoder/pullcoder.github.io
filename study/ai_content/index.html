@@ -3,151 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI콘텐츠활용</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #07070f;
-            color: #e4e4f0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            padding: 16px 28px;
-            background: #0d0d1a;
-            border-bottom: 1px solid #252538;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        header h1 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .back-btn {
-            font-size: 0.82rem;
-            color: #7070a0;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .back-btn:hover { color: #e4e4f0; }
-
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            gap: 48px;
-        }
-
-        .hero {
-            text-align: center;
-        }
-        .hero h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-        }
-        .hero p {
-            font-size: 0.92rem;
-            color: #7070a0;
-            line-height: 1.7;
-        }
-
-        .cards {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            background: #12121e;
-            border: 1px solid #252538;
-            border-radius: 16px;
-            padding: 28px 32px;
-            width: 260px;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-        }
-        .card:hover {
-            border-color: #7c3aed;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
-        }
-        .card-icon { font-size: 2rem; }
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #e4e4f0;
-        }
-        .card-desc {
-            font-size: 0.82rem;
-            color: #7070a0;
-            line-height: 1.6;
-        }
-        .card-tag {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            background: rgba(124,58,237,0.15);
-            color: #a78bfa;
-            border: 1px solid rgba(124,58,237,0.3);
-            width: fit-content;
-        }
-
-        footer {
-            padding: 20px;
-            text-align: center;
-            font-size: 0.78rem;
-            color: #3a3a5c;
-            border-top: 1px solid #252538;
-        }
-    </style>
+    <title>AI콘텐츠활용 | pullcoder</title>
+    <link rel="stylesheet" href="../../assets/css/site.css">
+    <script src="../../assets/js/site-header.js" defer></script>
 </head>
 <body>
 
-<header>
-    <h1>✦ AI콘텐츠활용</h1>
-    <a href="../../index.html" class="back-btn">← 돌아가기</a>
-</header>
+    <main class="wrap" style="--accent:#9333ea">
+        <div class="page-head">
+            <p class="eyebrow">~/study/ai_content</p>
+            <h1>AI 도구 모음</h1>
+            <p>홍성준 교수님 · 수업에서 만든 AI 활용 프로젝트들을 모아둔 공간입니다. 직접 만들고 사용해본 도구들을 체험해보세요.</p>
+        </div>
 
-<main>
-    <div class="hero">
-        <h2>AI 도구 모음</h2>
-        <p>수업에서 만든 AI 활용 프로젝트들을 모아둔 공간입니다.<br>직접 만들고 사용해본 도구들을 체험해보세요.</p>
-    </div>
+        <ul class="item-grid">
+            <li>
+                <a class="item-card" href="chatbot.html">
+                    <span class="no">✦</span>
+                    <span class="info">
+                        <span class="title">Groq Dark Chat</span>
+                        <span class="sub">Groq API를 활용한 멀티모델 챗봇. 응답 스타일을 바꿔가며 대화할 수 있습니다.</span>
+                    </span>
+                    <span class="badge">Groq API</span>
+                </a>
+            </li>
+        </ul>
+    </main>
 
-    <div class="cards">
-        <a href="chatbot.html" class="card">
-            <div class="card-icon">✦</div>
-            <div class="card-title">Groq Dark Chat</div>
-            <div class="card-desc">Groq API를 활용한 멀티모델 챗봇. 응답 스타일을 바꿔가며 대화할 수 있습니다.</div>
-            <div class="card-tag">Groq API</div>
-        </a>
-    </div>
-</main>
-
-<footer>© 2026 이정우</footer>
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>© 2026 이정우 — AI콘텐츠활용</p>
+            <p class="mono"><a href="../../index.html">← 수업 목록으로</a></p>
+        </div>
+    </footer>
 
 </body>
 </html>
