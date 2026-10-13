@@ -1,0 +1,61 @@
+/* ==========================================================================
+   tokens.css — 디자인 토큰 (색 · 글꼴 · 간격의 유일한 출처)
+   테마를 바꾸고 싶으면 이 파일만 고치면 됩니다.
+   site.css, code.css 가 이 파일을 기준으로 동작합니다.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* 네온 팔레트 */
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff2bd6;
+  --neon-lime: #b6ff3b;
+  --neon-violet: #8b5cff;
+  --neon-yellow: #ffe14d;
+  --neon-orange: #ff8a3d;
+
+  /* 배경 / 면 */
+  --bg: #07070f;
+  --bg-2: #0c0c1d;
+  --surface: rgba(16, 16, 38, .72);
+  --surface-solid: #10102a;
+  --surface-2: rgba(139, 92, 255, .08);
+  --line: rgba(139, 150, 255, .16);
+  --line-strong: rgba(139, 150, 255, .32);
+
+  /* 글자 */
+  --text: #e9ecff;
+  --text-2: #b6bce3;
+  --muted: #8189b8;
+
+  /* 역할 */
+  --primary: var(--neon-cyan);
+  --primary-soft: rgba(0, 240, 255, .1);
+  --cyan: var(--neon-cyan);
+  --accent: var(--primary);
+  --grad: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet), var(--neon-pink), var(--neon-cyan));
+
+  /* AI웹 섹션 색 */
+  --c-html: #ff6b3d;
+  --c-css: #3d9bff;
+  --c-js: #ffd23f;
+  --c-design: #c26bff;
+
+  /* 터미널 */
+  --term-bg: rgba(6, 6, 18, .88);
+  --term-line: rgba(0, 240, 255, .22);
+
+  /* 모양 */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 0 0 1px rgba(255, 255, 255, .02), 0 8px 24px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 0 0 1px rgba(255, 255, 255, .03), 0 18px 48px rgba(0, 0, 0, .6);
+  --glow: 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent);
+
+  /* 글꼴 */
+  --font: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+  --display: "Orbitron", "JetBrains Mono", var(--font);
+  --gutter: clamp(16px, 4vw, 32px);
+}

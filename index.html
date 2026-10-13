@@ -6,6 +6,7 @@
     <title>이정우 | 포트폴리오</title>
     <link rel="stylesheet" href="assets/css/site.css">
     <script src="assets/js/site-header.js" defer></script>
+    <script src="assets/js/fx.js" defer></script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
         <section class="hero">
             <div class="fade-up">
                 <p class="eyebrow">// portfolio</p>
-                <h1>안녕하세요,<br><span class="grad">이정우</span>입니다.</h1>
+                <h1>안녕하세요,<br><span class="grad" data-text="이정우">이정우</span>입니다.</h1>
                 <p class="role">AI소프트웨어과 · 2026학번</p>
                 <p class="desc">배운 것들을 기록하고 만든 것들을 공유하는 공간입니다.</p>
                 <div class="btn-row">
@@ -24,18 +25,18 @@
                 </div>
             </div>
 
-            <div class="terminal fade-up" aria-hidden="true">
+            <div class="terminal fade-up" data-shell aria-hidden="true">
                 <div class="t-head"><i></i><i></i><i></i><span>~/pullcoder</span></div>
 <pre><span class="t-prompt">$</span> <span class="t-cmd">cat profile.json</span>
 {
   <span class="t-key">"name"</span>: <span class="t-str">"이정우"</span>,
   <span class="t-key">"major"</span>: <span class="t-str">"AI소프트웨어과"</span>,
   <span class="t-key">"year"</span>: <span class="t-num">2026</span>,
-  <span class="t-key">"learning"</span>: [<span class="t-str">"Web"</span>, <span class="t-str">"Java"</span>, <span class="t-str">"AI"</span>]
+  <span class="t-key">"learning"</span>: [<span class="t-str">"Web"</span>, <span class="t-str">"Java"</span>, <span class="t-str">"Python"</span>, <span class="t-str">"AI"</span>]
 }
 <span class="t-prompt">$</span> <span class="t-cmd">ls study/</span>
 introduction_it  ai_web  excel
-ai_content  java
+java  python
 <span class="t-prompt">$</span> <span class="t-cursor"></span></pre>
             </div>
         </section>
@@ -45,7 +46,7 @@ ai_content  java
             <h2 class="section-title"><span class="no">01.</span>수업 목록</h2>
             <ul class="course-grid">
                 <li>
-                    <a class="course-card" style="--c:#0891b2" href="study/introduction_it/index.html">
+                    <a class="course-card" style="--c:#00f0ff" href="study/introduction_it/index.html">
                         <span class="prof">박경배 교수님</span>
                         <span class="name">IT개론</span>
                         <span class="desc">OSI 7계층 · 보안 위협 · CSS 선택자 정리 자료</span>
@@ -53,7 +54,7 @@ ai_content  java
                     </a>
                 </li>
                 <li>
-                    <a class="course-card" style="--c:#4f46e5" href="study/ai_web/index.html">
+                    <a class="course-card" style="--c:#8b5cff" href="study/ai_web/index.html">
                         <span class="prof">박경배 교수님</span>
                         <span class="name">AI웹프로그래밍</span>
                         <span class="desc">HTML · CSS · JavaScript 수업 예제와 CSS 디자인 실습</span>
@@ -61,7 +62,7 @@ ai_content  java
                     </a>
                 </li>
                 <li>
-                    <a class="course-card" style="--c:#16a34a" href="study/excel/index.html">
+                    <a class="course-card" style="--c:#b6ff3b" href="study/excel/index.html">
                         <span class="prof">홍성준 교수님</span>
                         <span class="name">컴퓨터활용능력</span>
                         <span class="desc">엑셀 실습 파일을 브라우저에서 바로 보는 뷰어</span>
@@ -69,15 +70,7 @@ ai_content  java
                     </a>
                 </li>
                 <li>
-                    <a class="course-card" style="--c:#9333ea" href="study/ai_content/index.html">
-                        <span class="prof">홍성준 교수님</span>
-                        <span class="name">AI콘텐츠활용</span>
-                        <span class="desc">수업에서 만든 AI 활용 프로젝트 (Groq 챗봇)</span>
-                        <span class="meta"><span>ai_content/</span><span class="go">→</span></span>
-                    </a>
-                </li>
-                <li>
-                    <a class="course-card" style="--c:#ea580c" href="study/java/index.html">
+                    <a class="course-card" style="--c:#ff8a3d" href="study/java/index.html">
                         <span class="prof">홍광희 교수님</span>
                         <span class="name">JAVA프로그래밍</span>
                         <span class="desc">챕터별 실습 코드와 연습문제 풀이</span>
@@ -85,13 +78,12 @@ ai_content  java
                     </a>
                 </li>
                 <li>
-                    <div class="course-card is-soon" style="--c:#64748b">
-                        <span class="prof">홍광희 교수님</span>
-                        <span class="name">인공지능활용</span>
-                        <span class="desc">준비 중입니다.</span>
-                        <span class="meta"><span>coming soon</span><span>…</span></span>
-                    </div>
-                    <!-- 준비되면 div 를 a 로 바꾸고 href="study/utilizing_artificial_intelligence/index.html" 연결 -->
+                    <a class="course-card" style="--c:#ffe14d" href="study/python/index.html">
+                        <span class="prof">박경배 교수님</span>
+                        <span class="name">Python</span>
+                        <span class="desc">조건문 · 반복문 · 함수 · 메서드 주차별 실습 노트북</span>
+                        <span class="meta"><span>python/</span><span class="go">→</span></span>
+                    </a>
                 </li>
             </ul>
         </section>

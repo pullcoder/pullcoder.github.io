@@ -20,12 +20,11 @@
     };
 
     var COURSES = [
-        { id: 'it', label: 'IT개론', prof: '박경배', color: '#0891b2', href: 'study/introduction_it/index.html', dir: 'study/introduction_it/' },
-        { id: 'web', label: 'AI웹프로그래밍', prof: '박경배', color: '#4f46e5', href: 'study/ai_web/index.html', dir: 'study/ai_web/' },
-        { id: 'excel', label: '컴퓨터활용능력', prof: '홍성준', color: '#16a34a', href: 'study/excel/index.html', dir: 'study/excel/' },
-        { id: 'aic', label: 'AI콘텐츠활용', prof: '홍성준', color: '#9333ea', href: 'study/ai_content/index.html', dir: 'study/ai_content/' },
+        { id: 'it', label: 'IT개론', prof: '박경배', color: '#00f0ff', href: 'study/introduction_it/index.html', dir: 'study/introduction_it/' },
+        { id: 'web', label: 'AI웹프로그래밍', prof: '박경배', color: '#8b5cff', href: 'study/ai_web/index.html', dir: 'study/ai_web/' },
+        { id: 'excel', label: '컴퓨터활용능력', prof: '홍성준', color: '#b6ff3b', href: 'study/excel/index.html', dir: 'study/excel/' },
         {
-            id: 'java', label: 'JAVA프로그래밍', prof: '홍광희', color: '#ea580c', href: 'study/java/index.html', dir: 'study/java/',
+            id: 'java', label: 'JAVA프로그래밍', prof: '홍광희', color: '#ff8a3d', href: 'study/java/index.html', dir: 'study/java/',
             items: [
                 ['html/chap01.html', 'Chapter 01 — 자바 소개'],
                 ['html/chap02.html', 'Chapter 02 — 변수와 연산자'],
@@ -38,7 +37,7 @@
                 ['html/chap05.html', 'Chapter 05 — 메서드와 배열']
             ]
         },
-        { id: 'uai', label: '인공지능활용', prof: '홍광희', color: '#64748b', href: 'study/utilizing_artificial_intelligence/index.html', dir: 'study/utilizing_artificial_intelligence/', soon: true }
+        { id: 'py', label: 'Python', prof: '박경배', color: '#ffe14d', href: 'study/python/index.html', dir: 'study/python/' }
     ];
 
     if (window.self !== window.top) return; // iframe 안에서는 그리지 않음
@@ -80,48 +79,48 @@
     var CSS = '\
 :host { all: initial; display: block; position: relative; z-index: 1000;\
   font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;\
-  --line: #e3e8ef; --text: #1e293b; --muted: #64748b; --primary: #4f46e5; --soft: #eef2ff;\
+  --line: rgba(139,150,255,.16); --text: #e9ecff; --muted: #8189b8; --primary: #00f0ff; --soft: rgba(0,240,255,.1);\
   --mono: "JetBrains Mono", Consolas, monospace; --accent: var(--primary); }\
 :host([sticky]) { position: sticky; top: 0; }\
 @media print { :host { display: none; } }\
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }\
 a { color: inherit; text-decoration: none; }\
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }\
-.bar { background: rgba(255,255,255,.88); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }\
-.inner { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }\
+.bar { position: relative; background: rgba(7,7,15,.72); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }\
+.bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; pointer-events: none;\n  background: linear-gradient(90deg, transparent, #00f0ff, #ff2bd6, transparent); box-shadow: 0 0 10px #00f0ff; }\n.inner { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }\
 .top { height: 60px; display: flex; align-items: center; gap: 16px; }\
 .logo { font-family: var(--mono); font-weight: 700; font-size: 17px; color: var(--text); white-space: nowrap; letter-spacing: -.02em; }\
-.logo .br { color: var(--primary); }\
+.logo { text-shadow: 0 0 12px rgba(139,92,255,.6); }\n.logo .br { color: var(--primary); text-shadow: 0 0 10px var(--primary); }\
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }\
 .nav a { padding: 8px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--muted); white-space: nowrap;\
   display: inline-flex; align-items: center; gap: 7px; transition: color .15s, background .15s; }\
-.nav a:hover { color: var(--text); background: #f1f5f9; }\
-.nav a .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); flex-shrink: 0; }\
-.nav a[aria-current="page"] { color: var(--text); background: var(--soft); font-weight: 700; }\
+.nav a:hover { color: var(--text); background: rgba(255,255,255,.06); }\
+.nav a .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); flex-shrink: 0; }\
+.nav a[aria-current="page"] { color: var(--text); background: rgba(255,255,255,.06); box-shadow: inset 0 -2px 0 var(--c); font-weight: 700; }\
 .nav a .soon { font-size: 11px; color: var(--muted); font-weight: 400; }\
 .menu-btn { display: none; margin-left: auto; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; }\
-.menu-btn:hover { background: #f1f5f9; }\
+.menu-btn:hover { background: rgba(255,255,255,.06); }\
 .menu-btn span, .menu-btn span::before, .menu-btn span::after { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; position: relative; transition: transform .2s, background .2s; }\
 .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }\
 .menu-btn span::before { top: -6px; } .menu-btn span::after { top: 6px; }\
 .open .menu-btn span { background: transparent; }\
 .open .menu-btn span::before { transform: translateY(6px) rotate(45deg); }\
 .open .menu-btn span::after { transform: translateY(-6px) rotate(-45deg); }\
-.sub { border-top: 1px solid var(--line); background: rgba(248,250,252,.92); }\
+.sub { border-top: 1px solid var(--line); background: rgba(10,10,26,.85); }\
 .sub .inner { min-height: 48px; display: flex; align-items: center; gap: 12px; }\
 .crumb { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }\
-.crumb .tag { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; color: #fff; background: var(--accent); flex-shrink: 0; }\
+.crumb .tag { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; color: #07070f; background: var(--accent); flex-shrink: 0; box-shadow: 0 0 10px var(--accent); }\
 .crumb .title { color: var(--text); font-weight: 700; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\
 .crumb .count { flex-shrink: 0; font-family: var(--mono); font-size: 12px; }\
 .pager { display: flex; gap: 6px; flex-shrink: 0; }\
 .pager a { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500;\
-  border: 1px solid var(--line); background: #fff; color: var(--text); transition: border-color .15s, color .15s; }\
-.pager a:hover { border-color: var(--accent); color: var(--accent); }\
+  border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text); transition: border-color .15s, color .15s, box-shadow .15s; }\
+.pager a:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 40%, transparent); }\
 .pager a[aria-disabled="true"] { opacity: .4; pointer-events: none; }\
 @media (max-width: 1000px) {\
   .menu-btn { display: inline-flex; }\
   .nav { display: none; position: absolute; left: 0; right: 0; top: 60px; flex-direction: column; align-items: stretch; gap: 2px;\
-    padding: 8px clamp(16px, 4vw, 32px) 16px; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(15,23,42,.08); }\
+    padding: 8px clamp(16px, 4vw, 32px) 16px; background: rgba(10,10,26,.97); border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(0,0,0,.5); }\
   .open .nav { display: flex; }\
   .nav a { padding: 12px; font-size: 15px; }\
 }\
@@ -192,8 +191,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
         var l = document.createElement('link');
         l.rel = 'icon';
         l.href = 'data:image/svg+xml,' + encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#4f46e5"/>' +
-            '<text x="16" y="21.5" font-family="monospace" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">&lt;/&gt;</text></svg>');
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0c0c1d"/>' +
+            '<text x="16" y="21.5" font-family="monospace" font-size="14" font-weight="700" fill="#00f0ff" text-anchor="middle">&lt;/&gt;</text></svg>');
         document.head.appendChild(l);
     }
 
