@@ -64,11 +64,11 @@
 | 구분 | 기술 스택 | 주요 역할 |
 | --- | --- | --- |
 | **Android Client** | Kotlin, AccessibilityService, WindowManager Overlay, Coroutines & Flow | 전면 공개, 승인 카드, 대리 클릭, Visual Overlay, 민감 화면 차단 |
-| **AI Server** | Python FastAPI (WebSocket), Ollama(개발) / 커스텀 튜닝 LLM(운영) | Intent 파싱, Action Plan 생성, UI 구조 즉시 폐기 |
+| **AI Server** | Python FastAPI (WebSocket), Ollama(개발) / 커스텀 튜닝 LLM(운영) | Intent 파싱, 화면마다 다음 동작 1개 결정(레시피 기본), UI 구조 즉시 폐기 |
 | **Backend** | Kotlin + Spring Boot (JPA) | 회원·SMS 인증, 작업 기록, 초기화·비활성화·탈퇴(익명화), 저장 공간 관리 |
 | **Database** | PostgreSQL | JSONB, RLS, Soft Delete, Audit Trigger, 휴대폰 번호 암호화 |
 | **Storage** | 오브젝트 스토리지 (개발: SeaweedFS / 운영: 클라우드) | 음성 녹음(1인 500MB), 대화 목록, 작업 오류 기록 |
-| **External API** | OpenAI Whisper(STT), SMS 발송 대행 | 음성 인식, 가입 인증번호 발송 (응답 음성은 기기 내장 TTS) |
+| **External API** | OpenAI Whisper(STT), SMS 발송 대행 | 음성 인식, 가입 인증번호 발송 (응답 음성은 현재 기기 내장 TTS — Typecast 기본으로 변경 예정) |
 
 ```mermaid
 flowchart LR
@@ -95,7 +95,7 @@ flowchart LR
 | **Soft Delete (`is_deleted`)** | 데이터 삭제 시 물리 삭제 대신 논리 삭제 적용 |
 | **Automated Audit Trigger** | 보안 모니터링 및 감사 로그 자동 기록 (`updated_at` 및 감사 트레이스) |
 | **휴대폰 번호 암호화** | AES-256-GCM 암호화 + HMAC 블라인드 인덱스(중복 가입 확인용) |
-| **탈퇴 시 익명화** | 계정 정보·음성 녹음 삭제, 텍스트 기록은 `user_id`를 익명 값으로 교체 |
+| **탈퇴 시 익명화** | 계정 정보·음성 녹음 즉시 삭제, 기록의 **내용(명령·답변·단계)도 삭제**하고 통계 항목만 익명 식별값으로 보관 |
 | **재가입 제한 해시** | 탈퇴한 번호의 HMAC 해시를 30일간 별도 보관 |
 
 > 자세한 내용은 [보안 및 데이터 감사 정책](docs/policy/SECURITY_AUDIT.md), [개인정보 처리방침](docs/policy/PRIVACY_POLICY.md)을 참고하세요.
@@ -116,7 +116,7 @@ flowchart LR
 
 - [x] 저장소 구조 구성 (`android/`(앱·더미 앱), `ai-server/`, `backend/`, `infra/`)
 - [x] Docker Compose로 PostgreSQL, SeaweedFS(S3 호환 오브젝트 스토리지) 실행
-- [x] USB `adb reverse`로 기기 ↔ 로컬 서버 연결 (`android/connect-device.ps1`, 에뮬레이터 확인 완료 · 실기기 대기)
+- [x] USB `adb reverse`로 기기 ↔ 로컬 서버 연결 (`android/connect-device.ps1`, 에뮬레이터 · 실기기(Galaxy S21) 연결 확인)
 - [x] API 키·암호화 키를 환경 변수로 관리 (`.env`는 Git 제외)
 
 ### Phase 1. 더미 앱
@@ -131,15 +131,15 @@ flowchart LR
 - [x] 승인 시 더미 앱 대리 클릭 & Visual Overlay 표시
 - [x] 결제·비밀번호·금융 화면 차단, 긴급 중단(화면 터치 / [취소])
 - [x] 클릭 간격 100~500ms, 대상 요소 등장 즉시 동작
-- [x] 에뮬레이터에서 동작 확인 (음성·실기기 제외)
+- [x] 에뮬레이터에서 동작 확인 (실기기 전체 흐름 확인은 Phase 7)
 
 ### Phase 3. AI 서버 & WebSocket
 
 - [x] Android ↔ Python WebSocket JSON 프로토콜 정의 ([명세](docs/tech/WEBSOCKET_PROTOCOL.md))
-- [x] Ollama 기반 Intent 파싱 → Action Plan 생성, 처리 후 UI 구조 즉시 폐기 (Ollama 미실행 시 규칙 기반 플래너로 대체)
+- [x] **단계별 실행**: 목표 1회 승인 → 화면마다 다음 동작 1개 결정 (레시피 기본, Ollama는 galaxy 빌드의 레시피 없는 앱에만), 처리 후 UI 구조 즉시 폐기
 - [x] 음성 명령: 서버에서 OpenAI Whisper로 STT (실제 API 키로 연동 확인 필요)
-- [x] 응답 음성: 기기 내장 TTS (Typecast 서버 TTS는 2026-10-12 삭제 — 외부 위탁 줄임)
-- [x] 서버가 보낸 Action Plan을 앱에서 한 번 더 검증 (민감 동작 차단)
+- [x] 응답 음성: 기기 내장 TTS (2026-10-14 결정으로 Typecast 기본 TTS 재구현 예정 — PLAN D6)
+- [x] 서버가 보낸 다음 동작을 앱에서 한 번 더 검증 (민감 동작 차단)
 
 ### Phase 4. 백엔드 & DB
 

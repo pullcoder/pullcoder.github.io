@@ -26,6 +26,8 @@
         .kotlin-note { margin-top: 14px; color: var(--text-2); font-size: .92rem; }
         .kotlin-note strong { color: var(--neon-violet); }
         .kotlin-note a { color: var(--neon-cyan); text-decoration: none; white-space: nowrap; }
+        .pdf-note { margin: -4px 0 14px; padding: 10px 14px; font-size: .88rem; color: var(--text-2);
+            border-left: 3px solid var(--neon-yellow); background: rgba(255, 225, 77, .05); border-radius: 0 8px 8px 0; }
         .pdf-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
         .pdf-tabs button { font: inherit; font-size: .88rem; padding: 8px 16px; border-radius: 999px; cursor: pointer;
             color: var(--text-2); background: var(--surface); border: 1px solid var(--line); transition: color .2s, border-color .2s, box-shadow .2s; }
@@ -163,7 +165,7 @@
                     </thead>
                     <tbody>
                         <tr><td>Android</td><td>Kotlin, AccessibilityService, WindowManager Overlay, Coroutines &amp; Flow</td><td>전면 공개, 승인 카드, 대리 클릭, 오버레이, 민감 화면 차단</td></tr>
-                        <tr><td>AI Server</td><td>Python FastAPI (WebSocket), Ollama</td><td>Intent 파싱, Action Plan 생성, 화면 구조는 사용 후 즉시 폐기</td></tr>
+                        <tr><td>AI Server</td><td>Python FastAPI (WebSocket), Ollama</td><td>Intent 파싱, 화면마다 다음 동작 1개 결정(레시피 기본), 화면 구조는 사용 후 즉시 폐기</td></tr>
                         <tr><td>Backend</td><td>Kotlin + Spring Boot (JPA)</td><td>SMS 인증 가입, 작업 기록, 초기화 · 비활성화 · 탈퇴</td></tr>
                         <tr><td>Database</td><td>PostgreSQL</td><td>JSONB, RLS, Soft Delete, 감사 트리거, 번호 암호화</td></tr>
                         <tr><td>Storage</td><td>S3 호환 오브젝트 스토리지</td><td>음성 녹음(1인 500MB), 대화 목록, 작업 오류 기록</td></tr>
@@ -211,7 +213,7 @@
                 <li>감사 트리거로 변경 이력 자동 기록</li>
                 <li>휴대폰 번호 AES-256-GCM 암호화 + HMAC 블라인드 인덱스</li>
                 <li>1인 1계정 — SMS 인증으로 중복 가입 차단</li>
-                <li>탈퇴 시 계정 · 녹음 삭제, 기록은 익명 처리</li>
+                <li>탈퇴 시 계정 · 녹음 · 기록 내용 삭제, 통계만 익명 보관</li>
             </ul>
         </section>
 
@@ -251,7 +253,8 @@
                 <li><a class="item-card" href="doc.html?f=aven/docs/tech/TECH_STACK.md"><span class="no">기술</span><span class="info"><span class="title">기술 스택 및 개발 환경 명세</span><span class="sub">레이어별 기술, 왜 Kotlin인가, 데이터 흐름</span></span><span class="arrow">→</span></a></li>
             </ul>
 
-            <h3 class="sub-title"><span>//</span> PDF 자료</h3>
+            <h3 class="sub-title"><span>//</span> PDF 자료 — 초기 기획안</h3>
+            <p class="pdf-note">프로젝트 초기에 작성한 기획 문서입니다. 생체인증 · 알림 읽기 · 메신저 연동 · 전체 계획(Action Plan) 방식 등은 이후 설계에서 바뀌었으며, 현재 기준은 위 문서를 참고하세요.</p>
             <!-- PDF 는 pdf.js 로 페이지를 이미지처럼 그려 세로 스크롤로 봄 (실패하면 브라우저 기본 뷰어) -->
             <div class="pdf-tabs" role="tablist">
                 <button type="button" class="is-on" data-pdf="0">SWOT 분석 (1차안)</button>
