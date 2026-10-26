@@ -103,9 +103,12 @@
                     ['8-14elseIf.html', 'else if 조건문'],
                     ['8-15switch.html', 'switch case문'],
                     ['8-16for.html', 'for 반복문'],
-                    ['8-17이중for문.html', '이중 for문'],
-                    ['8-18while문.html', 'while 반복문'],
-                    ['8-19dowhile문.html', 'do while 반복문']
+                    ['8-17forfor.html', '이중 for문'],
+                    ['8-18while.html', 'while 반복문'],
+                    ['8-19dowhile.html', 'do while 반복문'],
+                    ['9-1DocumentConstructor.html', '객체 생성자'],
+                    ['jsObject_Cladue.html', '자바스크립트 객체 입문'],
+                    ['jsApp_Claude.html', '객체 실전 응용']
                 ]
             },
             {

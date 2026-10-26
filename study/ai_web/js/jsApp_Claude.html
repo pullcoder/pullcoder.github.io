@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>객체 실전 응용</title>
+<style>
+  /* ===================== 색상 토큰 (라이트/다크) ===================== */
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-2: #eef1f8;
+    --text: #1f2430;
+    --muted: #5d6475;
+    --border: #dde2ee;
+    --accent: #f0a500;        /* 자바스크립트 노랑 계열 포인트 */
+    --accent-2: #3867d6;
+    --accent-soft: #fff4d6;
+    --code-bg: #1e2230;
+    --code-text: #e6e9f2;
+    --c-comment: #7f8aa3;
+    --c-string: #a6e3a1;
+    --c-keyword: #f5a97f;
+    --c-number: #89b4fa;
+    --ok: #2e9e5b;
+    --err: #d64545;
+    --radius: 12px;
+    --shadow: 0 2px 10px rgba(20, 30, 60, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12141b;
+      --surface: #1a1d27;
+      --surface-2: #232736;
+      --text: #e5e8f0;
+      --muted: #9aa2b6;
+      --border: #2e3346;
+      --accent: #ffc23d;
+      --accent-2: #7aa2f7;
+      --accent-soft: #2e2715;
+      --code-bg: #0e1017;
+      --shadow: 0 2px 10px rgba(0, 0, 0, .3);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  /* ===================== 상단 헤더 ===================== */
+  header.hero {
+    background: linear-gradient(135deg, #2b2f45 0%, #3a3f5c 60%, #4b4f6e 100%);
+    color: #fff;
+    padding: 48px 20px 40px;
+    text-align: center;
+  }
+  header.hero .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #222;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: .5px;
+  }
+  header.hero h1 { margin: 14px 0 8px; font-size: clamp(26px, 5vw, 40px); }
+  header.hero p { margin: 0; opacity: .85; }
+
+  /* ===================== 레이아웃: 목차 + 본문 ===================== */
+  .layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 28px;
+    padding: 28px 20px 80px;
+  }
+  nav.toc {
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  nav.toc h2 { font-size: 15px; margin: 0 0 10px; color: var(--muted); }
+  nav.toc ol { margin: 0; padding-left: 0; list-style: none; counter-reset: toc; }
+  nav.toc li { counter-increment: toc; }
+  nav.toc a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14.5px;
+    border-left: 3px solid transparent;
+  }
+  nav.toc a::before { content: counter(toc) ". "; color: var(--muted); }
+  nav.toc a:hover { background: var(--surface-2); }
+  nav.toc a.active { background: var(--accent-soft); border-left-color: var(--accent); font-weight: 700; }
+  .toc-toggle { display: none; }
+
+  main section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px clamp(18px, 4vw, 36px);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 16px;
+  }
+  main h2 {
+    margin-top: 0;
+    font-size: clamp(21px, 3.2vw, 26px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  main h2 .num {
+    background: var(--accent);
+    color: #222;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: inline-grid;
+    place-items: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  main h3 { font-size: 18px; margin: 28px 0 8px; }
+  code.inline {
+    background: var(--surface-2);
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-family: "D2Coding", Consolas, monospace;
+    font-size: .92em;
+  }
+
+  /* ===================== 알림 상자 ===================== */
+  .box { border-radius: 10px; padding: 14px 16px; margin: 16px 0; border-left: 4px solid; }
+  .box.tip  { background: var(--accent-soft); border-color: var(--accent); }
+  .box.info { background: var(--surface-2); border-color: var(--accent-2); }
+  .box.warn { background: rgba(214, 69, 69, .08); border-color: var(--err); }
+  .box strong:first-child { display: block; margin-bottom: 4px; }
+
+  /* ===================== 비유 그림 (객체 = 상자) ===================== */
+  .diagram {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .diagram .cell {
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .diagram .cell b { display: block; font-family: Consolas, monospace; color: var(--accent-2); }
+  .diagram .cell span { font-size: 14px; color: var(--muted); }
+
+  /* ===================== 예제 코드 블록 ===================== */
+  .example {
+    margin: 18px 0 24px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--code-bg);
+  }
+  .ex-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, .05);
+    color: #c9cfdd;
+    font-size: 13.5px;
+    flex-wrap: wrap;
+  }
+  .ex-head .dots { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
+  .ex-head .dots i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .ex-head .btns { display: flex; gap: 6px; }
+  .ex-head button {
+    border: 0;
+    border-radius: 7px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .1s, opacity .2s;
+  }
+  .ex-head button:active { transform: scale(.96); }
+  .btn-copy { background: #39405a; color: #e6e9f2; }
+  .btn-copy.done { background: var(--ok); color: #fff; }
+  .btn-run { background: var(--accent); color: #222; }
+  .example pre {
+    margin: 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    color: var(--code-text);
+    font-family: "D2Coding", Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.65;
+    tab-size: 2;
+  }
+  .tok-c { color: var(--c-comment); font-style: italic; }
+  .tok-s { color: var(--c-string); }
+  .tok-k { color: var(--c-keyword); font-weight: 600; }
+  .tok-n { color: var(--c-number); }
+  .output {
+    background: #0b0d13;
+    border-top: 1px solid #2b3043;
+    color: #d6f5d6;
+    font-family: Consolas, monospace;
+    font-size: 13.5px;
+    padding: 12px 18px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .output .label { color: #8b93a8; display: block; margin-bottom: 4px; font-size: 12px; }
+  .output .err { color: #ff8f8f; }
+
+  /* ===================== 표 ===================== */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 10px; border: 1px solid var(--border); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+  th, td { padding: 11px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  td code, th code { font-family: Consolas, monospace; font-size: .92em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+
+  /* ===================== 요약 카드 ===================== */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+  .summary-card {
+    background: var(--surface-2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-top: 3px solid var(--accent);
+  }
+  .summary-card h4 { margin: 0 0 6px; font-size: 16px; }
+  .summary-card p { margin: 0; font-size: 14.5px; color: var(--muted); }
+
+  /* ===================== 복습 문제 ===================== */
+  .quiz { border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  .quiz .q { font-weight: 700; }
+  .quiz details { margin-top: 8px; }
+  .quiz summary {
+    cursor: pointer;
+    display: inline-block;
+    background: var(--accent-2);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    list-style: none;
+  }
+  .quiz summary::-webkit-details-marker { display: none; }
+  .quiz details[open] summary { background: var(--ok); }
+  .quiz .answer { margin-top: 10px; padding: 10px 14px; background: var(--surface-2); border-radius: 8px; }
+
+  /* ===================== 단계 안내 ===================== */
+  ol.steps { padding-left: 22px; }
+  ol.steps li { margin-bottom: 8px; }
+  kbd {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 0 6px;
+    font-family: Consolas, monospace;
+    font-size: .9em;
+  }
+
+  /* ===================== 맨 위로 버튼 ===================== */
+  #toTop {
+    position: fixed; right: 18px; bottom: 18px;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: #222;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s;
+  }
+  #toTop.show { opacity: 1; pointer-events: auto; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding: 0 16px 40px; }
+
+  /* ===================== 반응형 (태블릿·모바일) ===================== */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; padding: 16px 16px 70px; gap: 16px; }
+    nav.toc { position: static; max-height: none; }
+    .toc-toggle {
+      display: flex; width: 100%;
+      justify-content: space-between; align-items: center;
+      background: none; border: 0; color: var(--text);
+      font-size: 15px; font-weight: 700; padding: 0; cursor: pointer;
+      font-family: inherit;
+    }
+    nav.toc h2 { display: none; }
+    nav.toc ol { display: none; margin-top: 10px; }
+    nav.toc.open ol { display: block; }
+  }
+  @media (max-width: 520px) {
+    body { font-size: 15px; }
+    .example pre { font-size: 13px; padding: 14px; }
+    .ex-head .title { width: 100%; }
+  }
+
+  /* ===================== 응용 문서 추가 스타일 ===================== */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; }
+  .tags span {
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--accent-2); font-size: 13px; font-weight: 700;
+    padding: 2px 10px; border-radius: 999px;
+  }
+  .challenge {
+    border: 2px dashed var(--accent); border-radius: 10px;
+    padding: 12px 16px; margin: 16px 0 0;
+  }
+  .challenge ol { margin: 6px 0 0; padding-left: 20px; }
+</style>
+<script src="../header.js" defer></script>
+</head>
+<body>
+
+<header class="hero">
+  <span class="badge">JS 응용</span>
+  <h1>자바스크립트 객체 실전 응용 예제 5선</h1>
+  <p>객체 · 메서드 · this · 중첩 객체 · for...in 을 실제 프로그램처럼 조합해 보기</p>
+</header>
+
+<div class="layout">
+  <!-- ===================== 목차 ===================== -->
+  <nav class="toc" id="toc">
+    <button class="toc-toggle" id="tocToggle" aria-expanded="false">📑 목차 <span>▼</span></button>
+    <h2>📑 목차</h2>
+    <ol>
+      <li><a href="#s0">시작하기 전에</a></li>
+      <li><a href="#s1">쇼핑몰 장바구니</a></li>
+      <li><a href="#s2">학생 성적 관리</a></li>
+      <li><a href="#s3">은행 계좌 시스템</a></li>
+      <li><a href="#s4">도서관 대출 관리</a></li>
+      <li><a href="#s5">단어 빈도 분석기</a></li>
+      <li><a href="#s6">예제별 사용 개념 정리</a></li>
+      <li><a href="#s7">저장 및 실행 방법</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- ===================== 0. 소개 ===================== -->
+    <section id="s0">
+      <h2><span class="num">0</span>시작하기 전에</h2>
+      <p>이 문서는 <code class="inline">jsObject.html</code>에서 배운 객체 문법을 <strong>실제 프로그램 형태</strong>로 응용합니다. 각 예제는 다음 순서로 구성됩니다.</p>
+      <div class="summary-grid">
+        <div class="summary-card"><h4>🎯 목표</h4><p>어떤 프로그램을 만드는지</p></div>
+        <div class="summary-card"><h4>🧩 사용 개념</h4><p>jsObject.html의 어느 장을 응용하는지</p></div>
+        <div class="summary-card"><h4>▶ 실행 코드</h4><p>복사·실행 버튼으로 바로 확인</p></div>
+        <div class="summary-card"><h4>🛠️ 도전 과제</h4><p>스스로 기능을 추가해 보는 연습</p></div>
+      </div>
+      <div class="box tip"><strong>💡 학습 팁</strong>먼저 ▶ 실행으로 결과를 본 뒤, 📋 복사해서 VSCode나 브라우저 콘솔(<kbd>F12</kbd>)에서 값을 바꿔 가며 다시 실행해 보세요.</div>
+    </section>
+
+    <!-- ===================== 1. 장바구니 ===================== -->
+    <section id="s1">
+      <h2><span class="num">1</span>쇼핑몰 장바구니</h2>
+      <p><strong>🎯 목표:</strong> 상품을 담고, 수량을 바꾸고, 빼고, 할인까지 적용한 결제 금액을 계산하는 장바구니 객체를 만듭니다.</p>
+      <div class="tags"><span>객체 리터럴</span><span>메서드</span><span>this</span><span>객체 배열</span><span>속성 수정</span></div>
+
+      <div class="example" data-label="응용 1 · 장바구니 객체"><pre><code>/* ===== 실행 순서 =====
+ * ① cart 객체 정의 (상품 목록 배열 + 쿠폰 + 메서드들)
+ * ② add()로 상품 담기 → 같은 상품이면 수량만 증가
+ * ③ changeQty()로 수량 변경, remove()로 상품 삭제
+ * ④ applyCoupon()으로 할인율 설정
+ * ⑤ printReceipt()로 영수증 출력
+ * ====================== */
+
+// ① 장바구니 객체
+const cart = {
+  items: [],          // 담긴 상품들 (객체 배열)
+  discountRate: 0,    // 할인율 (0.1 = 10%)
+
+  // ② 상품 담기
+  add(name, price, qty = 1) {
+    // 이미 담긴 상품인지 찾기
+    const found = this.items.find(item => item.name === name);
+    if (found) {
+      found.qty += qty;                      // 있으면 수량만 증가
+    } else {
+      this.items.push({ name, price, qty }); // 없으면 새 객체 추가
+    }
+    console.log(`🛒 ${name} ${qty}개 담음`);
+  },
+
+  // ③-1 수량 변경
+  changeQty(name, qty) {
+    const found = this.items.find(item => item.name === name);
+    if (!found) return console.log(`⚠️ ${name}은(는) 장바구니에 없습니다`);
+    found.qty = qty;                         // 속성 수정
+    console.log(`✏️ ${name} 수량 → ${qty}개`);
+  },
+
+  // ③-2 상품 삭제
+  remove(name) {
+    this.items = this.items.filter(item => item.name !== name);
+    console.log(`🗑️ ${name} 삭제`);
+  },
+
+  // ④ 쿠폰 적용
+  applyCoupon(code) {
+    const coupons = { WELCOME10: 0.1, VIP20: 0.2 };  // 쿠폰표도 객체!
+    if (code in coupons) {
+      this.discountRate = coupons[code];             // 대괄호 접근
+      console.log(`🎟️ 쿠폰 ${code} 적용 (${coupons[code] * 100}% 할인)`);
+    } else {
+      console.log(`❌ 존재하지 않는 쿠폰: ${code}`);
+    }
+  },
+
+  // 합계 계산 (메서드 안에서 다른 메서드 호출도 this로)
+  subtotal() {
+    let sum = 0;
+    for (const item of this.items) sum += item.price * item.qty;
+    return sum;
+  },
+
+  // ⑤ 영수증 출력
+  printReceipt() {
+    console.log("========== 영수증 ==========");
+    for (const item of this.items) {
+      const line = item.price * item.qty;
+      console.log(`${item.name} x${item.qty}  ${line.toLocaleString()}원`);
+    }
+    const sub = this.subtotal();
+    const discount = Math.floor(sub * this.discountRate);
+    console.log("----------------------------");
+    console.log(`상품 합계 : ${sub.toLocaleString()}원`);
+    console.log(`할인 금액 : -${discount.toLocaleString()}원`);
+    console.log(`결제 금액 : ${(sub - discount).toLocaleString()}원`);
+  }
+};
+
+// ② 담기
+cart.add("무선 키보드", 45000);
+cart.add("마우스 패드", 9000, 2);
+cart.add("USB 허브", 23000);
+cart.add("무선 키보드", 45000);   // 같은 상품 → 수량 2로
+
+// ③ 수량 변경 / 삭제
+cart.changeQty("마우스 패드", 3);
+cart.remove("USB 허브");
+cart.changeQty("모니터", 1);       // 없는 상품
+
+// ④ 쿠폰
+cart.applyCoupon("FREE100");       // 잘못된 쿠폰
+cart.applyCoupon("WELCOME10");
+
+// ⑤ 영수증
+cart.printReceipt();</code></pre></div>
+
+      <div class="box info"><strong>🔎 포인트</strong>쿠폰 목록 <code class="inline">coupons</code>처럼 <em>"이름 → 값"</em>을 찾는 표는 객체로 만들고 <code class="inline">in</code>과 대괄호 표기법으로 조회하면 <code class="inline">if</code>문을 여러 개 쓰지 않아도 됩니다.</div>
+      <div class="challenge"><strong>🛠️ 도전 과제</strong>
+        <ol>
+          <li>총 상품 개수를 반환하는 <code class="inline">count()</code> 메서드를 추가해 보세요.</li>
+          <li>결제 금액이 50,000원 이상이면 배송비 0원, 아니면 3,000원이 붙도록 영수증을 바꿔 보세요.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 2. 성적 관리 ===================== -->
+    <section id="s2">
+      <h2><span class="num">2</span>학생 성적 관리</h2>
+      <p><strong>🎯 목표:</strong> 학생마다 과목별 점수 객체를 갖게 하고, <code class="inline">for...in</code>으로 평균을 구해 학점과 석차를 매깁니다.</p>
+      <div class="tags"><span>객체 배열</span><span>중첩 객체</span><span>for...in</span><span>속성 추가</span><span>Object.keys</span></div>
+
+      <div class="example" data-label="응용 2 · 성적 처리 프로그램"><pre><code>/* ===== 실행 순서 =====
+ * ① 학생 목록 생성 (각 학생 안에 scores 객체가 중첩)
+ * ② getGrade() : 평균 → 학점 변환 함수
+ * ③ for...in으로 과목 점수 합산 → 평균·학점 속성 추가
+ * ④ 평균 높은 순으로 정렬 → 석차 출력
+ * ⑤ 과목별 최고 점수 학생 찾기
+ * ====================== */
+
+// ① 학생 데이터 (객체 배열 + 중첩 객체)
+const students = [
+  { name: "김하늘", scores: { 국어: 92, 영어: 88, 수학: 95 } },
+  { name: "이바다", scores: { 국어: 78, 영어: 95, 수학: 70 } },
+  { name: "박구름", scores: { 국어: 85, 영어: 80, 수학: 99 } },
+  { name: "최별님", scores: { 국어: 60, 영어: 72, 수학: 65 } }
+];
+
+// ② 평균 → 학점
+function getGrade(avg) {
+  if (avg >= 90) return "A";
+  if (avg >= 80) return "B";
+  if (avg >= 70) return "C";
+  if (avg >= 60) return "D";
+  return "F";
+}
+
+// ③ 각 학생에게 total, avg, grade 속성을 '추가'
+for (const s of students) {
+  let total = 0;
+  for (const subject in s.scores) {       // 국어, 영어, 수학
+    total += s.scores[subject];
+  }
+  const count = Object.keys(s.scores).length;
+  s.total = total;
+  s.avg = Number((total / count).toFixed(1));  // 소수 첫째 자리
+  s.grade = getGrade(s.avg);
+}
+
+// ④ 평균 내림차순 정렬 후 석차 출력
+students.sort((a, b) => b.avg - a.avg);
+console.log("===== 성적표 =====");
+students.forEach((s, i) => {
+  console.log(`${i + 1}등 ${s.name}  총점 ${s.total}  평균 ${s.avg}  학점 ${s.grade}`);
+});
+
+// ⑤ 과목별 최고점 학생 (결과도 객체에 담기)
+const best = {};
+for (const subject in students[0].scores) {
+  let top = students[0];
+  for (const s of students) {
+    if (s.scores[subject] > top.scores[subject]) top = s;
+  }
+  best[subject] = `${top.name}(${top.scores[subject]}점)`;
+}
+console.log("===== 과목별 1등 =====");
+console.log(best);</code></pre></div>
+
+      <div class="box tip"><strong>💡 포인트</strong>과목 이름을 코드에 직접 적지 않고 <code class="inline">for...in</code>으로 꺼내기 때문에, 과목이 추가돼도(예: <code class="inline">과학: 90</code>) 계산 코드는 그대로 동작합니다.</div>
+      <div class="challenge"><strong>🛠️ 도전 과제</strong>
+        <ol>
+          <li>모든 학생에게 <code class="inline">과학</code> 점수를 추가하고 다시 실행해 보세요.</li>
+          <li>학점별 인원수를 <code class="inline">{ A: 1, B: 2, ... }</code> 형태의 객체로 세어 출력해 보세요.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 3. 은행 계좌 ===================== -->
+    <section id="s3">
+      <h2><span class="num">3</span>은행 계좌 시스템</h2>
+      <p><strong>🎯 목표:</strong> 클래스로 계좌 객체를 여러 개 만들고, 입금·출금·이체 시 잔액을 검사하며 거래 내역을 기록합니다.</p>
+      <div class="tags"><span>class</span><span>new</span><span>this</span><span>객체 안의 배열</span><span>객체 간 상호작용</span></div>
+
+      <div class="example" data-label="응용 3 · 계좌 클래스와 이체"><pre><code>/* ===== 실행 순서 =====
+ * ① Account 클래스 정의 (생성자 + 메서드)
+ * ② new로 계좌 2개 생성
+ * ③ 입금 / 출금 (잔액 부족 시 거절)
+ * ④ transfer()로 다른 계좌 객체에 이체
+ * ⑤ 각 계좌의 거래 내역 출력
+ * ====================== */
+
+// ① 계좌 설계도
+class Account {
+  constructor(owner, number, balance = 0) {
+    this.owner = owner;       // 예금주
+    this.number = number;     // 계좌번호
+    this.balance = balance;   // 잔액
+    this.history = [];        // 거래 내역 (객체 배열)
+  }
+
+  // 내역 기록용 (내부에서만 사용)
+  log(type, amount) {
+    this.history.push({ type, amount, balance: this.balance });
+  }
+
+  deposit(amount) {
+    if (amount &lt;= 0) return console.log("❌ 입금액은 0보다 커야 합니다");
+    this.balance += amount;
+    this.log("입금", amount);
+    console.log(`💰 ${this.owner} 입금 ${amount.toLocaleString()}원`);
+  }
+
+  withdraw(amount) {
+    if (amount > this.balance) {
+      console.log(`❌ ${this.owner} 출금 실패 (잔액 ${this.balance.toLocaleString()}원)`);
+      return false;
+    }
+    this.balance -= amount;
+    this.log("출금", amount);
+    console.log(`💸 ${this.owner} 출금 ${amount.toLocaleString()}원`);
+    return true;
+  }
+
+  // ④ 다른 계좌 객체를 매개변수로 받음
+  transfer(target, amount) {
+    console.log(`🔁 ${this.owner} → ${target.owner} ${amount.toLocaleString()}원 이체 시도`);
+    if (this.withdraw(amount)) {   // 출금 성공 시에만
+      target.deposit(amount);      // 상대 계좌에 입금
+    }
+  }
+
+  printHistory() {
+    console.log(`----- ${this.owner} (${this.number}) 거래 내역 -----`);
+    for (const h of this.history) {
+      console.log(`${h.type}  ${h.amount.toLocaleString()}원  → 잔액 ${h.balance.toLocaleString()}원`);
+    }
+  }
+}
+
+// ② 계좌 생성
+const accA = new Account("김지우", "111-222", 100000);
+const accB = new Account("박서준", "333-444");
+
+// ③ 입출금
+accA.deposit(50000);
+accA.withdraw(30000);
+accB.withdraw(10000);        // 잔액 0 → 실패
+accB.deposit(-500);          // 잘못된 금액
+
+// ④ 이체
+accA.transfer(accB, 70000);
+accB.transfer(accA, 999999); // 잔액 부족 → 실패
+
+// ⑤ 결과
+accA.printHistory();
+accB.printHistory();
+console.log("최종 잔액:", { [accA.owner]: accA.balance, [accB.owner]: accB.balance });</code></pre></div>
+
+      <div class="box info"><strong>🔎 포인트</strong><code class="inline">transfer(target, amount)</code>처럼 <strong>객체를 다른 객체의 메서드에 넘겨</strong> 서로 상호작용하게 만드는 것이 객체 지향 프로그래밍의 핵심입니다. Java 수업의 클래스·인스턴스 개념과 똑같습니다.</div>
+      <div class="box tip"><strong>💡 계산된 속성 이름</strong>마지막 줄의 <code class="inline">{ [accA.owner]: ... }</code>처럼 키 자리에 대괄호를 쓰면 <em>변수 값</em>이 키 이름이 됩니다.</div>
+      <div class="challenge"><strong>🛠️ 도전 과제</strong>
+        <ol>
+          <li>1회 출금 한도(예: 500,000원)를 넘으면 거절하도록 <code class="inline">withdraw()</code>를 수정해 보세요.</li>
+          <li>잔액에 이자율을 곱해 더해 주는 <code class="inline">addInterest(rate)</code> 메서드를 만들어 보세요.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 4. 도서관 ===================== -->
+    <section id="s4">
+      <h2><span class="num">4</span>도서관 대출 관리</h2>
+      <p><strong>🎯 목표:</strong> 책 정보를 <strong>ISBN을 키로 하는 객체</strong>에 저장해 빠르게 찾고, 대출·반납·검색 기능을 만듭니다.</p>
+      <div class="tags"><span>객체를 사전처럼</span><span>대괄호 접근</span><span>중첩 객체</span><span>?. 옵셔널 체이닝</span><span>delete</span></div>
+
+      <div class="example" data-label="응용 4 · 도서관 시스템"><pre><code>/* ===== 실행 순서 =====
+ * ① library 객체 : books(ISBN → 책 정보) + 메서드
+ * ② addBook()으로 책 등록 (중첩 객체 loan 포함)
+ * ③ borrow() / giveBack()으로 대출·반납
+ * ④ search()로 제목 키워드 검색
+ * ⑤ removeBook()으로 폐기 (delete) 후 목록 출력
+ * ====================== */
+
+const library = {
+  // ① 키 = ISBN, 값 = 책 객체
+  books: {},
+
+  // ② 등록
+  addBook(isbn, title, author) {
+    if (this.books[isbn]) return console.log(`⚠️ 이미 등록된 책: ${title}`);
+    this.books[isbn] = {
+      title,
+      author,
+      loan: null      // 대출 정보 (없으면 null)
+    };
+    console.log(`📚 등록: ${title}`);
+  },
+
+  // ③-1 대출
+  borrow(isbn, member, days = 14) {
+    const book = this.books[isbn];
+    if (!book) return console.log(`❌ 없는 ISBN: ${isbn}`);
+    if (book.loan) return console.log(`❌ '${book.title}'은(는) ${book.loan.member}님이 대출 중`);
+    book.loan = { member, days };   // 중첩 객체로 대출 정보 저장
+    console.log(`✅ ${member}님 '${book.title}' 대출 (${days}일)`);
+  },
+
+  // ③-2 반납
+  giveBack(isbn) {
+    const book = this.books[isbn];
+    // ?. : book이 없거나 loan이 null이어도 에러 없이 undefined
+    const who = book?.loan?.member;
+    if (!who) return console.log(`⚠️ 반납할 대출 기록 없음 (${isbn})`);
+    book.loan = null;
+    console.log(`↩️ ${who}님 '${book.title}' 반납 완료`);
+  },
+
+  // ④ 검색 : for...in으로 모든 책 확인
+  search(keyword) {
+    const result = [];
+    for (const isbn in this.books) {
+      const b = this.books[isbn];
+      if (b.title.includes(keyword)) {
+        result.push(`${b.title} / ${b.author} / ${b.loan ? "대출중" : "대출가능"}`);
+      }
+    }
+    console.log(`🔍 '${keyword}' 검색 결과 ${result.length}건`, result);
+  },
+
+  // ⑤ 폐기
+  removeBook(isbn) {
+    const title = this.books[isbn]?.title;
+    delete this.books[isbn];        // 속성 삭제
+    console.log(`🗑️ 폐기: ${title}`);
+  },
+
+  printAll() {
+    console.log("===== 소장 도서 =====");
+    for (const isbn in this.books) {
+      const b = this.books[isbn];
+      const state = b.loan ? `대출중(${b.loan.member})` : "대출가능";
+      console.log(`[${isbn}] ${b.title} - ${state}`);
+    }
+  }
+};
+
+// ② 등록
+library.addBook("978-01", "자바스크립트 입문", "홍길동");
+library.addBook("978-02", "자바 객체지향 프로그래밍", "이순신");
+library.addBook("978-03", "모던 자바스크립트 실전", "강감찬");
+library.addBook("978-01", "자바스크립트 입문", "홍길동");  // 중복
+
+// ③ 대출 / 반납
+library.borrow("978-01", "jw");
+library.borrow("978-01", "민지");      // 이미 대출 중
+library.borrow("978-99", "민지");      // 없는 책
+library.borrow("978-03", "민지", 7);
+library.giveBack("978-01");
+library.giveBack("978-02");            // 대출 기록 없음
+
+// ④ 검색
+library.search("자바스크립트");
+
+// ⑤ 폐기 후 전체 목록
+library.removeBook("978-02");
+library.printAll();</code></pre></div>
+
+      <div class="box tip"><strong>💡 왜 배열이 아니라 객체에 저장할까?</strong>배열이면 책 하나를 찾을 때마다 처음부터 끝까지 훑어야 하지만, ISBN을 키로 쓰면 <code class="inline">books[isbn]</code> 한 번으로 바로 찾습니다. <strong>고유한 ID로 찾는 데이터는 객체</strong>가 유리합니다.</div>
+      <div class="challenge"><strong>🛠️ 도전 과제</strong>
+        <ol>
+          <li>특정 회원이 빌린 책 목록을 출력하는 <code class="inline">listByMember(member)</code>를 만들어 보세요.</li>
+          <li>한 회원이 최대 2권까지만 빌릴 수 있게 <code class="inline">borrow()</code>를 수정해 보세요.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 5. 단어 빈도 ===================== -->
+    <section id="s5">
+      <h2><span class="num">5</span>단어 빈도 분석기</h2>
+      <p><strong>🎯 목표:</strong> 문장을 단어로 나누고, 단어마다 몇 번 나왔는지 <strong>객체로 세어</strong> 많이 나온 순으로 그래프처럼 출력합니다. (리뷰 분석, 검색어 통계 등에 그대로 쓰이는 패턴)</p>
+      <div class="tags"><span>동적 속성 추가</span><span>대괄호 접근</span><span>Object.entries</span><span>객체 → 배열 변환</span></div>
+
+      <div class="example" data-label="응용 5 · 단어 세기와 막대그래프"><pre><code>/* ===== 실행 순서 =====
+ * ① 분석할 리뷰 문장 준비
+ * ② 소문자 변환 · 문장부호 제거 · 공백으로 단어 분리
+ * ③ 빈 객체 counter에 단어를 키로 개수 누적
+ * ④ Object.entries로 배열 변환 → 많은 순 정렬
+ * ⑤ 상위 5개를 막대그래프로 출력
+ * ====================== */
+
+// ① 리뷰 데이터
+const reviews = `배송이 빠르고 포장이 좋아요. 가격도 좋아요!
+품질이 좋아요 배송도 빠르고 만족합니다.
+가격이 조금 비싸지만 품질은 최고. 배송 빠르고 좋아요`;
+
+// ② 단어 분리 (정규식: 한글/영문/숫자/공백만 남김)
+const words = reviews
+  .toLowerCase()
+  .replace(/[^가-힣a-z0-9\s]/g, "")
+  .split(/\s+/)
+  .filter(w => w.length > 0);
+console.log("전체 단어 수:", words.length);
+
+// ③ 개수 세기 : 키가 없으면 0에서 시작
+const counter = {};
+for (const w of words) {
+  counter[w] = (counter[w] || 0) + 1;   // 없는 속성 → undefined → 0 처리
+}
+console.log("종류 수:", Object.keys(counter).length);
+
+// ④ [단어, 개수] 배열로 바꿔서 정렬
+const ranking = Object.entries(counter)
+  .sort((a, b) => b[1] - a[1]);
+
+// ⑤ 상위 5개 막대그래프
+console.log("===== 많이 나온 단어 TOP 5 =====");
+ranking.slice(0, 5).forEach(([word, n], i) => {
+  const bar = "■".repeat(n);
+  console.log(`${i + 1}. ${word.padEnd(4, "　")} ${bar} ${n}`);
+});
+
+// 보너스 : 특정 단어 조회
+const target = "가격도";
+console.log(`'${target}' 등장 횟수:`, counter[target] ?? 0);</code></pre></div>
+
+      <div class="box info"><strong>🔎 핵심 한 줄</strong><code class="inline">counter[w] = (counter[w] || 0) + 1</code> — 처음 보는 단어면 속성이 없어서 <code class="inline">undefined</code>가 되고, <code class="inline">|| 0</code> 덕분에 0부터 셉니다. 객체에 <strong>속성을 동적으로 추가</strong>하는 가장 흔한 실전 패턴입니다.</div>
+      <div class="challenge"><strong>🛠️ 도전 과제</strong>
+        <ol>
+          <li>"이", "가", "도" 같은 조사가 붙은 단어를 합치기는 어렵지만, 1글자 단어를 제외하도록 <code class="inline">filter</code> 조건을 바꿔 보세요.</li>
+          <li>단어 대신 <strong>글자</strong> 단위로 세는 버전을 만들어 보세요. (힌트: <code class="inline">for (const ch of text)</code>)</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 6. 개념 정리 표 ===================== -->
+    <section id="s6">
+      <h2><span class="num">6</span>예제별 사용 개념 정리</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>예제</th><th>객체 역할</th><th>주요 개념</th><th>jsObject.html 참고 장</th></tr></thead>
+          <tbody>
+            <tr><td>1. 장바구니</td><td>상태(목록·할인율)와 기능을 한곳에</td><td>메서드, <code>this</code>, 객체 배열, <code>in</code></td><td>2, 4, 5, 6</td></tr>
+            <tr><td>2. 성적 관리</td><td>학생 1명 = 객체 1개</td><td>중첩 객체, <code>for...in</code>, 속성 추가</td><td>5, 7, 8</td></tr>
+            <tr><td>3. 은행 계좌</td><td>같은 구조 객체를 찍어내는 설계도</td><td><code>class</code>, <code>new</code>, 객체 간 상호작용</td><td>3, 6</td></tr>
+            <tr><td>4. 도서관</td><td>ID로 바로 찾는 사전(딕셔너리)</td><td>대괄호 접근, <code>?.</code>, <code>delete</code></td><td>4, 5, 7, 8</td></tr>
+            <tr><td>5. 단어 빈도</td><td>개수를 세는 카운터</td><td>동적 속성, <code>Object.entries</code></td><td>4, 5, 8, 9</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>객체를 쓰는 4가지 대표 패턴</h3>
+      <div class="summary-grid">
+        <div class="summary-card"><h4>① 하나의 대상 묘사</h4><p>학생, 상품, 책처럼 여러 특징을 묶음 → 예제 2</p></div>
+        <div class="summary-card"><h4>② 상태 + 기능 묶음</h4><p>데이터와 그 데이터를 다루는 메서드를 함께 → 예제 1, 3</p></div>
+        <div class="summary-card"><h4>③ 사전(조회표)</h4><p>키로 값을 즉시 찾음 (쿠폰표, ISBN) → 예제 1, 4</p></div>
+        <div class="summary-card"><h4>④ 카운터·집계</h4><p>키마다 개수나 합계를 누적 → 예제 2, 5</p></div>
+      </div>
+    </section>
+
+    <!-- ===================== 7. 실행 방법 ===================== -->
+    <section id="s7">
+      <h2><span class="num">7</span>저장 및 실행 방법</h2>
+      <ol class="steps">
+        <li><code class="inline">jsApp_Claude.html</code>을 <code class="inline">jsObject.html</code>과 같은 폴더에 저장합니다.</li>
+        <li>파일을 더블클릭해 브라우저로 열고, 각 예제의 <strong>▶ 실행</strong> 버튼을 누릅니다.</li>
+        <li>코드를 고쳐 보고 싶다면 <strong>📋 복사</strong> → 브라우저 <kbd>F12</kbd> → <strong>Console</strong> 탭에 붙여 넣고 <kbd>Enter</kbd>.</li>
+        <li>VSCode에서 <strong>Live Server</strong>로 열면 HTML 안의 예제를 직접 수정하고 저장할 때마다 자동으로 새로고침됩니다.</li>
+      </ol>
+      <div class="box warn"><strong>⚠️ 콘솔에서 다시 실행할 때</strong>같은 <code class="inline">const</code> 이름을 다시 선언하면 <em>"already been declared"</em> 에러가 납니다. <kbd>F5</kbd>로 새로고침한 뒤 붙여 넣으세요.</div>
+    </section>
+  </main>
+</div>
+
+<footer>자바스크립트 객체 실전 응용 예제 · jsApp_Claude.html</footer>
+<button id="toTop" aria-label="맨 위로">↑</button>
+
+<script>
+/* =====================================================================
+ * 페이지 동작 스크립트
+ * ===== 실행 순서 =====
+ * ① 코드 하이라이트 함수 준비
+ * ② 모든 .example 블록에 머리말(복사/실행 버튼)과 출력 영역 생성
+ * ③ 복사 버튼 → 클립보드 복사
+ * ④ 실행 버튼 → console.log를 가로채 결과를 화면에 출력
+ * ⑤ 목차 현재 위치 강조, 모바일 목차 토글, 맨 위로 버튼
+ * ===================================================================== */
+
+// ① 간단한 문법 강조 (주석/문자열/키워드/숫자)
+function escapeHTML(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function highlight(code) {
+  const re = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\b(const|let|var|function|return|new|this|for|in|of|if|else|delete|class|constructor|typeof|true|false|null|undefined)\b|\b(\d+(?:\.\d+)?)\b/g;
+  let out = "", last = 0, m;
+  while ((m = re.exec(code)) !== null) {
+    out += escapeHTML(code.slice(last, m.index));
+    const cls = m[1] ? "tok-c" : m[2] ? "tok-s" : m[3] ? "tok-k" : "tok-n";
+    out += '<span class="' + cls + '">' + escapeHTML(m[0]) + "</span>";
+    last = re.lastIndex;
+  }
+  return out + escapeHTML(code.slice(last));
+}
+
+// 값을 보기 좋은 문자열로 변환 (객체는 JSON 형태로)
+function formatValue(v) {
+  if (typeof v === "string") return v;
+  if (v === undefined) return "undefined";
+  if (typeof v === "function") return "[함수 " + (v.name || "익명") + "]";
+  if (typeof v === "object" && v !== null) {
+    try {
+      return JSON.stringify(v, function (k, val) {
+        if (typeof val === "function") return "[함수]";
+        if (val === undefined) return "undefined";
+        return val;
+      }, 2);
+    } catch (e) { return String(v); }
+  }
+  return String(v);
+}
+
+// ② 예제 블록 꾸미기
+document.querySelectorAll(".example").forEach(function (box) {
+  const codeEl = box.querySelector("code");
+  const raw = codeEl.textContent.replace(/^\n+|\s+$/g, ""); // 원본 코드 보관
+  codeEl.innerHTML = highlight(raw);
+
+  const head = document.createElement("div");
+  head.className = "ex-head";
+  head.innerHTML =
+    '<span class="title"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>' +
+    escapeHTML(box.dataset.label || "예제") + "</span>" +
+    '<div class="btns"><button class="btn-copy" type="button">📋 복사</button><button class="btn-run" type="button">▶ 실행</button></div>';
+  box.prepend(head);
+
+  const output = document.createElement("div");
+  output.className = "output";
+  output.hidden = true;
+  box.append(output);
+
+  // ③ 복사 버튼
+  const copyBtn = head.querySelector(".btn-copy");
+  copyBtn.addEventListener("click", function () {
+    const done = function () {
+      copyBtn.textContent = "✅ 복사됨";
+      copyBtn.classList.add("done");
+      setTimeout(function () { copyBtn.textContent = "📋 복사"; copyBtn.classList.remove("done"); }, 1500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(raw).then(done, function () { fallbackCopy(raw); done(); });
+    } else { fallbackCopy(raw); done(); }
+  });
+
+  // ④ 실행 버튼
+  head.querySelector(".btn-run").addEventListener("click", function () {
+    const lines = [];
+    const fakeConsole = {
+      log: function () { lines.push(Array.from(arguments).map(formatValue).join(" ")); }
+    };
+    fakeConsole.info = fakeConsole.warn = fakeConsole.error = fakeConsole.log;
+
+    let html = '<span class="label">▶ 실행 결과</span>';
+    try {
+      new Function("console", raw)(fakeConsole);   // 예제 코드 실행
+      html += escapeHTML(lines.length ? lines.join("\n") : "(출력 없음)");
+    } catch (err) {
+      html += escapeHTML(lines.join("\n")) + (lines.length ? "\n" : "") +
+              '<span class="err">⛔ 에러: ' + escapeHTML(err.name + " - " + err.message) + "</span>";
+    }
+    output.innerHTML = html;
+    output.hidden = false;
+  });
+});
+
+// 클립보드 API를 쓸 수 없을 때(파일로 열었을 때 등) 대체 복사
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+// ⑤-1 목차 현재 위치 강조
+const tocLinks = document.querySelectorAll("nav.toc a");
+const observer = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(function (a) {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: "-30% 0px -60% 0px" });
+document.querySelectorAll("main section").forEach(function (s) { observer.observe(s); });
+
+// ⑤-2 모바일 목차 열기/닫기
+const toc = document.getElementById("toc");
+const tocToggle = document.getElementById("tocToggle");
+tocToggle.addEventListener("click", function () {
+  const open = toc.classList.toggle("open");
+  tocToggle.setAttribute("aria-expanded", open);
+  tocToggle.querySelector("span").textContent = open ? "▲" : "▼";
+});
+tocLinks.forEach(function (a) {
+  a.addEventListener("click", function () {
+    if (window.innerWidth <= 900) {
+      toc.classList.remove("open");
+      tocToggle.querySelector("span").textContent = "▼";
+    }
+  });
+});
+
+// ⑤-3 맨 위로 버튼
+const toTop = document.getElementById("toTop");
+window.addEventListener("scroll", function () {
+  toTop.classList.toggle("show", window.scrollY > 500);
+});
+toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+</script>
+</body>
+</html>
