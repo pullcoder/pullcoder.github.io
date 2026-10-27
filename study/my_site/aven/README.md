@@ -125,5 +125,3 @@ flowchart LR
 ## 🧰 7. 개발 환경 실행 (Getting Started)
 
 **필요 도구**: Docker Desktop, Python 3.12, JDK 17, Android Studio
-
-> 서버 실행, 에뮬레이터·실기기 연결, 앱 첫 사용, 문제 해결은 [실행 방법](docs/guide/START.md)을 참고하세요.
