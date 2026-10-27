@@ -10,37 +10,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="../../assets/js/site-header.js" defer></script>
     <script src="../../assets/js/fx.js" defer></script>
+    <link rel="stylesheet" href="assets/md-view.css">
+    <script src="assets/md-view.js"></script>
     <style>
-        /* md 문서 뷰어 — doc.html?f=aven/docs/plan/PLAN.md */
         .doc-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 28px 8px; }
         .doc-top .path { font-family: var(--mono); font-size: .82rem; color: var(--muted); word-break: break-all; }
-        .md { padding: clamp(20px, 4vw, 40px); border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); line-height: 1.8; color: var(--text-2); overflow-wrap: anywhere; }
-        .md > :first-child { margin-top: 0; }
-        .md h1, .md h2, .md h3, .md h4 { color: var(--text); line-height: 1.4; letter-spacing: -.02em; scroll-margin-top: 80px; }
-        .md h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin: 0 0 16px; text-shadow: 0 0 20px rgba(255, 43, 214, .35); }
-        .md h2 { font-size: 1.35rem; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
-        .md h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--neon-cyan); }
-        .md h4 { font-size: 1rem; margin: 20px 0 8px; }
-        .md p, .md ul, .md ol, .md blockquote, .md table, .md pre { margin: 0 0 14px; }
-        .md ul, .md ol { padding-left: 1.4em; }
-        .md li + li { margin-top: 4px; }
-        .md li input[type="checkbox"] { margin-right: 6px; accent-color: var(--neon-lime); }
-        .md strong { color: var(--text); }
-        .md a { color: var(--neon-cyan); text-decoration: none; border-bottom: 1px dashed rgba(0, 240, 255, .4); }
-        .md a:hover { border-bottom-style: solid; }
-        .md hr { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
-        .md blockquote { padding: 10px 16px; border-left: 3px solid var(--neon-pink); background: rgba(255, 43, 214, .05); border-radius: 0 8px 8px 0; }
-        .md blockquote p:last-child { margin-bottom: 0; }
-        .md code { font-family: var(--mono); font-size: .86em; padding: 1px 6px; border-radius: 5px; background: rgba(139, 92, 255, .14); color: var(--neon-yellow); }
-        .md pre { overflow-x: auto; padding: 16px; border-radius: var(--radius-sm); background: rgba(0, 0, 0, .4); border: 1px solid var(--line); }
-        .md pre code { padding: 0; background: none; color: inherit; font-size: .84rem; }
-        .md .table-wrap { overflow-x: auto; margin: 0 0 16px; }
-        .md table { border-collapse: collapse; font-size: .88rem; margin: 0; }
-        .md th, .md td { padding: 8px 12px; border: 1px solid var(--line); vertical-align: top; }
-        .md th { color: var(--text); background: rgba(139, 92, 255, .1); white-space: nowrap; }
-        .md .mermaid { background: rgba(255, 255, 255, .03); text-align: center; }
-        .doc-msg { padding: 32px; text-align: center; color: var(--muted); }
-        .doc-msg code { font-family: var(--mono); color: var(--neon-yellow); }
     </style>
 </head>
 <body>
@@ -55,87 +29,18 @@
 
     <script>
     (function () {
+        // doc.html?f=aven/docs/plan/PLAN.md
         var box = document.getElementById('doc');
         var file = new URLSearchParams(location.search).get('f') || 'aven/README.md';
-
-        // aven/ 폴더 안의 .md 만 허용
-        if (!/^aven\/[\w\-\/]+\.md$/.test(file) || file.indexOf('..') !== -1) {
-            box.innerHTML = '<p class="doc-msg">열 수 없는 문서입니다.</p>';
-            return;
-        }
         document.getElementById('doc-path').textContent = file;
 
-        // GitHub 와 같은 방식으로 제목 앵커 만들기 (문서 안의 목차 링크용)
-        function slug(text) {
-            return anchor(text.trim().replace(/\s/g, '-'));
-        }
-
-        // 문서 안의 상대 링크: .md 는 이 뷰어로, 그 외는 GitHub 저장소로
-        var repo = 'https://github.com/pullcoder/pullcoder.github.io/blob/main/study/my_site/';
-        // 앵커는 글자·숫자·-·_ 만 남겨 비교 (이모지 변형 문자 차이 무시)
-        function anchor(hash) {
-            try { hash = decodeURIComponent(hash); } catch (e) { /* 그대로 */ }
-            return hash.toLowerCase().replace(/[^\p{L}\p{N}_-]/gu, '');
-        }
-        function fixLink(href) {
-            if (!href || /^(https?:|mailto:)/.test(href)) return null;
-            if (href.charAt(0) === '#') return '#' + anchor(href.slice(1));
-            var parts = href.split('#');
-            var target = new URL(parts[0], 'http://x/' + file).pathname.slice(1);
-            if (/\.md$/.test(target)) return 'doc.html?f=' + target + (parts[1] ? '#' + anchor(parts[1]) : '');
-            return repo + target;
-        }
-
-        fetch(file)
-            .then(function (res) {
-                if (!res.ok) throw new Error(res.status);
-                return res.text();
-            })
-            .then(function (md) {
-                box.innerHTML = marked.parse(md, { gfm: true });
-
-                var h1 = box.querySelector('h1');
-                if (h1) document.title = h1.textContent + ' | Aven';
-
-                box.querySelectorAll('h1, h2, h3, h4').forEach(function (h) { h.id = slug(h.textContent); });
-                box.querySelectorAll('a[href]').forEach(function (a) {
-                    var fixed = fixLink(a.getAttribute('href'));
-                    if (fixed) a.setAttribute('href', fixed);
-                    if (/^https?:/.test(a.getAttribute('href'))) { a.target = '_blank'; a.rel = 'noopener'; }
-                });
-                box.querySelectorAll('table').forEach(function (t) {
-                    var wrap = document.createElement('div');
-                    wrap.className = 'table-wrap';
-                    t.parentNode.insertBefore(wrap, t);
-                    wrap.appendChild(t);
-                });
-
-                // ```mermaid 는 다이어그램으로, 나머지 코드는 구문 강조
-                var diagrams = box.querySelectorAll('pre code.language-mermaid');
-                diagrams.forEach(function (code) {
-                    var div = document.createElement('div');
-                    div.className = 'mermaid';
-                    div.textContent = code.textContent;
-                    code.parentNode.replaceWith(div);
-                });
-                if (diagrams.length) {
-                    var s = document.createElement('script');
-                    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js';
-                    s.onload = function () { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); mermaid.run(); };
-                    document.head.appendChild(s);
-                }
-                box.querySelectorAll('pre code').forEach(function (el) { hljs.highlightElement(el); });
-
-                if (location.hash) {
-                    var target = document.getElementById(anchor(location.hash.slice(1)));
-                    if (target) target.scrollIntoView();
-                }
-            })
-            .catch(function () {
-                box.innerHTML = '<p class="doc-msg">문서를 불러오지 못했습니다.<br>' +
-                    '파일을 더블클릭해서 연 경우(<code>file://</code>)에는 브라우저가 막습니다 — ' +
-                    'VS Code <code>Live Server</code> 등 로컬 서버로 열거나 GitHub Pages 에서 확인하세요.</p>';
-            });
+        MdView.render(box, file).then(function (info) {
+            document.title = info.title + ' | Aven';
+            if (location.hash) {
+                var target = document.getElementById(MdView.anchor(location.hash.slice(1)));
+                if (target) target.scrollIntoView();
+            }
+        }).catch(function () { /* 메시지는 MdView 가 표시 */ });
     })();
     </script>
 

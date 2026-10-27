@@ -4,18 +4,6 @@
 
 [← 문서 목록으로](../../README.md)
 
-### ⚡ 메시지 한눈에 보기
-
-| 방향 | 메시지 | 용도 |
-| --- | --- | --- |
-| 앱 → 서버 | `chat` | 일반 대화 (기본) |
-| | `transcribe` | 음성을 텍스트로 |
-| | `task` | 목표 확인 → 승인 카드 |
-| | `step` | 현재 화면을 보내고 다음 동작 하나 받기 |
-| 서버 → 앱 | `chat_reply` · `transcript` · `task_plan` | 대화 답장 · 변환 결과 · 승인 요약 |
-| | `next_action` · `ask` | 다음 동작 · 사용자에게 선택 질문 |
-| | `done` · `rejected` · `error` | 완료 · 거부 · 오류 |
-
 ---
 
 ## 1. 연결
@@ -52,7 +40,9 @@ chat ──(intent=task)──▶ 앱이 대상 앱 열기 ──▶ task(패키
 
 - `app`: 말 속에서 **폰 안에서** 찾은 설치 앱 이름 하나 (없으면 `null`). 앱 목록은 보내지 않습니다.
 - `history`: 최근 10개까지. 서버는 저장하지 않고 로그에는 `request_id`·`planner`·`intent`만 남깁니다.
-- `follow_up`: 직전에 서버가 **실행 전 질문**을 했으면 받은 `{goal, app}`을 그대로 돌려줍니다 (이번 `text`가 그 답). 서버는 대화를 저장하지 않으므로 앱이 들고 있습니다.
+- `follow_up`: 직전에 서버가 **실행 전 질문**을 했으면 받은 `{goal, app}`을 그대로 돌려줍니다 (이번 `text`가 그 답). 서버는 대화를 저장하지 않으므로 앱이 들고 있습니다. `kind`: `task`(실행 전 질문) · `weather`(날씨 지역 질문, `goal`은 처음 질문) · `save_region`("내 지역으로 저장해 둘까요?", `goal`은 지역 이름 — 예면 저장, 아니오면 저장 안 함, 다른 말이면 새 대화로 처리)
+- **내 정보**: "내 지역은 수원이야 기억해줘"·"내 이름 뭐야?"·"내 생일 지워줘" 같은 말은 서버가 규칙으로 처리해 `chat_reply`(`planner: rule`)로 답하고, 백엔드 `/api/saved-info`에 연결 토큰으로 저장·조회합니다 (LLM에 보내지 않음).
+- **날씨 지역**: 말 속 지역 → 대화 속 마지막 지역(사용자가 한 말만) → 저장된 내 지역 순으로 쓰고, 셋 다 없을 때만 묻습니다. 물어서 알게 된 지역은 답 끝에 저장할지 묻고 `follow_up.kind = save_region`을 줍니다. 날씨를 물은 직후의 "내일은?"·"그럼 부산은?"도 날씨로 답합니다.
 
 **실행 전 질문**: 레시피가 있는 앱인데 명령에 가게·메뉴로 볼 낱말이 없으면(카테고리뿐이거나 없음, 예: "더미 배달에서 피자 시켜줘") 실행하지 않고 `chat_reply`(`intent: reply`)로 묻고 `follow_up`을 줍니다. 답이 오면 `답 + 원래 명령`으로 `intent: task`와 `goal`·`app`을 돌려주고, 앱은 그 `goal`로 실행합니다. 답이 '취소·그만·아니…'면 하지 않습니다.
 
@@ -119,7 +109,7 @@ Google Play는 접근성 API로 스스로 계획·실행하는 것을 금지하�
 | 항목 | 설명 |
 | --- | --- |
 | `chat_reply.intent` | `reply`: 답장만 (다른 앱으로 전환하지 않음) · `task`: `app`이 있고 그 앱에서 할 일을 시킨 경우만 → 앱이 `task`로 진행 |
-| `next_action.step.action` | `click`, `set_text`, `submit`(키보드 검색·완료), `scroll_forward`, `scroll_backward`. 좌표 터치는 없음 |
+| `next_action.step.action` | `click`, `set_text`, `submit`(키보드 검색·완료), `scroll_forward`, `scroll_backward`. 따로 좌표를 보내는 동작은 없음. 앱은 `click`이 거부된 요소(누를 수 있다고 표시되지 않은 요소)에 한해 그 요소의 가운데를 터치한다 (D3, 2026-10-26) |
 | `next_action.step.target.node_id` | 보낸 화면의 요소 id. 같은 글자의 버튼이 여럿일 수 있어 앱은 그 요소의 **위치**로 먼저 찾고, 없으면 글자로 찾음 |
 | `rejected.reason_code` | `SENSITIVE_ACTION` · `SENSITIVE_SCREEN` · `UNSUPPORTED` · `UNREQUESTED_ACTION`(요청하지 않은 삭제·취소) |
 | `error.code` | `INVALID_MESSAGE` · `INPUT_TOO_LARGE` · `STT_UNAVAILABLE` · `PLANNER_FAILED` |

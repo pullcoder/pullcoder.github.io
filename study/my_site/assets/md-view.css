@@ -1,0 +1,47 @@
+/* md 문서 렌더링 — doc.html 과 index.html 팝업이 함께 사용 */
+.md { padding: clamp(20px, 4vw, 40px); border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); line-height: 1.8; color: var(--text-2); overflow-wrap: anywhere; }
+.md > :first-child { margin-top: 0; }
+.md h1, .md h2, .md h3, .md h4 { color: var(--text); line-height: 1.4; letter-spacing: -.02em; scroll-margin-top: 80px; }
+.md h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin: 0 0 16px; text-shadow: 0 0 20px rgba(255, 43, 214, .35); }
+.md h2 { font-size: 1.35rem; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.md h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--neon-cyan); }
+.md h4 { font-size: 1rem; margin: 20px 0 8px; }
+.md p, .md ul, .md ol, .md blockquote, .md table, .md pre { margin: 0 0 14px; }
+.md ul, .md ol { padding-left: 1.4em; }
+.md li + li { margin-top: 4px; }
+.md li input[type="checkbox"] { margin-right: 6px; accent-color: var(--neon-lime); }
+.md strong { color: var(--text); }
+.md a { color: var(--neon-cyan); text-decoration: none; border-bottom: 1px dashed rgba(0, 240, 255, .4); }
+.md a:hover { border-bottom-style: solid; }
+.md hr { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+.md blockquote { padding: 10px 16px; border-left: 3px solid var(--neon-pink); background: rgba(255, 43, 214, .05); border-radius: 0 8px 8px 0; }
+.md blockquote p:last-child { margin-bottom: 0; }
+.md code { font-family: var(--mono); font-size: .86em; padding: 1px 6px; border-radius: 5px; background: rgba(139, 92, 255, .14); color: var(--neon-yellow); }
+.md pre { overflow-x: auto; padding: 16px; border-radius: var(--radius-sm); background: rgba(0, 0, 0, .4); border: 1px solid var(--line); }
+.md pre code { padding: 0; background: none; color: inherit; font-size: .84rem; }
+.md .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.md table { border-collapse: collapse; font-size: .88rem; margin: 0; }
+.md th, .md td { padding: 8px 12px; border: 1px solid var(--line); vertical-align: top; }
+.md th { color: var(--text); background: rgba(139, 92, 255, .1); white-space: nowrap; }
+.md .mermaid { background: rgba(255, 255, 255, .03); text-align: center; }
+.doc-msg { padding: 32px; text-align: center; color: var(--muted); }
+.doc-msg code { font-family: var(--mono); color: var(--neon-yellow); }
+
+/* 팝업 (index.html) */
+.md-pop { width: min(960px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 48px); padding: 0; margin: auto;
+    display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line);
+    background: var(--surface-solid, #0d0b1a); color: var(--text); box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 30px rgba(255, 43, 214, .15); }
+.md-pop:not([open]) { display: none; }
+.md-pop::backdrop { background: rgba(4, 3, 12, .72); backdrop-filter: blur(4px); }
+.md-pop-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.md-pop-head .path { flex: 1; min-width: 0; font-family: var(--mono); font-size: .8rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.md-pop-head a, .md-pop-head button { font: inherit; font-family: var(--mono); font-size: .8rem; color: var(--neon-cyan); text-decoration: none; white-space: nowrap;
+    background: none; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.md-pop-head button { color: var(--text-2); }
+.md-pop-head a:hover, .md-pop-head button:hover { border-color: var(--neon-pink); color: var(--text); }
+.md-pop-body { overflow-y: auto; overscroll-behavior: contain; }
+.md-pop-body .md { border: 0; border-radius: 0; background: transparent; }
+@media (max-width: 640px) {
+    .md-pop { width: calc(100% - 16px); max-height: calc(100dvh - 16px); }
+    .md-pop-head .path { display: none; }
+}

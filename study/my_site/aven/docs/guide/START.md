@@ -1,17 +1,7 @@
 # ▶️ 실행 방법 (Getting Started)
 
-> Windows PC에서 서버 3종(DB · 저장소, 백엔드, AI 서버)을 켜고, 에뮬레이터 또는 실제 폰에서 Aven 앱을 사용하는 방법입니다.
-> 명령어는 **저장소 루트** 기준, Git Bash 기준입니다. PowerShell 전용 명령은 따로 표시했습니다.
-
-### ⏱️ 요약 — 매번 실행하는 순서
-
-| 순서 | 할 일 | 확인 |
-| :---: | --- | --- |
-| 1 | Docker Desktop 실행 → `docker compose up -d` | postgres `healthy` |
-| 2 | 백엔드 `./gradlew bootRun` | `Started AvenApplicationKt` |
-| 3 | AI 서버 `uvicorn …` | `/health` → `ok` |
-| 4 | 에뮬레이터 켜기 또는 폰 연결 | `adb devices` |
-| 5 | `connect-device.ps1` 실행 | 앱에서 서버 연결됨 |
+> Windows PC에서 서버 3종(DB·저장소, 백엔드, AI 서버)을 켜고, 에뮬레이터 또는 실제 폰에서 Aven 앱을 사용하는 방법입니다.
+> 명령어는 **저장소 루트(`aven/`)** 기준이며, Git Bash 기준으로 적었습니다. PowerShell 전용 명령은 따로 표시했습니다.
 
 [← 문서 목록으로](../../README.md)
 
@@ -101,7 +91,7 @@ docker compose ps          # postgres: healthy, s3: Up 확인
 
 | 서비스 | 주소 |
 | --- | --- |
-| PostgreSQL | `localhost:5433` (기본 5432와 겹치지 않도록) |
+| PostgreSQL | `localhost:5433` (5432는 다른 프로젝트가 사용 중) |
 | S3 저장소 (SeaweedFS) | `http://localhost:8333` |
 
 ### 3-2. 백엔드 (터미널 1)
@@ -207,7 +197,7 @@ foreach ($p in 8080, 8000) { Get-NetTCPConnection -LocalPort $p -State Listen -E
 | 증상 | 원인 · 해결 |
 | --- | --- |
 | `docker compose up`에서 `port is already allocated` | 5433 또는 8333을 다른 프로그램이 사용 중 → `.env`의 `POSTGRES_PORT` 변경 |
-| 백엔드: `Port 8080 was already in use` | 다른 프로그램이 8080 사용 중 → `SERVER_PORT=8081 ./gradlew bootRun`, `.env`에 `BACKEND_URL=http://localhost:8081`, 기기는 `adb reverse tcp:8080 tcp:8081` |
+| 백엔드: `Port 8080 was already in use` | 다른 프로그램(예: Oracle 리스너)이 8080 사용 중 → `SERVER_PORT=8081 ./gradlew bootRun`, `.env`에 `BACKEND_URL=http://localhost:8081`, 기기는 `adb reverse tcp:8080 tcp:8081` |
 | 백엔드가 DB 연결 실패 | Docker Desktop과 `docker compose up -d`가 먼저 실행됐는지 확인 |
 | 앱: "서버에 연결할 수 없습니다" | `connect-device.ps1`을 다시 실행 (에뮬레이터 재시작·폰 재연결 후 필수) |
 | 앱: "접근성 서비스가 꺼져 있습니다" | 설정 → 접근성 → Aven 켜기. 앱을 새로 설치한 직후라면 몇 초 기다리기 |
@@ -218,4 +208,4 @@ foreach ($p in 8080, 8000) { Get-NetTCPConnection -LocalPort $p -State Listen -E
 | 음성 명령: "음성 인식을 사용할 수 없습니다" | `.env`에 `OPENAI_API_KEY` 입력 후 AI 서버 재시작 |
 | 녹음 재생 실패 | `connect-device.ps1`로 8333 포트가 연결됐는지 확인, `.env`의 `S3_PUBLIC_ENDPOINT`는 비워 둠 |
 | `pip install`에서 `cp949` 오류 | `requirements.txt`에 한글이 들어갔는지 확인 (영문 주석만 사용) |
-| 폰 LAN(Wi-Fi)으로 직접 연결이 안 됨 | 방화벽 설정에 따라 막힐 수 있음 → USB + `connect-device.ps1` 사용 |
+| 폰 LAN(Wi-Fi)으로 직접 연결이 안 됨 | Windows 방화벽이 `python.exe` 인바운드를 차단 중 → USB + `connect-device.ps1` 사용 |

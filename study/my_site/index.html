@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="../../assets/css/site.css">
     <script src="../../assets/js/site-header.js" defer></script>
     <script src="../../assets/js/fx.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/md-view.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="assets/md-view.js"></script>
     <style>
         /* 이 페이지 전용 — 나머지는 site.css 공통 스타일 사용 */
         .principles { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -26,23 +31,9 @@
         .kotlin-note { margin-top: 14px; color: var(--text-2); font-size: .92rem; }
         .kotlin-note strong { color: var(--neon-violet); }
         .kotlin-note a { color: var(--neon-cyan); text-decoration: none; white-space: nowrap; }
-        .pdf-note { margin: -4px 0 14px; padding: 10px 14px; font-size: .88rem; color: var(--text-2);
+        .docs-lead { margin: -4px 0 8px; color: var(--text-2); font-size: .92rem; }
+        .docs-note { margin: -4px 0 14px; padding: 10px 14px; font-size: .88rem; color: var(--text-2);
             border-left: 3px solid var(--neon-yellow); background: rgba(255, 225, 77, .05); border-radius: 0 8px 8px 0; }
-        .pdf-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-        .pdf-tabs button { font: inherit; font-size: .88rem; padding: 8px 16px; border-radius: 999px; cursor: pointer;
-            color: var(--text-2); background: var(--surface); border: 1px solid var(--line); transition: color .2s, border-color .2s, box-shadow .2s; }
-        .pdf-tabs button:hover { color: var(--text); }
-        .pdf-tabs button.is-on { color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 14px rgba(255, 43, 214, .3); }
-        .pdf { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
-        .pdf figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
-        .pdf figcaption strong { margin-right: auto; }
-        .pdf-info { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
-        .pdf figcaption a { font-family: var(--mono); font-size: .8rem; color: var(--neon-cyan); text-decoration: none; }
-        .pdf-pages { height: min(80vh, 900px); overflow-y: auto; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 16px; background: rgba(0, 0, 0, .35); }
-        .pdf-pages canvas { display: block; width: 100%; max-width: 860px; height: auto; border-radius: 6px; background: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
-        .pdf-pages iframe { width: 100%; height: 100%; border: 0; background: #fff; border-radius: 6px; }
-        .pdf-msg { margin: auto; color: var(--muted); }
-        @media (max-width: 640px) { .pdf-pages { padding: 8px; gap: 10px; height: 75vh; } }
         @media (max-width: 640px) { .principles { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -239,89 +230,107 @@
             </ul>
         </section>
 
-        <!-- 06. 문서 (md 는 doc.html 뷰어로 열림) -->
+        <!-- 06. 문서 (카드를 누르면 팝업으로 md 를 보여줌, JS 가 없으면 doc.html 뷰어로 이동) -->
         <section class="section" id="docs">
             <h2 class="section-title"><span class="no">06.</span>프로젝트 문서</h2>
+            <p class="docs-lead">카드를 누르면 문서가 팝업으로 열립니다. 문서 안의 다른 문서 링크도 팝업 안에서 이어서 볼 수 있습니다.</p>
+
+            <h3 class="sub-title"><span>//</span> 개요 · 계획</h3>
             <ul class="item-grid" style="--c:#ff2bd6">
-                <li><a class="item-card" href="doc.html?f=aven/README.md"><span class="no">00</span><span class="info"><span class="title">README — 프로젝트 전체 소개</span><span class="sub">개요, 보안 원칙, 아키텍처, 로드맵</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/plan/PLAN.md"><span class="no">계획</span><span class="info"><span class="title">개발 계획 · 다음 할 일</span><span class="sub">현재 상태, 문제점, 결정 대기, 단계별 할 일</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/policy/ACCESSIBILITY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">접근성 서비스 API 사용 정책</span><span class="sub">API 사용 목적과 4대 준수 원칙</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/policy/PRIVACY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">개인정보 처리방침</span><span class="sub">수집 · 이용 · 보관 · 파기 안내</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/policy/TERMS_OF_SERVICE.md"><span class="no">정책</span><span class="info"><span class="title">서비스 이용약관</span><span class="sub">이용조건, 권리 · 의무, 책임의 한계</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/policy/THIRD_PARTY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">제3자 서비스 상호작용 방침</span><span class="sub">제3자 앱 UI 접근 범위와 제한</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/policy/SECURITY_AUDIT.md"><span class="no">정책</span><span class="info"><span class="title">보안 및 데이터 감사 정책</span><span class="sub">RLS, Soft Delete, 감사 로깅</span></span><span class="arrow">→</span></a></li>
-                <li><a class="item-card" href="doc.html?f=aven/docs/tech/TECH_STACK.md"><span class="no">기술</span><span class="info"><span class="title">기술 스택 및 개발 환경 명세</span><span class="sub">레이어별 기술, 왜 Kotlin인가, 데이터 흐름</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/README.md" data-md="aven/README.md"><span class="no">00</span><span class="info"><span class="title">README — 프로젝트 전체 소개</span><span class="sub">개요, 보안 원칙, 아키텍처, DB 구조, 규제 현황, 로드맵, 실행 방법 요약</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/plan/PLAN.md" data-md="aven/docs/plan/PLAN.md"><span class="no">계획</span><span class="info"><span class="title">개발 계획 · 다음 할 일</span><span class="sub">실서비스 전환 계획 — 현재 상태, 문제점 검토, 결정 대기, 단계별 할 일</span></span><span class="arrow">→</span></a></li>
             </ul>
 
-            <h3 class="sub-title"><span>//</span> PDF 자료 — 초기 기획안</h3>
-            <p class="pdf-note">프로젝트 초기에 작성한 기획 문서입니다. 생체인증 · 알림 읽기 · 메신저 연동 · 전체 계획(Action Plan) 방식 등은 이후 설계에서 바뀌었으며, 현재 기준은 위 문서를 참고하세요.</p>
-            <!-- PDF 는 pdf.js 로 페이지를 이미지처럼 그려 세로 스크롤로 봄 (실패하면 브라우저 기본 뷰어) -->
-            <div class="pdf-tabs" role="tablist">
-                <button type="button" class="is-on" data-pdf="0">SWOT 분석 (1차안)</button>
-                <button type="button" data-pdf="1">Google Play 정책 준수 설명서</button>
-            </div>
-            <figure class="pdf" data-src="aven/SWOT%EB%B6%84%EC%84%9D.pdf">
-                <figcaption><strong>SWOT 분석 (1차안)</strong><span class="pdf-info"></span><a href="aven/SWOT%EB%B6%84%EC%84%9D.pdf" target="_blank" rel="noopener">새 탭에서 열기 ↗</a></figcaption>
-                <div class="pdf-pages"><p class="pdf-msg">PDF를 불러오는 중…</p></div>
-            </figure>
-            <figure class="pdf" data-src="aven/Google%20Play%20%EC%82%AC%EC%9A%A9%20%EB%B0%8F%20%EC%A0%95%EC%B1%85%20%EC%A4%80%EC%88%98%20%EC%84%A4%EB%AA%85%EC%84%9C.pdf" hidden>
-                <figcaption><strong>Google Play 사용 및 정책 준수 설명서</strong><span class="pdf-info"></span><a href="aven/Google%20Play%20%EC%82%AC%EC%9A%A9%20%EB%B0%8F%20%EC%A0%95%EC%B1%85%20%EC%A4%80%EC%88%98%20%EC%84%A4%EB%AA%85%EC%84%9C.pdf" target="_blank" rel="noopener">새 탭에서 열기 ↗</a></figcaption>
-                <div class="pdf-pages"><p class="pdf-msg">PDF를 불러오는 중…</p></div>
-            </figure>
+            <h3 class="sub-title"><span>//</span> 기획안 — 2차안 (2026-10)</h3>
+            <p class="docs-note">처음 PDF로 만든 기획 문서를 현재 설계에 맞춰 md 로 다시 정리한 2차안입니다.</p>
+            <ul class="item-grid" style="--c:#ffe14d">
+                <li><a class="item-card" href="doc.html?f=aven/SWOT%EB%B6%84%EC%84%9D_v2_2026-10.md" data-md="aven/SWOT분석_v2_2026-10.md"><span class="no">v2</span><span class="info"><span class="title">SWOT 분석</span><span class="sub">강점 · 약점 · 기회 · 위협과 SO · WO · ST · WT 전략</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/%EA%B0%9C%EB%B0%9C%20%EB%B0%A9%EB%B2%95_v2_2026-10.md" data-md="aven/개발 방법_v2_2026-10.md"><span class="no">v2</span><span class="info"><span class="title">개발 방법 — 전체 스택 · 환경</span><span class="sub">play · galaxy 두 빌드, 레이어별 기술, 개발 · 배포 환경, 데이터 흐름</span></span><span class="arrow">→</span></a></li>
+            </ul>
+
+            <h3 class="sub-title"><span>//</span> 규칙 · 규제</h3>
+            <ul class="item-grid" style="--c:#8b5cff">
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/ACCESSIBILITY_POLICY.md" data-md="aven/docs/policy/ACCESSIBILITY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">접근성 서비스 API 사용 정책</span><span class="sub">Google Play 기준 API 사용 목적과 4대 준수 원칙</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/PRIVACY_POLICY.md" data-md="aven/docs/policy/PRIVACY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">개인정보 처리방침</span><span class="sub">수집 · 이용 · 위탁 · 국외 이전 · 파기, 생성형 AI 사용 안내</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/TERMS_OF_SERVICE.md" data-md="aven/docs/policy/TERMS_OF_SERVICE.md"><span class="no">정책</span><span class="info"><span class="title">서비스 이용약관</span><span class="sub">서비스 성격, 이용자 의무, 계정 · 탈퇴, 책임 (법률 검토 전 초안)</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/THIRD_PARTY_POLICY.md" data-md="aven/docs/policy/THIRD_PARTY_POLICY.md"><span class="no">정책</span><span class="info"><span class="title">제3자 서비스 상호작용 방침</span><span class="sub">지원 앱 선정, UI 접근 범위, 속도 제한, 결제 격리, 긴급 중단</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/SECURITY_AUDIT.md" data-md="aven/docs/policy/SECURITY_AUDIT.md"><span class="no">정책</span><span class="info"><span class="title">보안 및 데이터 감사 정책</span><span class="sub">RLS, JSONB, Soft Delete, SMS 인증 보호, 감사 로깅, 저장 공간</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/policy/REGULATORY_COMPLIANCE.md" data-md="aven/docs/policy/REGULATORY_COMPLIANCE.md"><span class="no">규제</span><span class="info"><span class="title">정부 규제 대응 · 법률 부합성 보고서</span><span class="sub">형법 · 정보통신망법 · 개인정보보호법 · AI 기본법 쟁점, 규제샌드박스 통과</span></span><span class="arrow">→</span></a></li>
+            </ul>
+
+            <h3 class="sub-title"><span>//</span> 기술 명세</h3>
+            <ul class="item-grid" style="--c:#00f0ff">
+                <li><a class="item-card" href="doc.html?f=aven/docs/tech/TECH_STACK.md" data-md="aven/docs/tech/TECH_STACK.md"><span class="no">기술</span><span class="info"><span class="title">기술 스택 및 개발 환경 명세</span><span class="sub">개발 표준, 레이어별 기술, 왜 Kotlin인가, 데이터 흐름</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/tech/WEBSOCKET_PROTOCOL.md" data-md="aven/docs/tech/WEBSOCKET_PROTOCOL.md"><span class="no">기술</span><span class="info"><span class="title">WebSocket 프로토콜 명세</span><span class="sub">Android ↔ AI 서버 메시지 형식, 단계별 실행, 민감 동작 이중 차단</span></span><span class="arrow">→</span></a></li>
+            </ul>
+
+            <h3 class="sub-title"><span>//</span> 실행 · 확인</h3>
+            <ul class="item-grid" style="--c:#b6ff3b">
+                <li><a class="item-card" href="doc.html?f=aven/docs/guide/START.md" data-md="aven/docs/guide/START.md"><span class="no">실행</span><span class="info"><span class="title">실행 방법</span><span class="sub">서버 3종 켜기, 에뮬레이터 · 실기기 연결, 앱 첫 사용, 문제 해결</span></span><span class="arrow">→</span></a></li>
+                <li><a class="item-card" href="doc.html?f=aven/docs/guide/DEVICE_CHECK.md" data-md="aven/docs/guide/DEVICE_CHECK.md"><span class="no">확인</span><span class="info"><span class="title">폰 확인 체크리스트</span><span class="sub">폰 없이 만든 기능을 실제 폰에서 순서대로 확인하는 목록</span></span><span class="arrow">→</span></a></li>
+            </ul>
         </section>
 
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- md 팝업 -->
+    <dialog class="md-pop" id="md-pop" aria-labelledby="md-pop-path">
+        <div class="md-pop-head">
+            <button type="button" id="md-pop-back" hidden>← 이전</button>
+            <span class="path" id="md-pop-path"></span>
+            <a id="md-pop-full" href="doc.html">전체 화면 ↗</a>
+            <button type="button" id="md-pop-close" aria-label="닫기">닫기 ✕</button>
+        </div>
+        <div class="md-pop-body" id="md-pop-body"><article class="md" id="md-pop-doc"></article></div>
+    </dialog>
+
     <script>
     (function () {
-        var figs = document.querySelectorAll('.pdf');
-        var tabs = document.querySelectorAll('.pdf-tabs button');
-        var done = [];
+        var pop = document.getElementById('md-pop');
+        var body = document.getElementById('md-pop-body');
+        var doc = document.getElementById('md-pop-doc');
+        var back = document.getElementById('md-pop-back');
+        var trail = []; // 팝업 안에서 연 문서 순서 (← 이전 용)
+        if (!window.MdView || !window.marked || typeof pop.showModal !== 'function') return; // 카드 링크(doc.html)로 동작
 
-        // 브라우저 기본 PDF 뷰어로 대체 (pdf.js 를 못 쓰거나, file:// 로 열었을 때)
-        function fallback(fig) {
-            fig.querySelector('.pdf-pages').innerHTML = '<iframe src="' + fig.dataset.src + '#view=FitH" title="PDF"></iframe>';
+        function show(file, hash) {
+            document.getElementById('md-pop-path').textContent = file;
+            document.getElementById('md-pop-full').href = 'doc.html?f=' + encodeURI(file) + (hash ? '#' + hash : '');
+            back.hidden = trail.length < 2;
+            if (!pop.open) { pop.showModal(); document.body.style.overflow = 'hidden'; }
+            body.scrollTop = 0;
+            MdView.render(doc, file).then(function () {
+                var target = hash && document.getElementById(hash);
+                if (target) target.scrollIntoView();
+            }).catch(function () { /* 메시지는 MdView 가 표시 */ });
         }
+        function open(file, hash) { trail.push(file); show(file, hash); }
 
-        function render(i) {
-            if (done[i]) return;
-            done[i] = true;
-            var fig = figs[i];
-            var box = fig.querySelector('.pdf-pages');
-            if (!window.pdfjsLib || location.protocol === 'file:') return fallback(fig);
-
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-            pdfjsLib.getDocument(fig.dataset.src).promise.then(function (pdf) {
-                box.innerHTML = '';
-                fig.querySelector('.pdf-info').textContent = pdf.numPages + ' pages';
-                var width = Math.min(box.clientWidth - 32, 860);
-                var chain = Promise.resolve();
-                for (var n = 1; n <= pdf.numPages; n++) {
-                    chain = chain.then(pdf.getPage.bind(pdf, n)).then(function (page) {
-                        // 화면 폭에 맞추고 고해상도 화면에서도 선명하게
-                        var dpr = window.devicePixelRatio || 1;
-                        var vp = page.getViewport({ scale: (width / page.getViewport({ scale: 1 }).width) * dpr });
-                        var canvas = document.createElement('canvas');
-                        canvas.width = vp.width;
-                        canvas.height = vp.height;
-                        box.appendChild(canvas);
-                        return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-                    });
-                }
-                return chain;
-            }).catch(function () { fallback(fig); });
-        }
-
-        tabs.forEach(function (tab) {
-            tab.addEventListener('click', function () {
-                var i = Number(tab.dataset.pdf);
-                tabs.forEach(function (t) { t.classList.toggle('is-on', t === tab); });
-                figs.forEach(function (f, j) { f.hidden = j !== i; });
-                render(i);
+        document.querySelectorAll('#docs a[data-md]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                if (e.ctrlKey || e.metaKey || e.shiftKey) return; // 새 탭 열기는 그대로
+                e.preventDefault();
+                trail = [];
+                open(a.dataset.md);
             });
         });
-        render(0);
+
+        // 팝업 안의 링크: 다른 md 는 팝업 안에서 열고, 목차(#) 는 팝업 안에서 스크롤
+        doc.addEventListener('click', function (e) {
+            var a = e.target.closest('a[href]');
+            if (!a || e.ctrlKey || e.metaKey) return;
+            if (a.dataset.md) { e.preventDefault(); open(a.dataset.md, a.dataset.hash); }
+            else if (a.getAttribute('href').charAt(0) === '#') {
+                e.preventDefault();
+                var target = document.getElementById(a.getAttribute('href').slice(1));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        back.addEventListener('click', function () { trail.pop(); show(trail[trail.length - 1]); });
+        document.getElementById('md-pop-close').addEventListener('click', function () { pop.close(); });
+        pop.addEventListener('click', function (e) { if (e.target === pop) pop.close(); }); // 바깥(배경) 클릭
+        pop.addEventListener('close', function () { document.body.style.overflow = ''; });
     })();
     </script>
 
