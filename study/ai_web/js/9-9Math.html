@@ -1,0 +1,32 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 선언합니다. -->
+<html> <!-- HTML 문서의 시작입니다. -->
+<head> <!-- 문서의 기본 정보를 작성하는 영역입니다. -->
+    <title>예제 9-9Math 속성</title> <!-- 브라우저 탭에 표시할 문서 제목입니다. -->
+</head> <!-- head 영역 끝 -->
+<body> <!-- 화면에 표시할 내용을 작성하는 영역입니다. -->
+
+<h3>Math 객체 속성</h3> <!-- Math 객체의 속성을 소개하는 제목입니다. -->
+
+<p>Euler's 상수(E) : <b id="ca"></b></p> <!-- 오일러 상수 E의 값을 출력할 위치입니다. -->
+<p>자연로그2 LN2 : <b id="cca"></b></p> <!-- 자연로그 2의 값을 출력할 위치입니다. -->
+<p>자연로그10 LN10 : <b id="cnct"></b></p> <!-- 자연로그 10의 값을 출력할 위치입니다. -->
+<p>2진로그E(LOG2E) : <b id="ido"></b></p> <!-- log₂E 값을 출력할 위치입니다. -->
+<p>10진로그E(LOG10E): <b id="fxd"></b></p> <!-- log₁₀E 값을 출력할 위치입니다. -->
+<p>PI : <b id="prc"></b></p> <!-- 원주율 파이(π) 값을 출력할 위치입니다. -->
+<p>SQRT1_2 : <b id="str"></b></p> <!-- 1을 2로 나눈 값의 제곱근을 출력할 위치입니다. -->
+<p>SQRT2 : <b id="vlf"></b></p> <!-- 2의 제곱근 값을 출력할 위치입니다. -->
+
+<script> // JavaScript 코드를 작성하는 영역의 시작입니다. 
+
+    document.getElementById("ca").innerHTML = Math.E;  // id가 ca인 요소에 오일러 상수 약 2.71828을 출력합니다. 
+    document.getElementById("cca").innerHTML = Math.LN2;  // id가 cca인 요소에 자연로그 2의 값 약 0.69315를 출력합니다. 
+    document.getElementById("cnct").innerHTML = Math.LN10;  // id가 cnct인 요소에 자연로그 10의 값 약 2.30259를 출력합니다. 
+    document.getElementById("ido").innerHTML = Math.LOG2E;  // id가 ido인 요소에 E의 밑이 2인 로그값 약 1.4427을 출력합니다. 
+    document.getElementById("fxd").innerHTML = Math.LOG10E;  // id가 fxd인 요소에 E의 밑이 10인 로그값 약 0.4343을 출력합니다. 
+    document.getElementById("prc").innerHTML = Math.PI;  // id가 prc인 요소에 원주율 약 3.14159를 출력합니다. 
+    document.getElementById("str").innerHTML = Math.SQRT1_2; // id가 str인 요소에 1/√2의 값 약 0.7071을 출력합니다. 
+    document.getElementById("vlf").innerHTML = Math.SQRT2;  // id가 vlf인 요소에 √2의 값 약 1.4142를 출력합니다. 
+
+</script>  JavaScript 코드 영역 끝 
+</body>  body 영역 끝 
+</html>  HTML 문서 끝 

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노트북 보기 | pullcoder</title>
+    <link rel="stylesheet" href="../../assets/css/site.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="../../assets/js/site-header.js" defer></script>
+    <script src="../../assets/js/fx.js" defer></script>
+    <style>
+        .nb { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+        .cell { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; }
+        .prompt { font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: right; padding-top: 12px; }
+        .prompt.out { color: var(--neon-orange); }
+        .cell pre { margin: 0; overflow-x: auto; }
+        .src pre {
+            padding: 12px 14px; border-radius: var(--radius-sm);
+            background: var(--term-bg); border: 1px solid var(--term-line);
+            font-family: var(--mono); font-size: 14px; line-height: 1.6;
+        }
+        .src pre code.hljs { background: transparent; padding: 0; }
+        .output { margin-top: 6px; }
+        .output pre {
+            padding: 8px 14px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6;
+            color: var(--text-2); white-space: pre-wrap; word-break: break-word;
+            border-left: 2px solid var(--line-strong);
+        }
+        .output pre.err { color: #ff6b6b; border-left-color: #ff6b6b; }
+        .output img { max-width: 100%; background: #fff; border-radius: 6px; }
+        .md { color: var(--text); line-height: 1.8; padding: 4px 2px; }
+        .md code { font-family: var(--mono); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+        .md pre code { display: block; padding: 12px; }
+        .nb-actions { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 14px; }
+        .nb-actions a { color: var(--accent); }
+        .nb-msg { color: var(--muted); padding: 24px 0; }
+        @media (max-width: 600px) {
+            .cell { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+            .prompt { text-align: left; padding-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="wrap" style="--accent:#ffe14d">
+        <div class="page-head">
+            <p class="eyebrow">~/study/python</p>
+            <h1 id="nb-title">노트북</h1>
+            <p class="nb-actions">
+                <a href="index.html">← 목록으로</a>
+                <a id="nb-github" href="#" target="_blank" rel="noopener">GitHub 에서 보기 ↗</a>
+                <a id="nb-download" href="#" download>.ipynb 다운로드</a>
+            </p>
+        </div>
+
+        <!-- 주소의 ?nb=파일명.ipynb 노트북을 불러와 아래에 셀 단위로 그립니다 -->
+        <div id="nb" class="nb"><p class="nb-msg">불러오는 중...</p></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>© 2026 이정우 — Python</p>
+            <p class="mono"><a href="index.html">← 노트북 목록으로</a></p>
+        </div>
+    </footer>
+
+<script>
+    var GITHUB = 'https://github.com/pullcoder/pullcoder.github.io/blob/main/study/python/';
+    var box = document.getElementById('nb');
+
+    // ipynb 의 source / text 는 문자열 또는 문자열 배열
+    function joinText(v) { return Array.isArray(v) ? v.join('') : (v || ''); }
+
+    function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // 에러 traceback 에 섞인 터미널 색상 코드 제거
+    function stripAnsi(s) { return s.replace(/\x1b\[[0-9;]*m/g, ''); }
+
+    function el(tag, cls, html) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (html !== undefined) e.innerHTML = html;
+        return e;
+    }
+
+    // 출력 하나(output)를 HTML 요소로 변환
+    function renderOutput(o) {
+        if (o.output_type === 'stream') {
+            return el('pre', o.name === 'stderr' ? 'err' : '', escapeHtml(joinText(o.text)));
+        }
+        if (o.output_type === 'error') {
+            return el('pre', 'err', escapeHtml(stripAnsi((o.traceback || []).join('\n'))));
+        }
+        var d = o.data || {};
+        if (d['image/png']) {
+            var img = document.createElement('img');
+            img.src = 'data:image/png;base64,' + joinText(d['image/png']);
+            return img;
+        }
+        if (d['text/html']) return el('div', '', joinText(d['text/html']));
+        if (d['text/plain']) return el('pre', '', escapeHtml(joinText(d['text/plain'])));
+        return null;
+    }
+
+    function renderCell(c) {
+        var src = joinText(c.source);
+        var cell = el('div', 'cell');
+
+        if (c.cell_type === 'markdown') {
+            cell.appendChild(el('div', 'prompt'));
+            cell.appendChild(el('div', 'md', marked.parse(src)));
+            return cell;
+        }
+
+        var n = c.execution_count == null ? ' ' : c.execution_count;
+        cell.appendChild(el('div', 'prompt', 'In [' + n + ']:'));
+
+        var body = el('div', 'src');
+        var code = el('code', 'language-python', escapeHtml(src));
+        var pre = el('pre');
+        pre.appendChild(code);
+        body.appendChild(pre);
+        if (window.hljs) hljs.highlightElement(code);
+
+        var outs = c.outputs || [];
+        if (outs.length) {
+            var out = el('div', 'output');
+            outs.forEach(function (o) {
+                var r = renderOutput(o);
+                if (r) out.appendChild(r);
+            });
+            body.appendChild(out);
+        }
+        cell.appendChild(body);
+        return cell;
+    }
+
+    var file = new URLSearchParams(location.search).get('nb') || '';
+
+    // 같은 폴더의 .ipynb 파일만 허용 (다른 경로 불러오기 방지)
+    if (!/^[\w.-]+\.ipynb$/.test(file)) {
+        box.innerHTML = '<p class="nb-msg">노트북 파일이 지정되지 않았습니다. <a href="index.html">목록</a>에서 선택하세요.</p>';
+    } else {
+        document.getElementById('nb-title').textContent = file;
+        document.title = file + ' | pullcoder';
+        document.getElementById('nb-github').href = GITHUB + file;
+        document.getElementById('nb-download').href = file;
+
+        fetch(file)
+            .then(function (res) {
+                if (!res.ok) throw new Error(res.status);
+                return res.json();
+            })
+            .then(function (nb) {
+                box.innerHTML = '';
+                (nb.cells || []).forEach(function (c) { box.appendChild(renderCell(c)); });
+            })
+            .catch(function () {
+                // file:// 로 직접 열면 브라우저가 fetch 를 막음 → 로컬 서버나 GitHub Pages 에서 열어야 함
+                box.innerHTML = '<p class="nb-msg">노트북을 불러오지 못했습니다. '
+                    + '<a href="' + GITHUB + file + '" target="_blank" rel="noopener">GitHub 에서 보기</a></p>';
+            });
+    }
+</script>
+</body>
+</html>

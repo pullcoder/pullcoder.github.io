@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>예제 9-15 현재 시간 표시</title>
+</head>
+<body>
+    <h3>setTimeout()으로 현재 시간 갱신</h3>
+    <p>현재 시간: <b id="ca"></b></p>
+
+    <script>
+        function setTime() {
+            var time = new Date();
+
+            var nowTime = 
+                time.getHours().toString().padStart(2, '0') + ":" +
+                time.getMinutes().toString().padStart(2, '0') + ":" +
+                time.getSeconds().toString().padStart(2, '0') + ":" +
+                time.getMilliseconds().toString().padStart(3, '0');
+
+            document.getElementById("ca").innerText = nowTime;
+
+            setTimeout(setTime, 10);
+        }
+
+        setTime();
+    </script>
+</body>
+</html>

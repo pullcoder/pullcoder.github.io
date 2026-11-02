@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+예제 9-12 Math 객체 종합 정리 (9-9 ~ 9-11)
+
+1. Math 속성 (9-9) : 자주 쓰는 수학 상수 (읽기 전용)
+   - Math.E, Math.LN2, Math.LN10, Math.LOG2E, Math.LOG10E
+   - Math.PI, Math.SQRT1_2, Math.SQRT2
+
+2. Math 메소드 (9-10, 9-11) : 계산 기능을 제공하는 함수
+   - 반올림/버림 : round(), floor(), ceil(), trunc()
+   - 최대/최소   : max(), min()
+   - 거듭제곱/제곱근/지수/로그 : pow(), sqrt(), exp(), log()
+   - 삼각함수    : sin(), cos(), tan(), sinh(), cosh(), tanh()
+   - 난수        : random()  → 0 이상 1 미만의 실수
+
+※ 중복 제거
+   - 세 예제 모두 document.getElementById(...).innerHTML = ... 를 반복했음
+   → 배열에 [이름, 값] 을 담고 for 문으로 표(table)를 만들어 출력
+   - 입력한 x, y 값으로 메소드 결과를 바로 다시 계산할 수 있게 함
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예제9-12 Math 객체 종합</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../header.js" defer></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.7; }
+        section { margin: 16px 0; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+        h3 { margin-top: 0; }
+        input[type="text"] { width: 80px; padding: 4px; }
+        button { padding: 6px 12px; margin: 2px; cursor: pointer; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 4px 12px; text-align: left; }
+        th { background: #f5f5f5; }
+        td:last-child { color: #4f46e5; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>JavaScript Math 객체</h1>
+
+<!-- ============ 9-9 Math 속성 ============ -->
+<section>
+    <h3>① Math 속성 - 수학 상수 (9-9)</h3>
+    <table id="props"></table>
+</section>
+
+<!-- ============ 9-10, 9-11 Math 메소드 ============ -->
+<section>
+    <h3>② Math 메소드 (9-10, 9-11)</h3>
+    x <input type="text" id="x" value="1.234">
+    y <input type="text" id="y" value="3">
+    <button onclick="showMethods()">계산</button>
+    <p id="msg"></p>
+    <table id="methods"></table>
+</section>
+
+<!-- ============ 응용 : random 으로 정수 만들기 ============ -->
+<section>
+    <h3>③ 응용 - 1 ~ 45 사이 정수 난수</h3>
+    <p>Math.floor(Math.random() * 45) + 1</p>
+    <button onclick="showRandom()">난수 발생</button>
+    <p>결과: <b id="rnd"></b></p>
+</section>
+
+<script>
+    // ===== 공통 함수 =====
+
+    // [이름, 값] 배열을 받아 table 안에 행(tr)으로 출력하는 함수
+    function printTable(id, rows) {
+        var html = "<tr><th>식</th><th>결과</th></tr>";
+        for (var i = 0; i < rows.length; i++) {
+            html += "<tr><td>" + rows[i][0] + "</td><td>" + rows[i][1] + "</td></tr>";
+        }
+        document.getElementById(id).innerHTML = html;
+    }
+
+    // ===== ① 9-9 Math 속성 =====
+    printTable("props", [
+        ["Math.E (오일러 상수)", Math.E],
+        ["Math.LN2 (자연로그 2)", Math.LN2],
+        ["Math.LN10 (자연로그 10)", Math.LN10],
+        ["Math.LOG2E (밑이 2인 log E)", Math.LOG2E],
+        ["Math.LOG10E (밑이 10인 log E)", Math.LOG10E],
+        ["Math.PI (원주율)", Math.PI],
+        ["Math.SQRT1_2 (1/2 의 제곱근)", Math.SQRT1_2],
+        ["Math.SQRT2 (2 의 제곱근)", Math.SQRT2]
+    ]);
+
+    // ===== ② 9-10, 9-11 Math 메소드 =====
+    function showMethods() {
+        var x = parseFloat(document.getElementById("x").value);  // 입력값(문자열) → 실수로 변환
+        var y = parseFloat(document.getElementById("y").value);
+
+        if (isNaN(x) || isNaN(y)) {
+            document.getElementById("msg").innerHTML = "숫자를 입력하세요.";
+            return;  // 함수 종료
+        }
+        document.getElementById("msg").innerHTML = "var x = " + x + ", y = " + y + ";";
+
+        printTable("methods", [
+            // 반올림 / 버림 / 올림
+            ["Math.round(x) 반올림", Math.round(x)],
+            ["Math.floor(x) 내림", Math.floor(x)],
+            ["Math.ceil(x) 올림", Math.ceil(x)],
+            ["Math.trunc(x) 소수점 버림", Math.trunc(x)],
+            // 최대 / 최소
+            ["Math.max(x, y, 0.3, 12)", Math.max(x, y, 0.3, 12)],
+            ["Math.min(x, y, 0.3, 12)", Math.min(x, y, 0.3, 12)],
+            // 거듭제곱 / 제곱근 / 지수 / 로그
+            ["Math.pow(x, y) x의 y제곱", Math.pow(x, y)],
+            ["Math.sqrt(x) 제곱근", Math.sqrt(x)],
+            ["Math.exp(x) e의 x제곱", Math.exp(x)],
+            ["Math.log(x) 자연로그", Math.log(x)],
+            // 삼각함수 (x 는 라디안)
+            ["Math.sin(x)", Math.sin(x)],
+            ["Math.cos(x)", Math.cos(x)],
+            ["Math.tan(x)", Math.tan(x)],
+            ["Math.sinh(x)", Math.sinh(x)],
+            ["Math.cosh(x)", Math.cosh(x)],
+            ["Math.tanh(x)", Math.tanh(x)],
+            // 난수
+            ["Math.random() 0 이상 1 미만", Math.random()]
+        ]);
+    }
+    showMethods();  // 처음 열 때 기본값으로 한 번 출력
+
+    // ===== ③ 응용 : 정수 난수 =====
+    function showRandom() {
+        document.getElementById("rnd").innerHTML = Math.floor(Math.random() * 45) + 1;
+    }
+</script>
+</body>
+</html>
