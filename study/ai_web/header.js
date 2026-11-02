@@ -123,6 +123,7 @@
                     ['9-15setTimeout.html', '현재 시간 표시 (setTimeout)'],
                     ['9-16Array.html', 'Array 메소드'],
                     ['9-17Lotto.html', '로또(Lotto) 게임'],
+                    ['join the membership.html', '회원가입 페이지 (입력값 검사)'],
                     ['jsObject_Cladue.html', '자바스크립트 객체 입문'],
                     ['jsApp_Claude.html', '객체 실전 응용']
                 ]
