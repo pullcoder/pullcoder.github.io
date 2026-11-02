@@ -111,6 +111,7 @@
                     ['9-3prototype.html', '프로토타입'],
                     ['9-4String.html', 'String 속성'],
                     ['9-6StringMth02.html', 'String 메소드'],
+                    ['9-4-0String.html', 'String 객체 종합 정리 (9-4~6)'],
                     ['9-7Number01.html', 'Number 속성'],
                     ['9-8NmbrMth.html', 'Number 메소드'],
                     ['9-9Math.html', 'Math 속성'],

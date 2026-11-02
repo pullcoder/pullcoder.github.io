@@ -1,24 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>예제9-4String 속성</title>
-</head>
-<body>
-<h3>String 속성</h3>
-<p>Length : <b id="Lth"></b></p>
-<p>Prototype : <b id="proto"></b></p>
-<p>Constructor : <b id="cnst"></b></p>
-<script>
-    function Human(name, job, birth) {
-        this.name = name;
-        this.job = job;
-        this.birth = birth; 
-    }
-    Human.prototype.age = 23;
-    var kim = new Human("Kim", "student", 2003);
+<!DOCTYPE html> <!-- HTML5 문서 선언 -->
+<html> <!-- HTML 문서 시작 -->
+<head> <!-- 문서 정보 시작 -->
+<title>예제9-4String 속성</title> <!-- 브라우저 제목 -->
+</head> <!-- head 종료 -->
+<body> <!-- 화면 내용 시작 -->
+
+<h3>String 속성</h3> <!-- 실습 제목 -->
+<p>Length : <b id="Lth"></b></p> <!-- 문자열 길이 출력 위치 -->
+<p>Prototype : <b id="proto"></b></p> <!-- 프로토타입 값 출력 위치 -->
+<p>Constructor : <b id="cnst"></b></p> <!-- 생성자 정보 출력 위치 -->
+
+<script> // JavaScript 코드 시작
+
+    function Human(name, job, birth) { // Human 생성자 함수 정의
+        this.name = name; // 객체의 name 속성에 이름 저장
+        this.job = job; // 객체의 job 속성에 직업 저장
+        this.birth = birth; // 객체의 birth 속성에 출생연도 저장
+    } // 생성자 함수 종료
+
+    Human.prototype.age = 23; // prototype에 age 속성 추가
+
+    var kim = new Human("Kim", "student", 2003); // Human 객체 생성
+
     document.getElementById("proto").innerHTML = kim.age;
+    // kim 객체의 age 속성값 출력
+
     document.getElementById("cnst").innerHTML = kim.constructor;
+    // kim 객체의 생성자 함수 정보 출력
+
     document.getElementById("Lth").innerHTML = kim.name.length;
-</script>
-</body>
-</html>
+    // Kim 문자열의 길이 3 출력
+
+</script> <!-- JavaScript 코드 종료 -->
+
+</body> <!-- body 종료 -->
+</html> <!-- HTML 문서 종료 -->

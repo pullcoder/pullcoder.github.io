@@ -1,28 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>예제9-6String 메소드2</title>
-</head>
-<body>
-	<h3>String 메소드2</h3>
-	<p>match : <b id="ca"></b></p>
-	<p>search : <b id="cca"></b></p>
-	<p>slice : <b id="cnct"></b></p>
-	<p>split : <b id="ido"></b></p>
-	<p>toUpperCase : <b id="lido"></b></p>
-	<p>toString : <b id="rpl"></b></p>
-<script>
-	var str = "Hello, welcome, AI, Software";
-	var str2 = 5678;
-	var ca = str.match("AI"), cca = str.search("Software");
-	var cnct = str.slice(7,12), ido = str.split(" ");
-	var lido = str.toUpperCase(), rpl = str2.toString();
-	document.getElementById("ca").innerHTML = ca;
-	document.getElementById("cca").innerHTML = cca;
-	document.getElementById("cnct").innerHTML = cnct;
-	document.getElementById("ido").innerHTML = ido;
-	document.getElementById("lido").innerHTML = lido;
-	document.getElementById("rpl").innerHTML = rpl;
-</script>
-</body>
-</html>
+<!DOCTYPE html> <!-- HTML5 문서 선언 -->
+<html> <!-- HTML 문서 시작 -->
+<head> <!-- 문서 정보 시작 -->
+    <title>예제9-6String 메소드2</title> <!-- 브라우저 제목 -->
+</head> <!-- head 종료 -->
+<body> <!-- 화면 내용 시작 -->
+
+    <h3>String 메소드2</h3> <!-- 실습 제목 -->
+
+    <p>match : <b id="ca"></b></p> <!-- match 결과 출력 위치 -->
+    <p>search : <b id="cca"></b></p> <!-- search 결과 출력 위치 -->
+    <p>slice : <b id="cnct"></b></p> <!-- slice 결과 출력 위치 -->
+    <p>split : <b id="ido"></b></p> <!-- split 결과 출력 위치 -->
+    <p>toUpperCase : <b id="lido"></b></p> <!-- 대문자 변환 결과 출력 위치 -->
+    <p>toString : <b id="rpl"></b></p> <!-- 문자열 변환 결과 출력 위치 -->
+
+<script> // JavaScript 코드 시작
+
+    var str = "Hello, welcome, AI, Software"; // 실습 문자열 저장
+    var str2 = 5678; // 숫자형 데이터 저장
+
+    var ca = str.match("AI"), cca = str.search("Software");
+    // match()는 AI와 일치하는 문자열 검색
+    // search()는 Software가 시작되는 위치 반환
+
+    var cnct = str.slice(7,12), ido = str.split(" ");
+    // slice()는 7번부터 11번 인덱스까지 추출
+    // split()은 공백을 기준으로 문자열 분리
+
+    var lido = str.toUpperCase(), rpl = str2.toString();
+    // toUpperCase()는 영문자를 대문자로 변환
+    // toString()은 숫자 5678을 문자열로 변환
+
+    document.getElementById("ca").innerHTML = ca;
+    // match 실행 결과 출력
+
+    document.getElementById("cca").innerHTML = cca;
+    // search 실행 결과 출력
+
+    document.getElementById("cnct").innerHTML = cnct;
+    // slice 실행 결과 출력
+
+    document.getElementById("ido").innerHTML = ido;
+    // split 실행 결과 출력
+
+    document.getElementById("lido").innerHTML = lido;
+    // toUpperCase 실행 결과 출력
+
+    document.getElementById("rpl").innerHTML = rpl;
+    // toString 실행 결과 출력
+
+</script> <!-- JavaScript 코드 종료 -->
+
+</body> <!-- body 종료 -->
+</html> <!-- HTML 문서 종료 -->

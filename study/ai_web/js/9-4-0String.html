@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+예제 9-4-0 String 객체 종합 정리 (9-4 ~ 9-6)
+
+1. String 속성 (9-4)
+   - length      : 문자열의 길이 (글자 수)
+   - prototype   : 생성자에 속성/메소드를 추가 → 만든 모든 객체가 함께 사용
+   - constructor : 객체를 만든 생성자 함수
+
+2. String 메소드1 (9-5) : 찾기 · 꺼내기 · 바꾸기
+   - charAt(n)        : n번째 글자 (인덱스는 0부터)
+   - indexOf(s)       : s가 처음 나오는 위치, 없으면 -1
+   - lastIndexOf(s)   : s가 마지막으로 나오는 위치
+   - concat(s)        : 문자열 이어 붙이기 (+ 와 같음)
+   - replace(a, b)    : 처음 나오는 a 를 b 로 바꿈
+   - substring(a, b)  : a 부터 b-1 까지 추출
+
+3. String 메소드2 (9-6)
+   - match(s)         : 일치하는 문자열 (없으면 null)
+   - search(s)        : 일치하는 위치 (없으면 -1)
+   - slice(a, b)      : a 부터 b-1 까지 추출 (음수면 뒤에서부터)
+   - split(구분자)     : 구분자로 잘라 배열로 반환
+   - toUpperCase() / toLowerCase() : 대문자 / 소문자로 변환
+   - toString()       : 숫자 등을 문자열로 변환
+
+※ 중복 제거
+   - document.getElementById(...).innerHTML = ... 반복 대신
+   → [식, 결과] 배열을 for 문으로 표(table)에 출력하는 printTable() 하나로 정리
+   - 문자열과 검색어를 입력해 결과를 바로 다시 볼 수 있게 함
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예제9-4-0 String 객체 종합</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../header.js" defer></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.7; }
+        section { margin: 16px 0; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+        h3 { margin-top: 0; }
+        input[type="text"] { padding: 4px; }
+        #str { width: 260px; }
+        #word { width: 100px; }
+        button { padding: 6px 12px; margin: 2px; cursor: pointer; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 4px 12px; text-align: left; }
+        th { background: #f5f5f5; }
+        td:last-child { color: #4f46e5; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>JavaScript String 객체</h1>
+
+<!-- 아래 ②, ③ 에서 함께 사용할 입력값 -->
+<section>
+    <h3>실습할 문자열</h3>
+    str <input type="text" id="str" value="Hello, welcome, AI, Software">
+    검색어 <input type="text" id="word" value="AI">
+    <button onclick="showAll()">실행</button>
+    <p id="msg"></p>
+</section>
+
+<!-- ============ 9-4 String 속성 ============ -->
+<section>
+    <h3>① String 속성 (9-4)</h3>
+    <table id="props"></table>
+</section>
+
+<!-- ============ 9-5 String 메소드1 ============ -->
+<section>
+    <h3>② String 메소드1 - 찾기 · 꺼내기 · 바꾸기 (9-5)</h3>
+    <table id="methods1"></table>
+</section>
+
+<!-- ============ 9-6 String 메소드2 ============ -->
+<section>
+    <h3>③ String 메소드2 (9-6)</h3>
+    <table id="methods2"></table>
+</section>
+
+<script>
+    // ===== 공통 함수 =====
+
+    // [식, 결과] 배열을 받아 table 안에 행(tr)으로 출력하는 함수
+    function printTable(id, rows) {
+        var html = "<tr><th>식</th><th>결과</th></tr>";
+        for (var i = 0; i < rows.length; i++) {
+            html += "<tr><td>" + rows[i][0] + "</td><td>" + rows[i][1] + "</td></tr>";
+        }
+        document.getElementById(id).innerHTML = html;
+    }
+
+    // ===== ① 9-4 String 속성 =====
+    function Human(name, job, birth) {  // Human 생성자 함수
+        this.name = name;
+        this.job = job;
+        this.birth = birth;
+    }
+    Human.prototype.age = 23;  // prototype 에 추가한 속성은 모든 Human 객체가 공유
+
+    var kim = new Human("Kim", "student", 2003);
+
+    function showProps(str) {
+        printTable("props", [
+            ["str.length", str.length],
+            ['kim.name.length ("Kim")', kim.name.length],
+            ["kim.age (prototype 속성)", kim.age],
+            ["kim.constructor", kim.constructor],
+            ["str.constructor", str.constructor]
+        ]);
+    }
+
+    // ===== ② 9-5 String 메소드1 =====
+    function showMethods1(str, word) {
+        printTable("methods1", [
+            ["str.charAt(0)", str.charAt(0)],
+            ["str.indexOf(검색어)", str.indexOf(word)],
+            ['str.lastIndexOf(",")', str.lastIndexOf(",")],
+            ['str.concat("!!!")', str.concat("!!!")],
+            ['str.replace(검색어, "JS")', str.replace(word, "JS")],
+            ["str.substring(0, 5)", str.substring(0, 5)]
+        ]);
+    }
+
+    // ===== ③ 9-6 String 메소드2 =====
+    function showMethods2(str, word) {
+        var num = 5678;  // 숫자형 데이터
+        printTable("methods2", [
+            ["str.match(검색어)", str.match(word)],
+            ["str.search(검색어)", str.search(word)],
+            ["str.slice(7, 12)", str.slice(7, 12)],
+            ["str.slice(-8) 뒤에서 8글자", str.slice(-8)],
+            ['str.split(" ")', str.split(" ")],
+            ['str.split(" ").length 배열 개수', str.split(" ").length],
+            ["str.toUpperCase()", str.toUpperCase()],
+            ["str.toLowerCase()", str.toLowerCase()],
+            ["num.toString() (5678)", num.toString()],
+            ["typeof num.toString()", typeof num.toString()]
+        ]);
+    }
+
+    // 입력값을 읽어 ① ② ③ 을 모두 다시 출력
+    function showAll() {
+        var str = document.getElementById("str").value;
+        var word = document.getElementById("word").value;
+
+        if (str === "" || word === "") {
+            document.getElementById("msg").innerHTML = "문자열과 검색어를 입력하세요.";
+            return;  // 함수 종료
+        }
+        document.getElementById("msg").innerHTML = 'var str = "' + str + '";  검색어 = "' + word + '"';
+
+        showProps(str);
+        showMethods1(str, word);
+        showMethods2(str, word);
+    }
+    showAll();  // 처음 열 때 기본값으로 한 번 출력
+</script>
+</body>
+</html>
