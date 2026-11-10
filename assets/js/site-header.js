@@ -19,6 +19,14 @@
         github: 'https://github.com/pullcoder/pullcoder.github.io'
     };
 
+    // 방문자 카운터 (Supabase) — publishable 키는 공개용, 보안은 DB의 RLS/함수 권한이 담당
+    // ※ secret / service_role 키는 절대 여기에 넣지 말 것
+    var VISIT = {
+        host: 'pullcoder.github.io', // 이 도메인에서만 카운트 (로컬 제외)
+        url: 'https://kzkuerxequgxecvofifo.supabase.co',
+        key: 'sb_publishable_fChO0hVufPj7Y4DNGVIRkQ_TbYD4SnL'
+    };
+
     var COURSES = [
         { id: 'it', label: 'IT개론', prof: '박경배', color: '#00f0ff', href: 'study/introduction_it/index.html', dir: 'study/introduction_it/' },
         { id: 'web', label: 'AI웹프로그래밍', prof: '박경배', color: '#8b5cff', href: 'study/ai_web/index.html', dir: 'study/ai_web/' },
@@ -196,7 +204,40 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
         document.head.appendChild(l);
     }
 
-    function init() { fonts(); favicon(); render(); }
+    // ---------- 방문자 카운트 ----------
+    // 같은 탭 세션에서 같은 페이지는 한 번만 셈 (새로고침 중복 방지)
+    // 페이지에 [data-visit-count] 요소가 있으면 "오늘 N명 · 전체 N명" 표시
+    function showVisits(s) {
+        if (!s) return;
+        var els = document.querySelectorAll('[data-visit-count]');
+        for (var i = 0; i < els.length; i++) {
+            els[i].textContent = '오늘 ' + s.today_visitors + '명 · 전체 ' + s.total_visitors + '명';
+            els[i].hidden = false;
+        }
+    }
+
+    function countVisit() {
+        if (location.hostname !== VISIT.host) return;
+        var path = location.pathname.replace(/index\.html$/i, '').slice(0, 200);
+        var seenKey = 'pc-visit:' + path, cacheKey = 'pc-visit-stats';
+        try {
+            if (sessionStorage.getItem(seenKey)) { showVisits(JSON.parse(sessionStorage.getItem(cacheKey))); return; }
+        } catch (e) { /* storage 차단 시 그냥 카운트 */ }
+
+        fetch(VISIT.url + '/rest/v1/rpc/increment_view', {
+            method: 'POST',
+            headers: { apikey: VISIT.key, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ p_path: path })
+        }).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (s) {
+              if (!s) return;
+              try { sessionStorage.setItem(seenKey, '1'); sessionStorage.setItem(cacheKey, JSON.stringify(s)); } catch (e) { /* noop */ }
+              showVisits(s);
+          })
+          .catch(function () { /* 카운터 실패는 페이지에 영향 없음 */ });
+    }
+
+    function init() { fonts(); favicon(); render(); countVisit(); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
     window.COURSES = COURSES;
