@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>예제 10-6 onLoad()</title>
+</head>
+<body onload="checkCookies()">
+  <p id="cook">onLoad()</p>
+  
+  <script>
+    function checkCookies() {
+      var text = "";
+      
+      // 브라우저의 쿠키 활성화 여부 확인 (읽기 전용 속성이므로 강제 설정/해제 불가)
+      if (navigator.cookieEnabled) {
+        text = "브라우저의 쿠키 기능이 설정되어 있습니다.";
+      } else {
+        text = "브라우저의 쿠키 기능이 꺼져 있습니다.";
+      }
+      
+      document.getElementById("cook").innerHTML = text;
+
+      /*
+        [참고: 자바스크립트를 통한 쿠키 제어 주석문 코드]
+        - 쿠키 생성: document.cookie = "user=Park; max-age=60; path=/";
+        - 쿠키 삭제: document.cookie = "user=; max-age=0; path=/";
+      */
+    }
+  </script>
+</body>
+</html>

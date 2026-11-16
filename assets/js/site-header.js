@@ -211,7 +211,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
         if (!s) return;
         var els = document.querySelectorAll('[data-visit-count]');
         for (var i = 0; i < els.length; i++) {
-            els[i].textContent = '오늘 ' + s.today_visitors + '명 · 전체 ' + s.total_visitors + '명';
+            els[i].textContent = s.today_visitors + ' / ' + s.total_visitors;
             els[i].hidden = false;
         }
     }

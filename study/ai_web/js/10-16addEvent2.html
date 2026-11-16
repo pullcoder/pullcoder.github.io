@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>실용적인 addEventListener 활용 코드</title>
+  <script>
+    let clickCount = 0;
+
+    // 기능 1: 데이터 상태 갱신 (카운터 증가)
+    function updateCounter() {
+        clickCount++;
+        document.getElementById("counter").textContent = clickCount;
+    }
+
+    // 기능 2: UI 시각적 피드백 (버튼 배경색 및 텍스트 토글)
+    function applyVisualFeedback() {
+        const btn = document.getElementById("actionBtn");
+        btn.style.backgroundColor = "#27ae60";
+        setTimeout(() => {
+            btn.style.backgroundColor = "#1769aa";
+        }, 150);
+    }
+
+    // 페이지 로드 시 다중 이벤트 바인딩
+    window.onload = function() {
+        const btn = document.getElementById("actionBtn");
+        btn.addEventListener("click", updateCounter);
+        btn.addEventListener("click", applyVisualFeedback);
+    };
+  </script>
+</head>
+<body>
+  <h3>실용형 다중 이벤트 리스너 실습</h3>
+  <p>버튼 클릭 횟수: <b id="counter">0</b>회</p>
+  <input id="actionBtn" type="button" value="통합 액션 버튼">
+</body>
+</html>

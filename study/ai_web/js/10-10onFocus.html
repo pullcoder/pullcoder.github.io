@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>예제 10-10 onFocus & onBlur</title>
+<script>
+    function showGuide(el) {
+        document.getElementById("guide").innerHTML = "💡 영문, 숫자 조합 4~12자로 입력하세요.";
+        el.style.backgroundColor = "#e8f4f8";
+    }
+    function hideGuide(el) {
+        document.getElementById("guide").innerHTML = "";
+        el.style.backgroundColor = "white";
+    }
+</script>
+</head>
+<body>
+<h3>회원 가입 - 아이디 입력</h3>
+<input id="txt" type="text" onFocus="showGuide(this)" onBlur="hideGuide(this)">
+<p id="guide" style="color: #1769aa; font-size: 0.9rem;"></p>
+</body>
+</html>
