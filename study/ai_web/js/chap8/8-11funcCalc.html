@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<title>예제8-11함수(Function)계산 | pullcoder</title>
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-11함수(Function)계산. pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap8/8-11funcCalc.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제8-11함수(Function)계산 | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-11함수(Function)계산. pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap8/8-11funcCalc.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+    <script>
+        function calc() {
+            var x = document.getElementById("x").value;//입력된 정수1 값
+            var y = document.getElementById("y").value;//입력된 정수2 값
+            var tot;
+            tot = parseInt(x) + parseInt(y);//입력1,2를 정수로 변환
+            document.getElementById("sum").value = tot;//id="sum"에 결과 출력
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+</head>
+<body>
+<h3>함수 계산 결과</h3>
+<h4>두개의 정수를 입력하세요.</h4>
+     <form>
+        정수 입력1:        
+        <input type="text"　id="x" size="10"/><br />
+        정수 입력2:        
+        <input type="text"　id="y" size="10"/><br />
+	<input type="button" value="확인" onclick="calc();" /> <br />
+        합-------계: 	<input type="text" id="sum"size="10" /><br />
+    </form>
+</body>
+</html>

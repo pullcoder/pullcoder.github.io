@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<title>예제8-10이벤트함수(Function) | pullcoder</title>
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-10이벤트함수(Function). pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap8/8-10eventFuc.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제8-10이벤트함수(Function) | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-10이벤트함수(Function). pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap8/8-10eventFuc.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+<script>
+function jsFunction(){
+	alert("눌렀군요!");
+	document.getElementById("first").innerHTML = "first"; //문자출력
+	document.getElementById("second").innerHTML ="second";//문자출력
+}
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+</head>
+<body>
+<h1>JavaScript 이벤트함수(Function)</h1>
+	<button onclick="jsFunction()">눌러주세요</button> //버튼 클릭 이벤트
+	<p id="first"></p>
+	<p id="second"></p>
+</body>
+</html>

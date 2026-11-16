@@ -1,0 +1,64 @@
+<!DOCTYPE html> <!-- HTML5 문서 선언 -->
+<html lang="ko"> <!-- HTML 문서 시작 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8">
+    <title>예제9-5String 메소드1 | pullcoder</title> <!-- 브라우저 제목 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제9-5String 메소드1. pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap9/9-5String.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제9-5String 메소드1 | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제9-5String 메소드1. pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap9/9-5String.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+</head> <!-- head 종료 -->
+<body> <!-- 화면 내용 시작 -->
+
+    <h3>String 메소드1</h3> <!-- 실습 제목 -->
+
+    <p>charAt : <b id="ca"></b></p> <!-- charAt 결과 출력 위치 -->
+    <p>charCodeAt : <b id="cca"></b></p> <!-- charCodeAt 결과 출력 위치 -->
+    <p>concat : <b id="cnct"></b></p> <!-- concat 결과 출력 위치 -->
+    <p>indexOf : <b id="ido"></b></p> <!-- indexOf 결과 출력 위치 -->
+    <p>lastIndexOf : <b id="lido"></b></p> <!-- lastIndexOf 결과 출력 위치 -->
+    <p>replace : <b id="rpl"></b></p> <!-- replace 결과 출력 위치 -->
+
+<script> // JavaScript 코드 시작
+
+    var str = "hello, welcome to AI Software!!"; // 실습 문자열 저장
+    var str2 ="???"; // 연결할 두 번째 문자열 저장
+
+    var ca = str.charAt(0); // 0번 위치의 문자 h 반환
+    var cca = str.charCodeAt(0); // 0번 위치 문자 h의 유니코드 값 반환
+
+    var cnct = str.concat(str2); // 두 문자열 연결
+    var ido = str.indexOf("AI"); // AI가 처음 나타나는 위치 반환
+
+    var lido = str.lastIndexOf("to"), rpl = str.replace("hello","Good Bye");
+    // lastIndexOf("to")는 to가 마지막으로 나타나는 위치 반환
+    // replace()는 hello를 Good Bye로 교체
+
+    document.getElementById("ca").innerHTML = ca;
+    // charAt 실행 결과 출력
+
+    document.getElementById("cca").innerHTML = cca;
+    // charCodeAt 실행 결과 출력
+
+    document.getElementById("cnct").innerHTML = cnct;
+    // concat 실행 결과 출력
+
+    document.getElementById("ido").innerHTML = ido;
+    // indexOf 실행 결과 출력
+
+    document.getElementById("lido").innerHTML = lido;
+    // lastIndexOf 실행 결과 출력
+
+    document.getElementById("rpl").innerHTML = rpl;
+    // replace 실행 결과 출력
+
+</script> <!-- JavaScript 코드 종료 -->
+
+</body> <!-- body 종료 -->
+</html> <!-- HTML 문서 종료 -->

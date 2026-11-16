@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<title>예제8-15switch case문 | pullcoder</title>
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-15switch case문. pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap8/8-15switch.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제8-15switch case문 | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-15switch case문. pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap8/8-15switch.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+<Script>
+function time(){
+    var grade = prompt("성적을 입력하시오:", "A-F사이의 문자로");
+    switch (grade) {
+        case 'A': document.getElementById("grade").innerHTML="A학점입니다.";
+          break;
+        case 'B': document.getElementById("grade").innerHTML="B학점입니다.";
+            break;
+        case 'C': document.getElementById("grade").innerHTML="C학점입니다.";
+            break;
+        case 'D': document.getElementById("grade").innerHTML="D학점입니다.";
+            break;
+        case 'F': document.getElementById("grade").innerHTML="F학점입니다.";
+            break;
+        default: document.getElementById("grade").innerHTML="잘못입력...";  } }
+</Script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+</head>
+<body>
+<h3> switch case조건문</h3>
+<h4>사용자 입력 문자에 따른 문자표시</h4>
+<p onclick="time();">학점입력:<b id="grade">클릭하세요</b></p>
+</body>
+</html>

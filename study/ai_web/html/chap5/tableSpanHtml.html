@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예제3-8 테이블 병합 (colspan / rowspan) | pullcoder</title>
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · HTML 수업 자료 - 예제3-8 테이블 병합 (colspan / rowspan). pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/html/chap5/tableSpanHtml.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제3-8 테이블 병합 (colspan / rowspan) | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · HTML 수업 자료 - 예제3-8 테이블 병합 (colspan / rowspan). pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/html/chap5/tableSpanHtml.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+    <link rel="stylesheet" href="../../assets/css/lesson.css">
+    <script src="../../header.js" defer></script>
+</head>
+
+<body>
+
+    <h1 class="page-title">테이블 병합 (colspan / rowspan)</h1>
+
+    <div class="card">
+        <p class="card-title">셀 병합 예제</p>
+        <div class="table-wrapper">
+            <table class="demo-table">
+                <caption>AI Software</caption>
+                <thead>
+                    <tr>
+                        <th colspan="3" class="colspan-cell">HTML5 &nbsp;&nbsp; CSS3 &nbsp;&nbsp; Web3D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Contents</td>
+                        <td>Design</td>
+                        <td rowspan="2" class="rowspan-cell">rowspan</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="colspan-cell">colspan</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background:#eaf4fb; border-color:#bee3f8;"></div>
+                <span>colspan — 가로 셀 병합</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background:#fef9e7; border-color:#f0d060;"></div>
+                <span>rowspan — 세로 셀 병합</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="card-title">속성 설명</p>
+        <pre><code>&lt;td colspan="2"&gt;  — 오른쪽으로 2칸 병합 (가로 방향)
+&lt;td rowspan="2"&gt;  — 아래쪽으로 2칸 병합 (세로 방향)</code></pre>
+    </div>
+
+    <!-- 2026 03 31 3번째 문제 -->
+</body>
+
+</html>

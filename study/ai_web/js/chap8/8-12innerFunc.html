@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>예제8-12내장 함수 | pullcoder</title>
+    <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-12내장 함수. pullcoder 학습 기록.">
+    <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap8/8-12innerFunc.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pullcoder">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:title" content="예제8-12내장 함수 | pullcoder">
+    <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제8-12내장 함수. pullcoder 학습 기록.">
+    <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap8/8-12innerFunc.html">
+    <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+    <script>
+        function promptMsg() {
+            prompt("무엇이든지 물어보세요?", "질문은 여기에");
+        }
+        function confirmMsg() {
+            var result = confirm("계속 진행할까요?");
+            if (result) { }//예를 클릭한 경우 실행할까요
+            else { }// 아니로를 클릭한 경우 실행
+        }
+        function alertMsg() {
+            alert("실행할까요?");
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+</head>
+
+<body>
+    <h3>유용한 함수</h3>
+    <h4>단추를 누르면 경고창이 나타납니다.</h4>
+    <input type="button" value="prompt" onclick="promptMsg()">
+    <input type="button" value="confirm" onclick="confirmMsg()">
+    <input type="button" value="alert" onclick="alertMsg()">
+</body>
+
+</html>

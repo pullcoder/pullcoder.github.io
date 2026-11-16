@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" href="style.css"> 
+<meta charset="utf-8">
+<title>예제10-2속성변경(attribute change) | pullcoder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제10-2속성변경(attribute change). pullcoder 학습 기록.">
+<link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap10/10-2DomAttributeChange.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="pullcoder">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="예제10-2속성변경(attribute change) | pullcoder">
+<meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제10-2속성변경(attribute change). pullcoder 학습 기록.">
+<meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap10/10-2DomAttributeChange.html">
+<meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+<script>
+  function changeImg(){
+    document.getElementById("img").src = '../../img/gallery_00.jpg';
+  }
+
+  function changeCss(){
+    document.getElementById("cls").style.color = "red";
+  }
+
+  function changeSeta(){
+    document.getElementById('set').setAttribute("style", "background-color:cyan");
+  }
+</script>
+</head>
+<body id="main">
+  <h1 style="text-align:center;">속성 변경(Find Element)</h1>
+
+  <p>이미지 변경: 
+    <img id="img" src="../../img/logo.png" width="100px" height="100px">
+  </p>
+
+  <h2 id="cls" style="color:blue">CSS 속성(색상) 변경</h2>
+  <h2 id="set" style="color:green">CSS setAttribute(attribute,value)</h2>
+
+  <input type="button" id="bt1" value="change_img" onclick="changeImg();">
+  <input type="button" id="bt2" value="change_style" onclick="changeCss();">
+  <input type="button" class="bt3" value="change_setAttribute" onclick="changeSeta();">
+</body>
+</html>

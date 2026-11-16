@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" href="style.css">   
+<meta charset="utf-8">
+<title>예제 10-5 onClick() | pullcoder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제 10-5 onClick(). pullcoder 학습 기록.">
+<link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap10/10-5onClick.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="pullcoder">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="예제 10-5 onClick() | pullcoder">
+<meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제 10-5 onClick(). pullcoder 학습 기록.">
+<meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap10/10-5onClick.html">
+<meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+<script>
+    function changeText(){
+        document.getElementById("one").innerHTML = "입력타입을 눌렀군요!"
+    }
+    function changeButton(){
+        document.getElementById("bttn").innerHTML = "버튼을 눌렀군요!"
+    }
+</script>
+</head>
+<body id="main">
+    <h3 id="one" style="text-align:center;">onClick()</h3>
+    <h4 onclick="this.innerHTML='나를 눌렀군요!!'">Click me!!</h4>
+    <h3 id="bttn">Button</h3>
+    <input type="button" id="bt1" value="onClick" onclick="changeText();">
+    <button onclick="changeButton()">눌러봐!!</button>
+</body>
+</html>

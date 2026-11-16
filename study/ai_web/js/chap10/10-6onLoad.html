@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>예제 10-6 onLoad() | pullcoder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제 10-6 onLoad(). pullcoder 학습 기록.">
+  <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/js/chap10/10-6onLoad.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="pullcoder">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="예제 10-6 onLoad() | pullcoder">
+  <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · JavaScript 수업 자료 - 예제 10-6 onLoad(). pullcoder 학습 기록.">
+  <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/js/chap10/10-6onLoad.html">
+  <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+</head>
+<body onload="checkCookies()">
+  <p id="cook">onLoad()</p>
+  
+  <script>
+    function checkCookies() {
+      var text = "";
+      
+      // 브라우저의 쿠키 활성화 여부 확인 (읽기 전용 속성이므로 강제 설정/해제 불가)
+      if (navigator.cookieEnabled) {
+        text = "브라우저의 쿠키 기능이 설정되어 있습니다.";
+      } else {
+        text = "브라우저의 쿠키 기능이 꺼져 있습니다.";
+      }
+      
+      document.getElementById("cook").innerHTML = text;
+
+      /*
+        [참고: 자바스크립트를 통한 쿠키 제어 주석문 코드]
+        - 쿠키 생성: document.cookie = "user=Park; max-age=60; path=/";
+        - 쿠키 삭제: document.cookie = "user=; max-age=0; path=/";
+      */
+    }
+  </script>
+</body>
+</html>

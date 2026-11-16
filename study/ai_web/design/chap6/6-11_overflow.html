@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>예제 6-11 Overflow | pullcoder</title>
+  <meta name="description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · CSS 디자인 수업 자료 - 예제 6-11 Overflow. pullcoder 학습 기록.">
+  <link rel="canonical" href="https://pullcoder.github.io/study/ai_web/design/chap6/6-11_overflow.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="pullcoder">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="예제 6-11 Overflow | pullcoder">
+  <meta property="og:description" content="여주대학교 AI소프트웨어과 AI웹프로그래밍 · CSS 디자인 수업 자료 - 예제 6-11 Overflow. pullcoder 학습 기록.">
+  <meta property="og:url" content="https://pullcoder.github.io/study/ai_web/design/chap6/6-11_overflow.html">
+  <meta property="og:image" content="https://pullcoder.github.io/img/logov3.png">
+  <style>
+    div {
+      width: 70%;
+      height: 50px;
+      margin-bottom: 20px;
+      padding: 5px;
+      color: white;
+      font-size: 14px;
+      line-height: 1.2em;
+      overflow-wrap: break-word;
+    }
+
+    #vis {
+      overflow: visible;
+      background: red;
+    }
+
+    #hid {
+      overflow: hidden;
+      background: blue;
+    }
+
+    #scr {
+      overflow: scroll;
+      background: cyan;
+      color: black;
+    }
+
+    #aut {
+      overflow: auto;
+      background: orange;
+    }
+  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../header.js" defer></script>
+</head>
+<body>
+  <h3>Overflow 속성</h3>
+
+  <div id="hid">
+    • visible : 기본 설정 속성으로 박스의 크기를 벗어난 내용이 잘리지 않고 표시된다.<br>
+    • hidden : 넘친 내용은 보이지 않도록 잘린다. 스크롤바가 나타나지 않고 숨겨진다.
+  </div>
+
+  <div id="scr">
+    • scroll : 넘친 내용이 있으면 스크롤바가 항상 표시되어 사용자가 스크롤을 통해 내용을 볼 수 있다.<br>
+    • auto : 내용이 넘칠 때만 스크롤바가 표시된다.
+  </div>
+
+  <div id="aut">
+    • visible : 넘친 내용이 잘리지 않고 표시된다.<br>
+    • scroll : 넘친 내용이 있으면 스크롤바가 항상 표시된다.<br>
+    • auto : 내용이 넘칠 때만 스크롤바가 표시된다.
+  </div>
+
+  <div id="vis">
+    • visible : 넘친 내용이 잘리지 않고 표시된다.<br>
+    • hidden : 넘친 내용은 잘려서 보이지 않는다.<br>
+    • scroll : 항상 스크롤바가 표시된다.<br>
+    • auto : 넘칠 때만 스크롤바가 표시된다.
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
