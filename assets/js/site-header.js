@@ -206,12 +206,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
     // ---------- 방문자 카운트 ----------
     // 같은 탭 세션에서 같은 페이지는 한 번만 셈 (새로고침 중복 방지)
-    // 페이지에 [data-visit-count] 요소가 있으면 "오늘 N명 · 전체 N명" 표시
+    // 페이지에 [data-visit-count] 요소가 있으면 "오늘 / 전체" 숫자만 표시 (마우스 올리면 설명)
     function showVisits(s) {
         if (!s) return;
         var els = document.querySelectorAll('[data-visit-count]');
         for (var i = 0; i < els.length; i++) {
             els[i].textContent = s.today_visitors + ' / ' + s.total_visitors;
+            els[i].title = '오늘 ' + s.today_visitors + '명 · 전체 ' + s.total_visitors + '명';
             els[i].hidden = false;
         }
     }
