@@ -28,9 +28,7 @@
     };
 
     var COURSES = [
-        { id: 'it', label: 'IT개론', prof: '박경배', color: '#00f0ff', href: 'study/introduction_it/index.html', dir: 'study/introduction_it/' },
         { id: 'web', label: 'AI웹프로그래밍', prof: '박경배', color: '#8b5cff', href: 'study/ai_web/index.html', dir: 'study/ai_web/' },
-        { id: 'excel', label: '컴퓨터활용능력', prof: '홍성준', color: '#b6ff3b', href: 'study/excel/index.html', dir: 'study/excel/' },
         {
             id: 'java', label: 'JAVA프로그래밍', prof: '홍광희', color: '#ff8a3d', href: 'study/java/index.html', dir: 'study/java/',
             items: [
